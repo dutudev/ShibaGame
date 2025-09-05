@@ -1,0 +1,11 @@
+[gd_scene load_steps=6 format=3 uid="uid://vylalah64hrd"]
+
+[ext_resource type="Script" uid="uid://dxrha35rg55ii" path="res://Scripts/asteroid_manager.gd" id="1_fpph7"]
+[ext_resource type="Texture2D" uid="uid://uq4k4ur5kik" path="res://Sprites/asteroids/rock1.png" id="2_432x3"]
+[ext_resource type="Texture2D" uid="uid://csa4peklqguc7" path="res://Sprites/asteroids/rock2.png" id="3_asaig"]
+[ext_resource type="Texture2D" uid="uid://c0js3d73wyrha" path="res://Sprites/asteroids/rock3.png" id="4_pttop"]
+[ext_resource type="Texture2D" uid="uid://cj7gdieh4ioxu" path="res://Sprites/asteroids/rock4.png" id="5_3jncm"]
+
+[node name="AsteroidManager" type="Node2D"]
+script = ExtResource("1_fpph7")
+asteroidSprites = [ExtResource("2_432x3"), ExtResource("3_asaig"), ExtResource("4_pttop"), ExtResource("5_3jncm")]

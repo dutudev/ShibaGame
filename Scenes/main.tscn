@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdm7352ad04ti"]
+[gd_scene load_steps=5 format=3 uid="uid://cdm7352ad04ti"]
 
 [ext_resource type="PackedScene" uid="uid://b350sy0tn84v1" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://debkmkexfa68i" path="res://Sprites/starsBack.png" id="2_bo1nx"]
 [ext_resource type="Texture2D" uid="uid://cpkbxxujrs8po" path="res://Sprites/starsFront.png" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://vylalah64hrd" path="res://Scenes/asteroid_manager.tscn" id="4_jjvhh"]
 
 [node name="Main" type="Node2D"]
 
@@ -13,8 +14,10 @@ scale = Vector2(0.2, 0.2)
 scale = Vector2(3, 3)
 process_callback = 0
 position_smoothing_enabled = true
+position_smoothing_speed = 20.0
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+visible = false
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_mirroring = Vector2(3000, 3000)
@@ -28,3 +31,5 @@ motion_mirroring = Vector2(3000, 3000)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
 texture = ExtResource("3_8gbba")
+
+[node name="AsteroidManager" parent="." instance=ExtResource("4_jjvhh")]

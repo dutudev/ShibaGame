@@ -2,6 +2,8 @@ class_name Player
 extends CharacterBody2D
 
 const rotateStrength = 250
+const mapHeight = 5000
+const mapWidth = 5000
 
 var baseBullet = preload("res://Scenes/player_bullet.tscn")
 
@@ -26,6 +28,10 @@ func _process(delta: float) -> void:
 		bulletInstance.position = position + -transform.y.normalized() * 50
 		bulletInstance.SetDirection(-transform.y.normalized())
 	pass
+	
+	if abs(position.x) >= mapWidth || abs(position.y) >= mapHeight:
+		print("out of bounds")
+		#implement dying
 
 func _physics_process(delta: float) -> void:
 	#Handle here everything physics related
