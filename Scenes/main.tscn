@@ -12,21 +12,21 @@ scale = Vector2(0.2, 0.2)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 scale = Vector2(3, 3)
+zoom = Vector2(0.5, 0.5)
 process_callback = 0
-position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-visible = false
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
 motion_mirroring = Vector2(3000, 3000)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 texture = ExtResource("2_bo1nx")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(1.1, 1.1)
+motion_scale = Vector2(0.5, 0.5)
 motion_mirroring = Vector2(3000, 3000)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]

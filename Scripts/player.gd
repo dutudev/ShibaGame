@@ -8,7 +8,7 @@ const mapWidth = 5000
 var baseBullet = preload("res://Scenes/player_bullet.tscn")
 
 var forwardSpeed = 2
-var maxSpeed = 150
+var maxSpeed = 350
 var rotateDir = 0.0
 var forwardStrength = 0.0
 
