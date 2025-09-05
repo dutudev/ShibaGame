@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcfx6hvpgq5sb"]
+
+[ext_resource type="Script" uid="uid://bg6qmsbuvg8kd" path="res://Scripts/player_bullet.gd" id="1_3m2mg"]
+[ext_resource type="Texture2D" uid="uid://ctqcs2qgq4sba" path="res://Sprites/circle.png" id="1_bg8x2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3m2mg"]
+radius = 53.0094
+
+[node name="playerBullet" type="Area2D"]
+scale = Vector2(0.1, 0.1)
+input_pickable = false
+script = ExtResource("1_3m2mg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_bg8x2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3m2mg")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
