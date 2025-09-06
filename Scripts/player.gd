@@ -15,6 +15,7 @@ var forwardStrength = 0.0
 var isInBounds = true
 var health = 100
 var cooldownSet = 1
+var money = 0
 
 var currentCooldown = 0
 
@@ -54,6 +55,8 @@ func _process(delta: float) -> void:
 		UIManager.instance.UpdateCooldownBar(100)
 	
 	currentCooldown += delta
+	
+	UIManager.instance.UpdateSpeedLabel(int(velocity.length()))
 
 func _physics_process(delta: float) -> void:
 	#Handle here everything physics related
@@ -74,3 +77,7 @@ func AffectHealth(value: int) -> void:
 	UIManager.instance.UpdateHealthBar(health)
 	if health<=0:
 		pass # implement dying
+
+func AffectMoney(value: int) -> void:
+	money += value
+	UIManager.instance.UpdateMoneyLabel(money)

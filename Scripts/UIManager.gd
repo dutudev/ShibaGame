@@ -8,6 +8,8 @@ extends CanvasLayer
 
 @export var healthBar: ProgressBar
 @export var cooldownBar: ProgressBar
+@export var speedLabel: Label
+@export var moneyLabel: Label
 
 var isOut = false
 
@@ -45,6 +47,11 @@ func UpdateHealthBar(value: int) -> void:
 func UpdateCooldownBar(value: float) -> void:
 	cooldownBar.value = value
 
+func UpdateSpeedLabel(value: int) -> void:
+	speedLabel.text = str(value)
+
+func UpdateMoneyLabel(value: int) -> void:
+	moneyLabel.text = str(value) + "$"
 
 func _on_BoundsTimer_timeout() -> void:
 	BoundsLabel.visible = !BoundsLabel.visible

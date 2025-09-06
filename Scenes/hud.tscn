@@ -18,7 +18,7 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 anti_aliasing = false
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar")]
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar", "speedLabel", "moneyLabel")]
 script = ExtResource("1_e0onf")
 BoundsTimer = NodePath("MiddleHud(NotHideable)/OutOfBounds/BoundsTimer")
 BoundsTimerKill = NodePath("MiddleHud(NotHideable)/OutOfBounds/BoundsTimerKill")
@@ -26,6 +26,8 @@ BoundsLabel = NodePath("MiddleHud(NotHideable)/OutOfBounds")
 BoundsArrow = NodePath("MiddleHud(NotHideable)/Arrow")
 healthBar = NodePath("MainHud/HealthBar")
 cooldownBar = NodePath("MainHud/CooldownBar")
+speedLabel = NodePath("MainHud/Speed")
+moneyLabel = NodePath("MainHud/Currency")
 
 [node name="MiddleHud(NotHideable)" type="Control" parent="."]
 layout_mode = 3
@@ -132,6 +134,40 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_bjfho")
 value = 100.0
 rounded = true
 show_percentage = false
+
+[node name="Speed" type="Label" parent="MainHud"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -45.0
+offset_right = -185.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "250"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Currency" type="Label" parent="MainHud"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 185.0
+offset_top = -45.0
+offset_right = 240.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "0$"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="timeout" from="MiddleHud(NotHideable)/OutOfBounds/BoundsTimer" to="." method="_on_BoundsTimer_timeout"]
 [connection signal="timeout" from="MiddleHud(NotHideable)/OutOfBounds/BoundsTimerKill" to="." method="_on_BoundsTimer_timeout"]
