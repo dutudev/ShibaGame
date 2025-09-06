@@ -25,3 +25,13 @@ func _physics_process(delta: float) -> void:
 		linear_velocity = Vector2.ZERO
 		linear_velocity = ((Player.instance.position - position +  Vector2(randf_range(-2, 2), randf_range(-2, 2))).normalized()) * randi_range(200, 300)
 		#print((Player.instance.position - position).length())
+
+
+func _on_tree_exiting() -> void:
+	AsteroidManager.instance.RemoveAsteroid(self)
+
+
+func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
+	if body.is_in_group("player"):
+		#removeHealth or sum
+		queue_free()

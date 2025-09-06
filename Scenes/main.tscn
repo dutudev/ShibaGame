@@ -17,6 +17,7 @@ process_callback = 0
 position_smoothing_speed = 20.0
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+visible = false
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0, 0)
@@ -33,3 +34,18 @@ motion_mirroring = Vector2(3000, 3000)
 texture = ExtResource("3_8gbba")
 
 [node name="AsteroidManager" parent="." instance=ExtResource("4_jjvhh")]
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="background1" type="Sprite2D" parent="Background"]
+z_index = -501
+texture = ExtResource("2_bo1nx")
+region_enabled = true
+region_rect = Rect2(0, 0, 36000, 36000)
+
+[node name="background2" type="Sprite2D" parent="Background"]
+z_index = -500
+texture_repeat = 2
+texture = ExtResource("3_8gbba")
+region_enabled = true
+region_rect = Rect2(0, 0, 36000, 36000)

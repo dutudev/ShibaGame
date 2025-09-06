@@ -6,8 +6,10 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_a2bka"]
 radius = 139.004
 
-[node name="Asteroid" type="RigidBody2D"]
+[node name="Asteroid" type="RigidBody2D" groups=["asteroid"]]
 gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 10
 script = ExtResource("1_a2bka")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -17,3 +19,6 @@ texture = ExtResource("1_0tomg")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.45, 0.45)
 shape = SubResource("CircleShape2D_a2bka")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

@@ -30,7 +30,12 @@ func _process(delta: float) -> void:
 
 func SpawnAsteroid() -> void:
 	var asteroidInstance = asteroid.instantiate()
-	var angle = randf_range(0, 360)
+	var angle = 0
+	if Player.instance.velocity.length() > 50:
+		angle = atan2(Player.instance.velocity.normalized().y, Player.instance.velocity.normalized().x) + randf_range(-25, 25)
+	else:
+		angle = randf_range(0, 360)
+	var angle2 = randf_range(0, 360)
 	var positionToSet = Player.instance.position + Vector2(cos(deg_to_rad(angle)), sin(deg_to_rad(angle))) * randi_range(minDistance, maxDistance) # change this to min-max distance
 	var spriteIndex = randi_range(0, asteroidSprites.size()-1)
 	var scaleSize = randf_range(0.2, 0.4)
@@ -42,5 +47,8 @@ func SpawnAsteroid() -> void:
 	asteroidInstance.get_node("Sprite2D").texture = asteroidSprites[spriteIndex]
 	asteroidInstance.get_node("Sprite2D").scale = Vector2.ONE * scaleSize
 	asteroidInstance.get_node("CollisionShape2D").scale = Vector2.ONE * (scaleSize + 0.05)
+	asteroidInstance.set_global_rotation_degrees(angle2)
 	asteroidInstance.linear_velocity = velocityToGive
-	
+
+func RemoveAsteroid(toRemove: Asteroid) -> void:
+	asteroidList.erase(toRemove)

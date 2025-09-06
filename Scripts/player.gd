@@ -2,8 +2,8 @@ class_name Player
 extends CharacterBody2D
 
 const rotateStrength = 250
-const mapHeight = 5000
-const mapWidth = 5000
+const mapHeight = 8000
+const mapWidth = 8000
 
 var baseBullet = preload("res://Scenes/player_bullet.tscn")
 
