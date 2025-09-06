@@ -1,0 +1,137 @@
+[gd_scene load_steps=5 format=3 uid="uid://byltdy5838qfu"]
+
+[ext_resource type="Script" uid="uid://b8efmxrvy5mbb" path="res://Scripts/UIManager.gd" id="1_e0onf"]
+[ext_resource type="Texture2D" uid="uid://dgkdidnbh7wg8" path="res://Sprites/arrow.png" id="2_fccik"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fccik"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjfho"]
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar")]
+script = ExtResource("1_e0onf")
+BoundsTimer = NodePath("MiddleHud(NotHideable)/OutOfBounds/BoundsTimer")
+BoundsTimerKill = NodePath("MiddleHud(NotHideable)/OutOfBounds/BoundsTimerKill")
+BoundsLabel = NodePath("MiddleHud(NotHideable)/OutOfBounds")
+BoundsArrow = NodePath("MiddleHud(NotHideable)/Arrow")
+healthBar = NodePath("MainHud/HealthBar")
+cooldownBar = NodePath("MainHud/CooldownBar")
+
+[node name="MiddleHud(NotHideable)" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OutOfBounds" type="Label" parent="MiddleHud(NotHideable)"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.0
+offset_top = 40.0
+offset_right = 56.0
+offset_bottom = 63.0
+grow_horizontal = 2
+text = "Out of Bounds"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BoundsTimer" type="Timer" parent="MiddleHud(NotHideable)/OutOfBounds"]
+wait_time = 0.5
+
+[node name="BoundsTimerKill" type="Timer" parent="MiddleHud(NotHideable)/OutOfBounds"]
+wait_time = 10.0
+one_shot = true
+
+[node name="Arrow" type="Control" parent="MiddleHud(NotHideable)"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="TextureRect" parent="MiddleHud(NotHideable)/Arrow"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 150.0
+offset_top = -20.0
+offset_right = 190.0
+offset_bottom = 20.0
+grow_vertical = 2
+rotation = 1.5708
+texture = ExtResource("2_fccik")
+expand_mode = 1
+
+[node name="MainHud" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(550, 350)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HealthBar" type="ProgressBar" parent="MainHud"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -182.0
+offset_top = -25.0
+offset_right = 183.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_fccik")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bjfho")
+value = 100.0
+rounded = true
+show_percentage = false
+
+[node name="CooldownBar" type="ProgressBar" parent="MainHud"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -182.0
+offset_top = -34.0
+offset_right = 183.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_fccik")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bjfho")
+value = 100.0
+rounded = true
+show_percentage = false
+
+[connection signal="timeout" from="MiddleHud(NotHideable)/OutOfBounds/BoundsTimer" to="." method="_on_BoundsTimer_timeout"]
+[connection signal="timeout" from="MiddleHud(NotHideable)/OutOfBounds/BoundsTimerKill" to="." method="_on_BoundsTimer_timeout"]

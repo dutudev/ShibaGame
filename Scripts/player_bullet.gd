@@ -1,5 +1,7 @@
 extends Area2D
 
+var asteroidTextTag = preload("res://Scenes/asteroid_text_tag.tscn")
+
 var directionVector = Vector2.ZERO
 var speed = 1500
 
@@ -25,6 +27,9 @@ func _on_timer_timeout() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("asteroid"):
+		var asteroidTextInstance = asteroidTextTag.instantiate()
+		asteroidTextInstance.position = body.position
+		get_parent().add_child(asteroidTextInstance)
 		body.queue_free()
 		#add particles
 		queue_free()
