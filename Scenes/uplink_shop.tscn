@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0l26ushwblvp"]
+
+[ext_resource type="Script" uid="uid://c8t8jehylm2oi" path="res://Scripts/uplink_shop.gd" id="1_w7evw"]
+[ext_resource type="Texture2D" uid="uid://bxrn857uss6lo" path="res://Sprites/uplink.png" id="1_wbx4s"]
+[ext_resource type="FontFile" uid="uid://c63kot51ddqq7" path="res://fonts/RobotoMono-SemiBold.ttf" id="2_v53nw"]
+
+[node name="UplinkShop" type="Node2D"]
+script = ExtResource("1_w7evw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("1_wbx4s")
+
+[node name="Label" type="Label" parent="."]
+z_index = 5
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = -28.5
+offset_right = 113.0
+offset_bottom = 28.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(113, 28.5)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_v53nw")
+theme_override_font_sizes/font_size = 42
+text = "Enter : E"

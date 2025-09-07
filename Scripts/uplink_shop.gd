@@ -1,0 +1,61 @@
+extends Node2D
+
+const distanceToOpen = 400
+
+var currentAnimStatus = animStatus.down
+var canOpen = false
+var duration = 1
+var currentAnimDuration = 0
+var posYLabel
+var startPosY
+var startScale
+
+enum animStatus {animateUp, animateDown, up, down}
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	posYLabel = $Label.position.y
+	$Label.scale = Vector2.ZERO
+	startScale = 0
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if (Player.instance.position - position).length() <= distanceToOpen:
+		if(!canOpen):
+			currentAnimStatus = animStatus.animateUp
+			currentAnimDuration = 0
+			duration = abs($Label.position.y - 255.0) / abs(-255.0  + posYLabel) * 1
+			startPosY = $Label.position.y
+			startScale = $Label.scale.x
+		canOpen = true
+	else:
+		if canOpen:
+			currentAnimStatus = animStatus.animateDown
+			currentAnimDuration = 0
+			duration = abs($Label.position.y - 28.5) / abs(-255.0  + posYLabel) * 1
+			startPosY = $Label.position.y
+			startScale = $Label.scale.x
+		canOpen = false
+	
+	if canOpen && currentAnimStatus == animStatus.animateUp:
+		currentAnimDuration += delta
+		$Label.position = Vector2($Label.position.x, lerp(startPosY, -255.0, EaseOutExpo(clamp(currentAnimDuration/duration, 0.0, 1.0))))
+		var curScale = lerp(startScale, 1.0, EaseOutExpo(clamp(currentAnimDuration/duration, 0.0, 1.0)))
+		$Label.scale = Vector2(curScale, curScale)
+		if EaseOutExpo(clamp(currentAnimDuration/duration, 0.0, 1.0)) >= 1:
+			currentAnimStatus = animStatus.up
+	elif !canOpen && currentAnimStatus == animStatus.animateDown:
+		currentAnimDuration += delta
+		$Label.position = Vector2($Label.position.x, lerp(startPosY, -28.5, EaseOutExpo(clamp(currentAnimDuration/duration, 0.0, 1.0))))
+		var curScale = lerp(startScale, 0.0, EaseOutExpo(clamp(currentAnimDuration/duration, 0.0, 1.0)))
+		$Label.scale = Vector2(curScale, curScale)
+		if EaseOutExpo(clamp(currentAnimDuration/duration, 0.0, 1.0)) >= 1:
+			currentAnimStatus = animStatus.down
+	
+
+func EaseOutExpo(x: float) -> float:
+	if x == 1:
+		return 1.0
+	else:
+		return 1 - pow(2, -10 * x)
