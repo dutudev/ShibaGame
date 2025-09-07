@@ -42,7 +42,7 @@ func SpawnAsteroid() -> void:
 	var velocityToGive = ((Player.instance.position - positionToSet +  Vector2(randf_range(-200, 200), randf_range(-200, 200))).normalized()) * randi_range(200, 400)
 	add_child(asteroidInstance)
 	asteroidList.append(asteroidInstance)
-	print(asteroidList.size())
+	#print(asteroidList.size())
 	asteroidInstance.global_position = positionToSet
 	asteroidInstance.get_node("Sprite2D").texture = asteroidSprites[spriteIndex]
 	asteroidInstance.get_node("Sprite2D").scale = Vector2.ONE * scaleSize

@@ -18,6 +18,7 @@ var cooldownSet = 1
 var money = 0
 
 var currentCooldown = 0
+var stopShipSound = false
 
 static var instance: Player = null
 
@@ -36,6 +37,8 @@ func _process(delta: float) -> void:
 			get_parent().add_child(bulletInstance)
 			bulletInstance.position = position + -transform.y.normalized() * 50
 			bulletInstance.SetDirection(-transform.y.normalized())
+			$ShootSfx.pitch_scale = randf_range(0.9, 1.1)
+			$ShootSfx.play()
 	
 	
 	if abs(position.x) >= mapWidth || abs(position.y) >= mapHeight:
@@ -57,6 +60,30 @@ func _process(delta: float) -> void:
 	currentCooldown += delta
 	
 	UIManager.instance.UpdateSpeedLabel(int(velocity.length()))
+	
+	#check input for sound
+	if Input.is_action_just_pressed("go_forward"):
+		if $ShipEngineSfx.playing:
+			stopShipSound = false
+		else:
+			$ShipEngineSfx.volume_linear = 0.8
+			$ShipEngineSfx.play()
+			
+	
+	if Input.is_action_just_released("go_forward"):
+		stopShipSound = true
+	
+	if stopShipSound:
+		$ShipEngineSfx.volume_linear = clamp($ShipEngineSfx.volume_linear - delta, 0, 0.8)
+		if($ShipEngineSfx.volume_linear <= 0):
+			$ShipEngineSfx.stop()
+			stopShipSound = false
+	elif $ShipEngineSfx.volume_linear < 0.8:
+		$ShipEngineSfx.volume_linear = clamp($ShipEngineSfx.volume_linear + delta, 0, 0.8)
+	
+
+	
+	
 
 func _physics_process(delta: float) -> void:
 	#Handle here everything physics related
@@ -81,3 +108,7 @@ func AffectHealth(value: int) -> void:
 func AffectMoney(value: int) -> void:
 	money += value
 	UIManager.instance.UpdateMoneyLabel(money)
+
+func PlayHitSound() -> void:
+	$HitSfx.pitch_scale - randf_range(0.9, 1.1)
+	$HitSfx.play()

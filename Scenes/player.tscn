@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b350sy0tn84v1"]
+[gd_scene load_steps=8 format=3 uid="uid://b350sy0tn84v1"]
 
 [ext_resource type="Script" uid="uid://jcg7pcnuvthx" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://b4so51hoellxv" path="res://Sprites/ship.png" id="1_v0iea"]
+[ext_resource type="AudioStream" uid="uid://r6o7surrgmdx" path="res://Sounds/shipengine.ogg" id="3_6t5aa"]
+[ext_resource type="AudioStream" uid="uid://cjpij1vte11do" path="res://Sounds/shoot.wav" id="4_vgqql"]
+[ext_resource type="AudioStream" uid="uid://c0or41oj86i23" path="res://Sounds/playerHit.wav" id="5_fkybt"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cvnsp"]
 animations = [{
@@ -30,3 +33,12 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 36.6667)
 shape = SubResource("RectangleShape2D_cvnsp")
+
+[node name="ShipEngineSfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_6t5aa")
+
+[node name="ShootSfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_vgqql")
+
+[node name="HitSfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_fkybt")

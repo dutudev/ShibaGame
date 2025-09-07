@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpheorln1hotd"]
+[gd_scene load_steps=5 format=3 uid="uid://dpheorln1hotd"]
 
 [ext_resource type="Script" uid="uid://be3sr2rwei3ad" path="res://Scripts/asteroidTextAnim.gd" id="1_aeyv7"]
+[ext_resource type="AudioStream" uid="uid://bvj7flxgropkn" path="res://Sounds/asteroidExplode1.wav" id="2_2usc8"]
+[ext_resource type="AudioStream" uid="uid://ckl1qmf5syfag" path="res://Sounds/asteroidExplode2.wav" id="3_kbwvr"]
+[ext_resource type="AudioStream" uid="uid://dbpnowkrnjelx" path="res://Sounds/asteroidExplode3.wav" id="4_lhbpb"]
 
 [node name="AsteroidTextTag" type="Label"]
 z_index = 10
@@ -14,3 +17,6 @@ text = "+10"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("1_aeyv7")
+asteroidExplodeSfx = [ExtResource("2_2usc8"), ExtResource("3_kbwvr"), ExtResource("4_lhbpb")]
+
+[node name="AsteroidHitSfx" type="AudioStreamPlayer2D" parent="."]

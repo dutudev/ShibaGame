@@ -5,9 +5,13 @@ var progress = 0
 var lerpProgress = 0
 var posy = 0
 
+@export var asteroidExplodeSfx = Array([])
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	posy = position.y
+	$AsteroidHitSfx.stream = asteroidExplodeSfx[randi_range(0, 2)]
+	$AsteroidHitSfx.pitch_scale = randf_range(0.9, 1.1)
+	$AsteroidHitSfx.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
