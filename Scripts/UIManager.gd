@@ -55,3 +55,6 @@ func UpdateMoneyLabel(value: int) -> void:
 
 func _on_BoundsTimer_timeout() -> void:
 	BoundsLabel.visible = !BoundsLabel.visible
+
+func _on_bounds_timer_kill_timeout() -> void:
+	Player.instance.AffectHealth(-999)

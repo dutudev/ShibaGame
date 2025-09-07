@@ -1,6 +1,7 @@
 class_name Asteroid
 extends RigidBody2D
 
+var asteroidParticles = preload("res://Scenes/asteroid_explosion.tscn")
 
 var maxDistance = 1400
 var spawnCooldown = 0
@@ -33,6 +34,9 @@ func _on_tree_exiting() -> void:
 
 func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
 	if body.is_in_group("player"):
+		var asteroidParticlesInstance = asteroidParticles.instantiate()
+		asteroidParticlesInstance.position = body.position
+		get_parent().add_child(asteroidParticlesInstance)
 		Player.instance.PlayHitSound()
 		Player.instance.AffectHealth(-25)
 		Player.instance.velocity = Player.instance.velocity.normalized() * Player.instance.velocity.length() / 2

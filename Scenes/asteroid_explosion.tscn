@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6w8e5tfyfijo"]
+
+[ext_resource type="Script" uid="uid://j41cn7ro7agt" path="res://Scripts/asteroid_explosion.gd" id="1_0kps3"]
+[ext_resource type="Texture2D" uid="uid://c4wrxay4vy1dm" path="res://Sprites/asteroidParticles/par-1.png" id="1_fe2ty"]
+[ext_resource type="Texture2D" uid="uid://cvrmm27m12oe3" path="res://Sprites/asteroidParticles/par-2.png" id="2_0kps3"]
+[ext_resource type="Texture2D" uid="uid://c2d13kuu3ftte" path="res://Sprites/asteroidParticles/par-3.png" id="3_v6bq6"]
+
+[sub_resource type="Gradient" id="Gradient_2kv1w"]
+offsets = PackedFloat32Array(0.536, 1)
+colors = PackedColorArray(1, 1, 1, 0.784314, 1, 1, 1, 0)
+
+[node name="AsteroidExplosion" type="Node2D"]
+script = ExtResource("1_0kps3")
+
+[node name="Particle" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 2
+texture = ExtResource("1_fe2ty")
+lifetime = 4.0
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 128.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 250.0
+angular_velocity_min = -40.0
+angular_velocity_max = 40.0
+linear_accel_min = -100.0
+linear_accel_max = -93.69
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.3
+scale_amount_max = 0.5
+color_ramp = SubResource("Gradient_2kv1w")
+
+[node name="Particle2" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 2
+texture = ExtResource("2_0kps3")
+lifetime = 4.0
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 128.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 250.0
+angular_velocity_min = -40.0
+angular_velocity_max = 40.0
+linear_accel_min = -100.0
+linear_accel_max = -93.69
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.3
+scale_amount_max = 0.5
+color_ramp = SubResource("Gradient_2kv1w")
+
+[node name="Particle3" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 2
+texture = ExtResource("3_v6bq6")
+lifetime = 4.0
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 128.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 250.0
+angular_velocity_min = -40.0
+angular_velocity_max = 40.0
+linear_accel_min = -100.0
+linear_accel_max = -93.69
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.3
+scale_amount_max = 0.5
+color_ramp = SubResource("Gradient_2kv1w")

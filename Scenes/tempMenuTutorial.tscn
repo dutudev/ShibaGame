@@ -1,0 +1,75 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgnqodkjafxji"]
+
+[ext_resource type="Script" uid="uid://bnmi4oyaskopk" path="res://Scripts/MainMenu.gd" id="1_i84ba"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ait0i"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="TempMenuTutorial" type="Node2D"]
+script = ExtResource("1_i84ba")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ait0i")
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -204.0
+offset_right = 204.0
+offset_bottom = 83.0
+grow_horizontal = 2
+pivot_offset = Vector2(204, 0)
+theme_override_font_sizes/font_size = 60
+text = "Quick Tutorial"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -204.0
+offset_top = -41.5
+offset_right = 204.0
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(204, 0)
+theme_override_font_sizes/font_size = 32
+text = "- use 'w' to accelerate
+- 'a' and 'd' to rotate ship
+- click to shoot, it has a cooldown
+- shoot asteroids, don't collide with them"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -57.0
+offset_top = -103.0
+offset_right = 57.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(57, 71)
+theme_override_font_sizes/font_size = 45
+text = "Start"
+
+[connection signal="pressed" from="CanvasLayer/Panel/Button" to="." method="_on_button_pressed"]

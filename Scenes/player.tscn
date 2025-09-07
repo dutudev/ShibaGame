@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b350sy0tn84v1"]
+[gd_scene load_steps=9 format=3 uid="uid://b350sy0tn84v1"]
 
 [ext_resource type="Script" uid="uid://jcg7pcnuvthx" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://b4so51hoellxv" path="res://Sprites/ship.png" id="1_v0iea"]
@@ -19,6 +19,10 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
 size = Vector2(75, 170)
+
+[sub_resource type="Curve" id="Curve_fkybt"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.74229, 0.0, 0, 0]
+point_count = 2
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 scale = Vector2(0.6, 0.6)
@@ -42,3 +46,20 @@ stream = ExtResource("4_vgqql")
 
 [node name="HitSfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_fkybt")
+
+[node name="EngineParticles" type="CPUParticles2D" parent="."]
+position = Vector2(5.04485e-13, 118.333)
+rotation = 1.5708
+emitting = false
+amount = 60
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(1, 45)
+gravity = Vector2(0, 0)
+initial_velocity_min = 700.0
+initial_velocity_max = 1000.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 3.0
+scale_amount_max = 7.0
+scale_amount_curve = SubResource("Curve_fkybt")

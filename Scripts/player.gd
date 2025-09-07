@@ -63,6 +63,7 @@ func _process(delta: float) -> void:
 	
 	#check input for sound
 	if Input.is_action_just_pressed("go_forward"):
+		$EngineParticles.emitting = true
 		if $ShipEngineSfx.playing:
 			stopShipSound = false
 		else:
@@ -71,6 +72,7 @@ func _process(delta: float) -> void:
 			
 	
 	if Input.is_action_just_released("go_forward"):
+		$EngineParticles.emitting = false
 		stopShipSound = true
 	
 	if stopShipSound:
@@ -103,7 +105,8 @@ func AffectHealth(value: int) -> void:
 	health += value
 	UIManager.instance.UpdateHealthBar(health)
 	if health<=0:
-		pass # implement dying
+		get_tree().change_scene_to_file("res://Scenes/main.tscn")
+		# implement goodd dying
 
 func AffectMoney(value: int) -> void:
 	money += value

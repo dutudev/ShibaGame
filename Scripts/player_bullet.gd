@@ -1,6 +1,7 @@
 extends Area2D
 
 var asteroidTextTag = preload("res://Scenes/asteroid_text_tag.tscn")
+var asteroidParticles = preload("res://Scenes/asteroid_explosion.tscn")
 
 var directionVector = Vector2.ZERO
 var speed = 1500
@@ -28,11 +29,14 @@ func _on_timer_timeout() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("asteroid"):
 		var asteroidTextInstance = asteroidTextTag.instantiate()
+		var asteroidParticlesInstance = asteroidParticles.instantiate()
 		asteroidTextInstance.position = body.position
+		asteroidParticlesInstance.position = body.position
 		var money = randi_range(1, 3) # make 3 able to change to more
 		Player.instance.AffectMoney(money)
 		asteroidTextInstance.text = "+" + str(money) + "$"
 		get_parent().add_child(asteroidTextInstance)
+		get_parent().add_child(asteroidParticlesInstance)
 		body.queue_free()
 		#add particles
 		queue_free()

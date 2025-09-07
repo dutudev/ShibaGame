@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ShibaGame"
-run/main_scene="uid://cdm7352ad04ti"
+run/main_scene="uid://dgnqodkjafxji"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
