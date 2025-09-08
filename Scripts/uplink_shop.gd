@@ -23,14 +23,17 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if (Player.instance.position - position).length() <= distanceToOpen:
 		if(!canOpen):
+			#animation
 			currentAnimStatus = animStatus.animateUp
 			currentAnimDuration = 0
 			duration = abs($Label.position.y - 255.0) / abs(-255.0  + posYLabel) * 1
 			startPosY = $Label.position.y
 			startScale = $Label.scale.x
+			
 		canOpen = true
 	else:
 		if canOpen:
+			#animation
 			currentAnimStatus = animStatus.animateDown
 			currentAnimDuration = 0
 			duration = abs($Label.position.y - 28.5) / abs(-255.0  + posYLabel) * 1
@@ -53,6 +56,10 @@ func _process(delta: float) -> void:
 		if EaseOutExpo(clamp(currentAnimDuration/duration, 0.0, 1.0)) >= 1:
 			currentAnimStatus = animStatus.down
 	
+	
+	if canOpen && Input.is_action_just_pressed("open_shop"):
+		UIManager.instance.OpenShop(true, true)
+		get_tree().paused = true
 
 func EaseOutExpo(x: float) -> float:
 	if x == 1:

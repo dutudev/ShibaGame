@@ -1,7 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://byltdy5838qfu"]
+[gd_scene load_steps=11 format=3 uid="uid://byltdy5838qfu"]
 
 [ext_resource type="Script" uid="uid://b8efmxrvy5mbb" path="res://Scripts/UIManager.gd" id="1_e0onf"]
 [ext_resource type="Texture2D" uid="uid://dgkdidnbh7wg8" path="res://Sprites/arrow.png" id="2_fccik"]
+[ext_resource type="FontFile" uid="uid://c63kot51ddqq7" path="res://fonts/RobotoMono-SemiBold.ttf" id="3_6fbih"]
+[ext_resource type="Texture2D" uid="uid://7bqbsas1i14a" path="res://Sprites/cardHolder.png" id="3_bjfho"]
+[ext_resource type="Texture2D" uid="uid://isuhdms058i6" path="res://Sprites/powerups/emptyplaceholder.png" id="5_36asn"]
+[ext_resource type="Theme" uid="uid://40kryjm4ax6l" path="res://UiStyles/default.tres" id="6_8jye8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fccik"]
 bg_color = Color(0, 0, 0, 1)
@@ -18,7 +22,17 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 anti_aliasing = false
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar", "speedLabel", "moneyLabel")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6fbih"]
+bg_color = Color(0, 0, 0, 0.882353)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_43w4t"]
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+corner_radius_top_left = 35
+corner_radius_top_right = 35
+corner_radius_bottom_right = 35
+corner_radius_bottom_left = 35
+
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar", "speedLabel", "moneyLabel", "deckStatus", "deckImages", "uplinkStatus", "chooseImages", "chooseTitles", "chooseDesc", "chooseButtons")]
 script = ExtResource("1_e0onf")
 BoundsTimer = NodePath("MiddleHud(NotHideable)/OutOfBounds/BoundsTimer")
 BoundsTimerKill = NodePath("MiddleHud(NotHideable)/OutOfBounds/BoundsTimerKill")
@@ -28,6 +42,13 @@ healthBar = NodePath("MainHud/HealthBar")
 cooldownBar = NodePath("MainHud/CooldownBar")
 speedLabel = NodePath("MainHud/Speed")
 moneyLabel = NodePath("MainHud/Currency")
+deckStatus = NodePath("MainHud/Deck&Status")
+deckImages = [NodePath("MainHud/Deck&Status/Holder/Image1"), NodePath("MainHud/Deck&Status/Holder2/Image2"), NodePath("MainHud/Deck&Status/Holder3/Image3")]
+uplinkStatus = NodePath("MainHud/Deck&Status/uplinkStatus")
+chooseImages = [NodePath("ShopUi/Choose/image1"), NodePath("ShopUi/Choose2/image2"), NodePath("ShopUi/Choose3/image3")]
+chooseTitles = [NodePath("ShopUi/Choose/title1"), NodePath("ShopUi/Choose2/title2"), NodePath("ShopUi/Choose3/title3")]
+chooseDesc = [NodePath("ShopUi/Choose/desc1"), NodePath("ShopUi/Choose2/desc2"), NodePath("ShopUi/Choose3/desc3")]
+chooseButtons = [NodePath("ShopUi/Choose/Button1"), NodePath("ShopUi/Choose2/Button2"), NodePath("ShopUi/Choose3/Button3")]
 
 [node name="MiddleHud(NotHideable)" type="Control" parent="."]
 layout_mode = 3
@@ -147,6 +168,7 @@ offset_top = -45.0
 offset_right = -185.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_6fbih")
 theme_override_font_sizes/font_size = 20
 text = "250"
 horizontal_alignment = 1
@@ -164,10 +186,484 @@ offset_top = -45.0
 offset_right = 240.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_6fbih")
 theme_override_font_sizes/font_size = 20
 text = "0$"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Deck&Status" type="Control" parent="MainHud"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="uplinkStatus" type="RichTextLabel" parent="MainHud/Deck&Status"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -144.0
+offset_top = 80.0
+offset_right = 144.0
+offset_bottom = 125.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("3_6fbih")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "Next Uplink [img=24x24]res://Sprites/rss_feed.svg[/img] In : 25.55 s"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Holder" type="TextureRect" parent="MainHud/Deck&Status"]
+self_modulate = Color(0.784314, 0.784314, 0.784314, 1)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -197.0
+offset_top = 20.0
+offset_right = -133.0
+offset_bottom = 84.0
+grow_horizontal = 2
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("3_bjfho")
+expand_mode = 1
+
+[node name="Image1" type="TextureRect" parent="MainHud/Deck&Status/Holder"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("5_36asn")
+expand_mode = 1
+
+[node name="Holder2" type="TextureRect" parent="MainHud/Deck&Status"]
+self_modulate = Color(0.784314, 0.784314, 0.784314, 1)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_top = 20.0
+offset_right = 32.0
+offset_bottom = 84.0
+grow_horizontal = 2
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("3_bjfho")
+expand_mode = 1
+
+[node name="Image2" type="TextureRect" parent="MainHud/Deck&Status/Holder2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("5_36asn")
+expand_mode = 1
+
+[node name="Holder3" type="TextureRect" parent="MainHud/Deck&Status"]
+self_modulate = Color(0.784314, 0.784314, 0.784314, 1)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 133.0
+offset_top = 20.0
+offset_right = 197.0
+offset_bottom = 84.0
+grow_horizontal = 2
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("3_bjfho")
+expand_mode = 1
+
+[node name="Image3" type="TextureRect" parent="MainHud/Deck&Status/Holder3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("5_36asn")
+expand_mode = 1
+
+[node name="ShopUi" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="ShopUi"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6fbih")
+
+[node name="Choose" type="Panel" parent="ShopUi"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -425.0
+offset_top = -190.0
+offset_right = -175.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(125, 175)
+theme_override_styles/panel = SubResource("StyleBoxFlat_43w4t")
+
+[node name="image1" type="TextureRect" parent="ShopUi/Choose"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -143.0
+offset_right = 64.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("5_36asn")
+expand_mode = 1
+
+[node name="title1" type="Label" parent="ShopUi/Choose"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -16.5
+offset_right = 93.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 24
+text = "Title Of card"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="desc1" type="Label" parent="ShopUi/Choose"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = 23.0
+offset_right = 90.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(90, 45)
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 12
+text = "this is the description of the card which can be a bit longer and explain the use of the card"
+horizontal_alignment = 1
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 2
+
+[node name="Button1" type="Button" parent="ShopUi/Choose"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -45.0
+offset_right = 75.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(75, 16)
+theme = ExtResource("6_8jye8")
+theme_override_fonts/font = ExtResource("3_6fbih")
+action_mode = 0
+text = "Buy : price $"
+clip_text = true
+icon_alignment = 1
+
+[node name="Choose2" type="Panel" parent="ShopUi"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -190.0
+offset_right = 125.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(125, 175)
+theme_override_styles/panel = SubResource("StyleBoxFlat_43w4t")
+
+[node name="image2" type="TextureRect" parent="ShopUi/Choose2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -143.0
+offset_right = 64.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("5_36asn")
+expand_mode = 1
+
+[node name="title2" type="Label" parent="ShopUi/Choose2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -16.5
+offset_right = 93.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 24
+text = "Title Of card"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="desc2" type="Label" parent="ShopUi/Choose2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = 23.0
+offset_right = 90.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(90, 45)
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 12
+text = "this is the description of the card which can be a bit longer and explain the use of the card"
+horizontal_alignment = 1
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 2
+
+[node name="Button2" type="Button" parent="ShopUi/Choose2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -45.0
+offset_right = 75.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(75, 16)
+theme = ExtResource("6_8jye8")
+theme_override_fonts/font = ExtResource("3_6fbih")
+action_mode = 0
+text = "Buy : price $"
+clip_text = true
+icon_alignment = 1
+
+[node name="Choose3" type="Panel" parent="ShopUi"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 175.0
+offset_top = -190.0
+offset_right = 425.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(125, 175)
+theme_override_styles/panel = SubResource("StyleBoxFlat_43w4t")
+
+[node name="image3" type="TextureRect" parent="ShopUi/Choose3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -143.0
+offset_right = 64.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("5_36asn")
+expand_mode = 1
+
+[node name="title3" type="Label" parent="ShopUi/Choose3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -16.5
+offset_right = 93.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 24
+text = "Title Of card"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="desc3" type="Label" parent="ShopUi/Choose3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = 23.0
+offset_right = 90.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(90, 45)
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 12
+text = "this is the description of the card which can be a bit longer and explain the use of the card"
+horizontal_alignment = 1
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 2
+
+[node name="Button3" type="Button" parent="ShopUi/Choose3"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -45.0
+offset_right = 75.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(75, 16)
+theme = ExtResource("6_8jye8")
+theme_override_fonts/font = ExtResource("3_6fbih")
+action_mode = 0
+text = "Buy : price $"
+clip_text = true
+icon_alignment = 1
+
+[node name="Title" type="RichTextLabel" parent="ShopUi"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -255.0
+offset_top = 12.0
+offset_right = 257.0
+offset_bottom = 140.0
+grow_horizontal = 2
+pivot_offset = Vector2(256, 64)
+theme_override_fonts/normal_font = ExtResource("3_6fbih")
+theme_override_font_sizes/normal_font_size = 60
+text = "Uplink://Shop"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Reroll" type="Button" parent="ShopUi"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -350.0
+offset_top = -94.0
+offset_right = -50.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(150, 32)
+theme = ExtResource("6_8jye8")
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 24
+action_mode = 0
+text = "Reroll: 10$"
+clip_text = true
+icon_alignment = 1
+
+[node name="Exit" type="Button" parent="ShopUi"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -94.0
+offset_right = 350.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(150, 32)
+theme = ExtResource("6_8jye8")
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 24
+action_mode = 0
+text = "Leave Uplink"
+clip_text = true
+icon_alignment = 1
+
 [connection signal="timeout" from="MiddleHud(NotHideable)/OutOfBounds/BoundsTimer" to="." method="_on_BoundsTimer_timeout"]
 [connection signal="timeout" from="MiddleHud(NotHideable)/OutOfBounds/BoundsTimerKill" to="." method="_on_bounds_timer_kill_timeout"]
+[connection signal="pressed" from="ShopUi/Exit" to="." method="_on_exit_pressed"]

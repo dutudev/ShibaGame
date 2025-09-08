@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Card" load_steps=3 format=3 uid="uid://b4x7n0ou2bwfb"]
+
+[ext_resource type="Texture2D" uid="uid://isuhdms058i6" path="res://Sprites/powerups/emptyplaceholder.png" id="1_j67w0"]
+[ext_resource type="Script" uid="uid://dwiwrmjlv5pr7" path="res://Scripts/Cards.gd" id="1_u6rac"]
+
+[resource]
+script = ExtResource("1_u6rac")
+cardName = "Gold Asteroids"
+cardDesc = "Asteroids can give even 3$ or 4$"
+cardPrice = 36
+cardIcon = ExtResource("1_j67w0")
+metadata/_custom_type_script = "uid://dwiwrmjlv5pr7"

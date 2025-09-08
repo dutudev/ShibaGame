@@ -1,29 +1,38 @@
 class_name Player
 extends CharacterBody2D
 
-const rotateStrength = 250
+
 const mapHeight = 8000
 const mapWidth = 8000
 
 var baseBullet = preload("res://Scenes/player_bullet.tscn")
 
-var forwardSpeed = 2
-var maxSpeed = 350
+var forwardSpeed = 2 # base is 2
+var maxSpeed = 350 # base is 350
+var rotateStrength = 250 # base is 250
 var rotateDir = 0.0
 var forwardStrength = 0.0
 
 var isInBounds = true
-var health = 100
-var cooldownSet = 1
+var health = 100 # base is 100
+var cooldownSet = 1 # base is 1
 var money = 0
 
 var currentCooldown = 0
 var stopShipSound = false
 
+#cardManagement
+@export var allCards: Array[Card]
+var availableCards
+var card1: Card
+var card2: Card
+var card3: Card
+
 static var instance: Player = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	availableCards = allCards
 	instance = self
 
 

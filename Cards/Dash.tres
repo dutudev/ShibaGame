@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Card" load_steps=3 format=3 uid="uid://qw8rn8lt8kd3"]
+
+[ext_resource type="Script" uid="uid://dwiwrmjlv5pr7" path="res://Scripts/Cards.gd" id="1_8m0m0"]
+[ext_resource type="Texture2D" uid="uid://isuhdms058i6" path="res://Sprites/powerups/emptyplaceholder.png" id="1_hpm6e"]
+
+[resource]
+script = ExtResource("1_8m0m0")
+cardName = "Dash"
+cardDesc = "Move forward with an accelerated speed and invincibility when pressing ‘shift’ for 3 seconds"
+cardPrice = 28
+cardIcon = ExtResource("1_hpm6e")
+metadata/_custom_type_script = "uid://dwiwrmjlv5pr7"

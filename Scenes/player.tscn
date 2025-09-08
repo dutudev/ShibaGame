@@ -1,10 +1,22 @@
-[gd_scene load_steps=9 format=3 uid="uid://b350sy0tn84v1"]
+[gd_scene load_steps=21 format=3 uid="uid://b350sy0tn84v1"]
 
 [ext_resource type="Script" uid="uid://jcg7pcnuvthx" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://b4so51hoellxv" path="res://Sprites/ship.png" id="1_v0iea"]
+[ext_resource type="Script" uid="uid://dwiwrmjlv5pr7" path="res://Scripts/Cards.gd" id="2_qqcod"]
 [ext_resource type="AudioStream" uid="uid://r6o7surrgmdx" path="res://Sounds/shipengine.ogg" id="3_6t5aa"]
+[ext_resource type="Resource" uid="uid://qw8rn8lt8kd3" path="res://Cards/Dash.tres" id="3_igrcy"]
+[ext_resource type="Resource" uid="uid://cuw326vijad0o" path="res://Cards/RCS System.tres" id="4_fs7ks"]
 [ext_resource type="AudioStream" uid="uid://cjpij1vte11do" path="res://Sounds/shoot.wav" id="4_vgqql"]
 [ext_resource type="AudioStream" uid="uid://c0or41oj86i23" path="res://Sounds/playerHit.wav" id="5_fkybt"]
+[ext_resource type="Resource" uid="uid://bm64o123477ib" path="res://Cards/Cannon Upgrade.tres" id="5_l6n3p"]
+[ext_resource type="Resource" uid="uid://ci4hrgdt23vko" path="res://Cards/Reinforced Metal.tres" id="6_olqyp"]
+[ext_resource type="Resource" uid="uid://dlrhal62udoh2" path="res://Cards/Controller Jets.tres" id="7_wpjfl"]
+[ext_resource type="Resource" uid="uid://j5meboa824wc" path="res://Cards/Enhanced Thrusters.tres" id="8_bi64h"]
+[ext_resource type="Resource" uid="uid://yepwoebqlupg" path="res://Cards/Piercing Bullets.tres" id="9_2ijsl"]
+[ext_resource type="Resource" uid="uid://b4x7n0ou2bwfb" path="res://Cards/Gold Asteroids.tres" id="10_p1odr"]
+[ext_resource type="Resource" uid="uid://6biilxrc4b0g" path="res://Cards/Life Insurance.tres" id="11_0gysh"]
+[ext_resource type="Resource" uid="uid://btjhkdof1auuo" path="res://Cards/Split Cannons.tres" id="12_vfarp"]
+[ext_resource type="Resource" uid="uid://x74g2xla4k47" path="res://Cards/Shield.tres" id="13_y6uwr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cvnsp"]
 animations = [{
@@ -28,6 +40,7 @@ point_count = 2
 scale = Vector2(0.6, 0.6)
 motion_mode = 1
 script = ExtResource("1_cvnsp")
+allCards = Array[ExtResource("2_qqcod")]([ExtResource("3_igrcy"), ExtResource("4_fs7ks"), ExtResource("5_l6n3p"), ExtResource("6_olqyp"), ExtResource("7_wpjfl"), ExtResource("8_bi64h"), ExtResource("9_2ijsl"), ExtResource("10_p1odr"), ExtResource("11_0gysh"), ExtResource("12_vfarp"), ExtResource("13_y6uwr")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 2

@@ -6,11 +6,12 @@ var asteroidParticles = preload("res://Scenes/asteroid_explosion.tscn")
 var directionVector = Vector2.ZERO
 var speed = 1500
 
+var maxAsteroidMoney = 2 # maybe change this to player var
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
+	#get max asteroidmoney
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -32,7 +33,7 @@ func _on_body_entered(body: Node2D) -> void:
 		var asteroidParticlesInstance = asteroidParticles.instantiate()
 		asteroidTextInstance.position = body.position
 		asteroidParticlesInstance.position = body.position
-		var money = randi_range(1, 3) # make 3 able to change to more
+		var money = randi_range(1, maxAsteroidMoney) # make 3 able to change to more
 		Player.instance.AffectMoney(money)
 		asteroidTextInstance.text = "+" + str(money) + "$"
 		get_parent().add_child(asteroidTextInstance)

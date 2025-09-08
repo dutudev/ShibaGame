@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Card" load_steps=3 format=3 uid="uid://bm64o123477ib"]
+
+[ext_resource type="Texture2D" uid="uid://isuhdms058i6" path="res://Sprites/powerups/emptyplaceholder.png" id="1_0q0sb"]
+[ext_resource type="Script" uid="uid://dwiwrmjlv5pr7" path="res://Scripts/Cards.gd" id="1_comsx"]
+
+[resource]
+script = ExtResource("1_comsx")
+cardName = "Cannon Upgrade"
+cardDesc = "Cannon cooldown decreased by 50%"
+cardPrice = 32
+cardIcon = ExtResource("1_0q0sb")
+metadata/_custom_type_script = "uid://dwiwrmjlv5pr7"
