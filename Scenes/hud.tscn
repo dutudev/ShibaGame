@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://byltdy5838qfu"]
+[gd_scene load_steps=16 format=3 uid="uid://byltdy5838qfu"]
 
 [ext_resource type="Script" uid="uid://b8efmxrvy5mbb" path="res://Scripts/UIManager.gd" id="1_e0onf"]
 [ext_resource type="Texture2D" uid="uid://dgkdidnbh7wg8" path="res://Sprites/arrow.png" id="2_fccik"]
@@ -35,6 +35,12 @@ corner_radius_top_right = 35
 corner_radius_bottom_right = 35
 corner_radius_bottom_left = 35
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7gr8i"]
+bg_color = Color(0, 0, 0, 0.921569)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ep0j"]
+bg_color = Color(1, 1, 1, 0.235294)
+
 [node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar", "speedLabel", "moneyLabel", "deckStatus", "deckImages", "uplinkStatus", "chooseImages", "chooseTitles", "chooseDesc", "chooseButtons")]
 script = ExtResource("1_e0onf")
 BoundsTimer = NodePath("MiddleHud(NotHideable)/OutOfBounds/BoundsTimer")
@@ -51,7 +57,7 @@ uplinkStatus = NodePath("MainHud/Deck&Status/uplinkStatus")
 chooseImages = [NodePath("ShopUi/Choose/image1"), NodePath("ShopUi/Choose2/image2"), NodePath("ShopUi/Choose3/image3")]
 chooseTitles = [NodePath("ShopUi/Choose/title1"), NodePath("ShopUi/Choose2/title2"), NodePath("ShopUi/Choose3/title3")]
 chooseDesc = [NodePath("ShopUi/Choose/desc1"), NodePath("ShopUi/Choose2/desc2"), NodePath("ShopUi/Choose3/desc3")]
-chooseButtons = [NodePath("ShopUi/Choose/Button1"), NodePath("ShopUi/Choose2/Button2"), NodePath("ShopUi/Choose3/Button3")]
+chooseButtons = [NodePath("ShopUi/Choose/buy1"), NodePath("ShopUi/Choose2/buy2"), NodePath("ShopUi/Choose3/buy3")]
 
 [node name="MiddleHud(NotHideable)" type="Control" parent="."]
 layout_mode = 3
@@ -303,7 +309,6 @@ expand_mode = 1
 
 [node name="ShopUi" type="Control" parent="."]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -394,7 +399,7 @@ autowrap_mode = 3
 clip_text = true
 text_overrun_behavior = 2
 
-[node name="Button1" type="Button" parent="ShopUi/Choose"]
+[node name="buy1" type="Button" parent="ShopUi/Choose"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -489,7 +494,7 @@ autowrap_mode = 3
 clip_text = true
 text_overrun_behavior = 2
 
-[node name="Button2" type="Button" parent="ShopUi/Choose2"]
+[node name="buy2" type="Button" parent="ShopUi/Choose2"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -584,7 +589,7 @@ autowrap_mode = 3
 clip_text = true
 text_overrun_behavior = 2
 
-[node name="Button3" type="Button" parent="ShopUi/Choose3"]
+[node name="buy3" type="Button" parent="ShopUi/Choose3"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -666,6 +671,259 @@ text = "Leave Uplink"
 clip_text = true
 icon_alignment = 1
 
+[node name="PauseMenu" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7gr8i")
+
+[node name="Inventory" type="Control" parent="PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="card1" type="Button" parent="PauseMenu/Panel/Inventory"]
+self_modulate = Color(0.784314, 0.784314, 0.784314, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -305.0
+offset_right = -35.0
+offset_bottom = -180.0
+grow_horizontal = 0
+grow_vertical = 2
+pivot_offset = Vector2(62.5, 62.5)
+icon = ExtResource("3_bjfho")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Image1" type="TextureRect" parent="PauseMenu/Panel/Inventory/card1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -4.21
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(62.5, 62.5)
+texture = ExtResource("5_43w4t")
+expand_mode = 1
+
+[node name="card2" type="Button" parent="PauseMenu/Panel/Inventory"]
+self_modulate = Color(0.784314, 0.784314, 0.784314, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -155.0
+offset_right = -35.0
+offset_bottom = -30.0
+grow_horizontal = 0
+grow_vertical = 2
+pivot_offset = Vector2(62.5, 62.5)
+icon = ExtResource("3_bjfho")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Image1" type="TextureRect" parent="PauseMenu/Panel/Inventory/card2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -4.21
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(62.5, 62.5)
+texture = ExtResource("5_43w4t")
+expand_mode = 1
+
+[node name="card3" type="Button" parent="PauseMenu/Panel/Inventory"]
+self_modulate = Color(0.784314, 0.784314, 0.784314, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -5.0
+offset_right = -35.0
+offset_bottom = 120.0
+grow_horizontal = 0
+grow_vertical = 2
+pivot_offset = Vector2(62.5, 62.5)
+icon = ExtResource("3_bjfho")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Image1" type="TextureRect" parent="PauseMenu/Panel/Inventory/card3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -4.21
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(62.5, 62.5)
+texture = ExtResource("5_43w4t")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="PauseMenu/Panel/Inventory"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 35.0
+offset_top = -250.0
+offset_right = 291.0
+offset_bottom = 6.0
+grow_vertical = 2
+texture = ExtResource("6_7gr8i")
+expand_mode = 1
+
+[node name="cardTitle" type="Label" parent="PauseMenu/Panel/Inventory"]
+layout_mode = 0
+offset_left = 269.0
+offset_top = 113.0
+offset_right = 1181.0
+offset_bottom = 219.0
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 56
+text = "Enchanced Thrusters"
+vertical_alignment = 1
+
+[node name="cardTitle2" type="Label" parent="PauseMenu/Panel/Inventory"]
+layout_mode = 0
+offset_left = 269.0
+offset_top = 180.0
+offset_right = 914.0
+offset_bottom = 360.0
+theme_override_colors/font_color = Color(0.705882, 0.705882, 0.705882, 1)
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 36
+text = "Enchanced Thrusters"
+autowrap_mode = 3
+
+[node name="sellBtn" type="Button" parent="PauseMenu/Panel/Inventory"]
+offset_left = 45.0
+offset_top = 385.0
+offset_right = 395.0
+offset_bottom = 450.0
+theme = ExtResource("6_8jye8")
+theme_override_font_sizes/font_size = 32
+text = "Sell ( +50$ )"
+
+[node name="paused" type="Control" parent="PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="PauseMenu/Panel/paused"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -762.0
+offset_top = -175.0
+offset_right = 738.0
+offset_bottom = -167.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(750, 4)
+theme_override_styles/panel = SubResource("StyleBoxFlat_5ep0j")
+
+[node name="pausedTitle" type="Label" parent="PauseMenu/Panel/paused"]
+layout_mode = 0
+offset_left = -512.0
+offset_top = -118.0
+offset_right = -332.0
+offset_bottom = -51.0
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 50
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="pausedsubTitle" type="Label" parent="PauseMenu/Panel/paused/pausedTitle"]
+offset_top = 28.765
+offset_right = 180.0
+offset_bottom = 95.765
+theme_override_colors/font_color = Color(0.705882, 0.705882, 0.705882, 1)
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 20
+text = "manage items or return to game/main menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="returnBtn" type="Button" parent="PauseMenu/Panel/paused"]
+layout_mode = 0
+offset_left = 225.0
+offset_top = -155.0
+offset_right = 475.0
+offset_bottom = -120.0
+theme = ExtResource("6_8jye8")
+theme_override_font_sizes/font_size = 20
+text = "Return"
+
+[node name="settingsBtn" type="Button" parent="PauseMenu/Panel/paused"]
+layout_mode = 0
+offset_left = 225.0
+offset_top = -105.0
+offset_right = 475.0
+offset_bottom = -70.0
+theme = ExtResource("6_8jye8")
+theme_override_font_sizes/font_size = 20
+text = "Settings
+"
+
+[node name="exitBtn" type="Button" parent="PauseMenu/Panel/paused"]
+layout_mode = 0
+offset_left = 225.0
+offset_top = -55.0
+offset_right = 475.0
+offset_bottom = -20.0
+theme = ExtResource("6_8jye8")
+theme_override_font_sizes/font_size = 20
+text = "Exit
+"
+
 [connection signal="timeout" from="MiddleHud(NotHideable)/OutOfBounds/BoundsTimer" to="." method="_on_BoundsTimer_timeout"]
 [connection signal="timeout" from="MiddleHud(NotHideable)/OutOfBounds/BoundsTimerKill" to="." method="_on_bounds_timer_kill_timeout"]
+[connection signal="pressed" from="ShopUi/Choose/buy1" to="." method="_on_buy_1_pressed"]
+[connection signal="pressed" from="ShopUi/Choose2/buy2" to="." method="_on_buy_2_pressed"]
+[connection signal="pressed" from="ShopUi/Choose3/buy3" to="." method="_on_buy_3_pressed"]
 [connection signal="pressed" from="ShopUi/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="PauseMenu/Panel/paused/returnBtn" to="." method="_on_return_btn_pressed"]

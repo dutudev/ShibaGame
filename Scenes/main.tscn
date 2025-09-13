@@ -52,4 +52,5 @@ region_rect = Rect2(0, 0, 36000, 36000)
 [node name="Control" parent="." instance=ExtResource("5_kry3j")]
 
 [node name="UplinkShop" parent="." instance=ExtResource("5_21xkr")]
+visible = false
 position = Vector2(661, -5)

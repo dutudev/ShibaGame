@@ -22,6 +22,7 @@ extends CanvasLayer
 
 
 var isOut = false
+var isPaused = false
 
 var cardChoice1: Card
 var cardChoice2: Card
@@ -41,6 +42,22 @@ func _process(delta: float) -> void:
 		BoundsLabel.text = "Out Of Bounds\n" + str(int(ceil(BoundsTimerKill.time_left)))
 		var dirToMiddle = Vector2.ZERO - Player.instance.position
 		BoundsArrow.rotation_degrees = rad_to_deg(atan2(dirToMiddle.y, dirToMiddle.x))
+	if Input.is_action_pressed("pause"):
+		if $ShopUi.visible && !isPaused:
+			isPaused = true
+			get_tree().paused = true
+			OpenPause(true)
+		elif $ShopUi.visible && isPaused:
+			isPaused = false
+			OpenPause(false)
+		elif !$ShopUi.visible && !isPaused:
+			isPaused = true
+			get_tree().paused = true
+			OpenPause(true)
+		elif !$ShopUi.visible && isPaused:
+			isPaused = false
+			get_tree().paused = false
+			OpenPause(false)
 
 func OutOfBounds(Out: bool) -> void:
 	isOut = Out
@@ -120,4 +137,79 @@ func _on_exit_pressed() -> void:
 		get_tree().paused = false
 		OpenShop(false, false)
 		#tell uplink to despawn
-	
+
+func OpenPause(open: bool) -> void:
+	if open:
+		$PauseMenu.visible = true
+		$PauseMenu/Panel/Inventory/TextureRect.texture = null
+		$PauseMenu/Panel/Inventory/cardTitle.text = "Click on item"
+		$PauseMenu/Panel/Inventory/cardTitle2.text = "to see description or to sell it"
+		$PauseMenu/Panel/Inventory/sellBtn.visible = false
+		$PauseMenu/Panel/Inventory/card1/Image1.texture = getCardIcon(Player.instance.card1)
+		$PauseMenu/Panel/Inventory/card2/Image1.texture = getCardIcon(Player.instance.card2)
+		$PauseMenu/Panel/Inventory/card3/Image1.texture = getCardIcon(Player.instance.card3)
+	else :
+		$PauseMenu.visible = false
+
+func getCardIcon(target: Card) -> Texture2D:
+	if target && target.cardIcon:
+		return target.cardIcon
+	return null
+
+
+func _on_return_btn_pressed() -> void:
+	if $ShopUi.visible:
+		isPaused = false
+		OpenPause(false)
+	elif !$ShopUi.visible:
+		isPaused = false
+		get_tree().paused = false
+		OpenPause(false)
+
+
+
+
+func BuyCard(cardToBuy: Card) -> bool:
+	if Player.instance.money >= cardToBuy.cardPrice:
+		
+		var haveSpace = false
+		var card = -1
+		if Player.instance.card1 == null:
+			haveSpace = true
+			card = 0
+		elif Player.instance.card2 == null:
+			haveSpace = true
+			card = 1
+		elif Player.instance.card3 == null:
+			haveSpace = true
+			card = 2
+		
+		if haveSpace:
+			Player.instance.money -= cardToBuy
+			match card:
+				0:
+					Player.instance.card1 = cardToBuy
+				1:
+					Player.instance.card2 = cardToBuy
+				2:
+					Player.instance.card3 = cardToBuy
+			return true
+		else:
+			return false
+	else:
+		return false
+
+
+func _on_buy_1_pressed() -> void:
+	if BuyCard(cardChoice1):
+		$ShopUi/Choose/buy1.disabled = true
+
+
+func _on_buy_2_pressed() -> void:
+	if BuyCard(cardChoice2):
+		$ShopUi/Choose2/buy2.disabled = true
+
+
+func _on_buy_3_pressed() -> void:
+	if BuyCard(cardChoice3):
+		$ShopUi/Choose3/buy3.disabled = true
