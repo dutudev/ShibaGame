@@ -1,10 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://byltdy5838qfu"]
+[gd_scene load_steps=14 format=3 uid="uid://byltdy5838qfu"]
 
 [ext_resource type="Script" uid="uid://b8efmxrvy5mbb" path="res://Scripts/UIManager.gd" id="1_e0onf"]
 [ext_resource type="Texture2D" uid="uid://dgkdidnbh7wg8" path="res://Sprites/arrow.png" id="2_fccik"]
 [ext_resource type="FontFile" uid="uid://c63kot51ddqq7" path="res://fonts/RobotoMono-SemiBold.ttf" id="3_6fbih"]
 [ext_resource type="Texture2D" uid="uid://7bqbsas1i14a" path="res://Sprites/cardHolder.png" id="3_bjfho"]
+[ext_resource type="Texture2D" uid="uid://c1yk88itwwb4i" path="res://Sprites/powerups/Reinforced metal.png" id="5_8jye8"]
 [ext_resource type="Texture2D" uid="uid://isuhdms058i6" path="res://Sprites/powerups/emptyplaceholder.png" id="5_36asn"]
+[ext_resource type="Texture2D" uid="uid://debfumdqr0dr4" path="res://Sprites/powerups/rcs.png" id="5_43w4t"]
+[ext_resource type="Texture2D" uid="uid://bbjqotghv23o8" path="res://Sprites/powerups/dash.png" id="6_7gr8i"]
 [ext_resource type="Theme" uid="uid://40kryjm4ax6l" path="res://UiStyles/default.tres" id="6_8jye8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fccik"]
@@ -193,7 +196,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Deck&Status" type="Control" parent="MainHud"]
-visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -242,7 +244,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
 pivot_offset = Vector2(32, 32)
-texture = ExtResource("5_36asn")
+texture = ExtResource("5_43w4t")
 expand_mode = 1
 
 [node name="Holder2" type="TextureRect" parent="MainHud/Deck&Status"]
@@ -269,7 +271,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
 pivot_offset = Vector2(32, 32)
-texture = ExtResource("5_36asn")
+texture = ExtResource("6_7gr8i")
 expand_mode = 1
 
 [node name="Holder3" type="TextureRect" parent="MainHud/Deck&Status"]
@@ -296,7 +298,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
 pivot_offset = Vector2(32, 32)
-texture = ExtResource("5_36asn")
+texture = ExtResource("5_8jye8")
 expand_mode = 1
 
 [node name="ShopUi" type="Control" parent="."]
