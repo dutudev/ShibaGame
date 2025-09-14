@@ -33,11 +33,21 @@ func _on_body_entered(body: Node2D) -> void:
 		var asteroidParticlesInstance = asteroidParticles.instantiate()
 		asteroidTextInstance.position = body.position
 		asteroidParticlesInstance.position = body.position
+		if Player.instance.CheckCardInDeck("Gold Asteroids"):
+			maxAsteroidMoney = 4
+		else:
+			maxAsteroidMoney = 2
 		var money = randi_range(1, maxAsteroidMoney) # make 3 able to change to more
 		Player.instance.AffectMoney(money)
-		asteroidTextInstance.text = "+" + str(money) + "$"
+		if Player.instance.CheckCardInDeck("Life Insurance"):
+			Player.instance.AffectHealth(money * 5)
+			asteroidTextInstance.text = "+" + str(money) + "$ +" + str(money * 5) + "hp"
+		else:
+			asteroidTextInstance.text = "+" + str(money) + "$"
 		get_parent().add_child(asteroidTextInstance)
 		get_parent().add_child(asteroidParticlesInstance)
 		body.queue_free()
 		#add particles
-		queue_free()
+		if !Player.instance.CheckCardInDeck("Piercing Bullets"):
+			queue_free()
+		

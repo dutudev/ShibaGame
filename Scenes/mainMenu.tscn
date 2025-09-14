@@ -1,0 +1,147 @@
+[gd_scene load_steps=12 format=3 uid="uid://3c8oqodclr2c"]
+
+[ext_resource type="Texture2D" uid="uid://debkmkexfa68i" path="res://Sprites/starsBack.png" id="1_b7htb"]
+[ext_resource type="Script" uid="uid://di4gtofsycga6" path="res://Scripts/MainMenuUi.gd" id="1_kqm77"]
+[ext_resource type="Shader" uid="uid://cppr5r8xpjmwk" path="res://Shaders/mainMenuShader.gdshader" id="2_yl13b"]
+[ext_resource type="Texture2D" uid="uid://d0nqg7tfn4p7p" path="res://Sprites/starsFrontmanu.png" id="3_b7htb"]
+[ext_resource type="Shader" uid="uid://c6ga6c3g6fpdy" path="res://Shaders/astrodeckLogo.gdshader" id="4_3uny1"]
+[ext_resource type="Texture2D" uid="uid://b8d7kwc38bc57" path="res://Sprites/astrodeckLogo.png" id="4_yl13b"]
+[ext_resource type="Theme" uid="uid://40kryjm4ax6l" path="res://UiStyles/default.tres" id="6_v10og"]
+[ext_resource type="Shader" uid="uid://cjplj4l27shct" path="res://Shaders/transition.gdshader" id="8_snj4n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v10og"]
+shader = ExtResource("2_yl13b")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kqm77"]
+shader = ExtResource("4_3uny1")
+shader_parameter/progress = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wofhc"]
+shader = ExtResource("8_snj4n")
+shader_parameter/progress = 0.0
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_kqm77")
+
+[node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("1_b7htb")
+
+[node name="Background" type="Sprite2D" parent="Background"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_v10og")
+texture = ExtResource("3_b7htb")
+region_enabled = true
+region_rect = Rect2(0, 0, 3000, 3000)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Logo" type="TextureRect" parent="UI"]
+material = SubResource("ShaderMaterial_kqm77")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -300.0
+offset_right = 175.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+pivot_offset = Vector2(175, 175)
+texture = ExtResource("4_yl13b")
+expand_mode = 1
+
+[node name="buttons" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 425.0
+offset_top = 567.5
+offset_right = 465.0
+offset_bottom = 607.5
+
+[node name="tutorial" type="Button" parent="UI/buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -260.0
+offset_right = 230.0
+offset_bottom = -215.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_v10og")
+theme_override_font_sizes/font_size = 26
+text = "Tutorial"
+
+[node name="play" type="Button" parent="UI/buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -180.0
+offset_right = 230.0
+offset_bottom = -135.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_v10og")
+theme_override_font_sizes/font_size = 26
+text = "Play"
+
+[node name="settings" type="Button" parent="UI/buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -100.0
+offset_right = 230.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_v10og")
+theme_override_font_sizes/font_size = 26
+text = "Settings"
+
+[node name="exit" type="Button" parent="UI/buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 230.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_v10og")
+theme_override_font_sizes/font_size = 26
+text = "Exit
+"
+
+[node name="Transition" type="TextureRect" parent="UI"]
+visible = false
+material = SubResource("ShaderMaterial_wofhc")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_b7htb")
+expand_mode = 1
+
+[connection signal="pressed" from="UI/buttons/play" to="." method="_on_play_pressed"]

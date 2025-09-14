@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_8m0m0")
 cardName = "Dash"
-cardDesc = "Move forward with an accelerated speed and invincibility when pressing ‘shift’ for 3 seconds"
+cardDesc = "Move forward with an accelerated speed and invincibility when pressing ‘shift’ for 1.5 seconds"
 cardPrice = 28
 cardIcon = ExtResource("1_hpm6e")
 metadata/_custom_type_script = "uid://dwiwrmjlv5pr7"

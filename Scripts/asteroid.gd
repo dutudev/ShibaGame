@@ -2,6 +2,7 @@ class_name Asteroid
 extends RigidBody2D
 
 var asteroidParticles = preload("res://Scenes/asteroid_explosion.tscn")
+var asteroidTextTag = preload("res://Scenes/asteroid_text_tag.tscn")
 
 var maxDistance = 1400
 var spawnCooldown = 0
@@ -33,11 +34,25 @@ func _on_tree_exiting() -> void:
 
 
 func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
+	if body.is_in_group("Shield"):
+		print("yes")
+		var asteroidTextInstance = asteroidTextTag.instantiate()
+		asteroidTextInstance.position = body.position
+		asteroidTextInstance.text = ""
+		get_parent().add_child(asteroidTextInstance)
+		var asteroidParticlesInstance = asteroidParticles.instantiate()
+		asteroidParticlesInstance.position = body.global_position
+		get_parent().add_child(asteroidParticlesInstance)
+		queue_free()
 	if body.is_in_group("player"):
+		if !Player.instance.dashing:
+			Player.instance.PlayHitSound()
+			Player.instance.AffectHealth(-25)
+			Player.instance.velocity = Player.instance.velocity.normalized() * Player.instance.velocity.length() / 2
+			Player.instance.ToggleShield(true)
 		var asteroidParticlesInstance = asteroidParticles.instantiate()
 		asteroidParticlesInstance.position = body.position
 		get_parent().add_child(asteroidParticlesInstance)
-		Player.instance.PlayHitSound()
-		Player.instance.AffectHealth(-25)
-		Player.instance.velocity = Player.instance.velocity.normalized() * Player.instance.velocity.length() / 2
 		queue_free()
+	
+		

@@ -28,7 +28,6 @@ func _process(delta: float) -> void:
 
 func NextState() -> void:
 	currentState = (currentState + 1) % 3
-	print(currentState)
 	match currentState:
 		uplinkState.idle:
 			UIManager.instance.DeleteCurrentUplink()

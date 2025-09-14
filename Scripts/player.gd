@@ -13,6 +13,10 @@ var maxHealth = 100 # base is 100
 var rotateStrength = 250 # base is 250
 var rotateDir = 0.0
 var forwardStrength = 0.0
+var dashing = false
+var dashCooldown = 0.0
+var currentDash = 0.0
+var shieldCooldown = 0.0
 
 var isInBounds = true
 var health = 100 # base is 100
@@ -36,24 +40,50 @@ func _ready() -> void:
 	availableCards = allCards
 	instance = self
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	#handle here special input that does not relate to physics
 	if Input.is_action_just_pressed("shoot"):
 		if currentCooldown >= cooldownSet:
+			if CheckCardInDeck("Cannon Upgrade"):
+				cooldownSet = 0.5
+			else:
+				cooldownSet = 1
 			currentCooldown = 0
 			var bulletInstance = baseBullet.instantiate()
+			if CheckCardInDeck("Split Cannons"):
+				var bulletInstance2 = baseBullet.instantiate()
+				var bulletInstance3 = baseBullet.instantiate()
+				get_parent().add_child(bulletInstance2)
+				get_parent().add_child(bulletInstance3)
+				bulletInstance2.position = position + -transform.y.normalized() * 50
+				bulletInstance2.SetDirection(-transform.y.normalized().rotated(deg_to_rad(25)))
+				bulletInstance3.position = position + -transform.y.normalized() * 50
+				bulletInstance3.SetDirection(-transform.y.normalized().rotated(deg_to_rad(-25)))
 			get_parent().add_child(bulletInstance)
 			bulletInstance.position = position + -transform.y.normalized() * 50
 			bulletInstance.SetDirection(-transform.y.normalized())
 			$ShootSfx.pitch_scale = randf_range(0.9, 1.1)
 			$ShootSfx.play()
 	
+	dashCooldown -= delta
+	currentDash -= delta
+	if Input.is_action_just_pressed("dash") && CheckCardInDeck("Dash") && dashCooldown <= 0:
+		currentDash = 1.5
+		dashing = true
+		dashCooldown = 6
 	
-	#delete this
-	if Input.is_action_just_pressed("ui_home"):
-		AffectMoney(50)
+	if currentDash <= 0:
+		dashing = false
+	
+	if dashing:
+		$DashParticles.emitting = true
+	else:
+		$DashParticles.emitting = false
+	
+	shieldCooldown -= delta
+	if shieldCooldown <= 0 && $Shield.visible:
+		ToggleShield(false)
 	
 	if abs(position.x) >= mapWidth || abs(position.y) >= mapHeight:
 		#print("out of bounds")
@@ -76,18 +106,41 @@ func _process(delta: float) -> void:
 	UIManager.instance.UpdateSpeedLabel(int(velocity.length()))
 	
 	#check input for sound
-	if Input.is_action_just_pressed("go_forward"):
+	if Input.is_action_just_pressed("go_forward") && !dashing:
+		$EngineParticles.rotation_degrees = 90
 		$EngineParticles.emitting = true
 		if $ShipEngineSfx.playing:
 			stopShipSound = false
+			$ShipEngineSfx.pitch_scale = 1
 		else:
 			$ShipEngineSfx.volume_linear = 0.8
 			$ShipEngineSfx.play()
+			$ShipEngineSfx.pitch_scale = 1
 			
 	
 	if Input.is_action_just_released("go_forward"):
 		$EngineParticles.emitting = false
 		stopShipSound = true
+	
+	
+	if CheckCardInDeck("RCS System"):
+			if Input.is_action_just_pressed("go_back"):
+				$EngineParticles.rotation_degrees = -90
+				$EngineParticles.emitting = true
+				if $ShipEngineSfx.playing:
+					stopShipSound = false
+					$ShipEngineSfx.pitch_scale = 0.5
+				else:
+					$ShipEngineSfx.volume_linear = 0.8
+					$ShipEngineSfx.pitch_scale = 0.8
+					$ShipEngineSfx.play()
+			if Input.is_action_just_released("go_back"):
+				$EngineParticles.rotation_degrees = 90
+				$EngineParticles.emitting = false
+				stopShipSound = true
+	else:
+		$EngineParticles.rotation_degrees = 90
+	
 	
 	if stopShipSound:
 		$ShipEngineSfx.volume_linear = clamp($ShipEngineSfx.volume_linear - delta, 0, 0.8)
@@ -103,24 +156,55 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	#Handle here everything physics related
-	rotateDir = Input.get_action_strength("rotate_right") - Input.get_action_strength("rotate_left")
-	forwardStrength = Input.get_action_strength("go_forward")
+	if CheckCardInDeck("Controller Jets"):
+		rotateStrength = 400
+	else:
+		rotateStrength = 250
 	
-	velocity += -transform.y.normalized() * forwardSpeed * forwardStrength
-	if velocity.length() > maxSpeed:
-		velocity = velocity.normalized() * maxSpeed
+	if CheckCardInDeck("Enhanced Thrusters"):
+		forwardSpeed = 4
+		maxSpeed = 400 # base is 350
+	else:
+		forwardSpeed = 2 # base is 2
+		maxSpeed = 350 # base is 350
+	
+	if !dashing:
+		rotateDir = Input.get_action_strength("rotate_right") - Input.get_action_strength("rotate_left")
+		forwardStrength = Input.get_action_strength("go_forward")
+		velocity += -transform.y.normalized() * forwardSpeed * forwardStrength
+		if CheckCardInDeck("RCS System"):
+			var backStrength = Input.get_action_strength("go_back")
+			velocity += transform.y.normalized() * forwardSpeed * backStrength
+		rotate(deg_to_rad(rotateDir * rotateStrength) * delta)
+		if velocity.length() > maxSpeed:
+			velocity = velocity.normalized() * maxSpeed
+	else:
+		velocity = Vector2.UP.rotated(rotation) * 750
 	#print(transform.y.normalized())
-	rotate(deg_to_rad(rotateDir * rotateStrength) * delta)
+	
 	
 	if velocity.length() > 0:
 		move_and_slide()
 
 func AffectHealth(value: int) -> void:
-	health = clamp(health + value, 0, 100)
-	UIManager.instance.UpdateHealthBar(health)
+	if CheckCardInDeck("Reinforced Metal"):
+		maxHealth = 150
+	else:
+		maxHealth = 100
+	health = clamp(health + value, 0, maxHealth)
+	UIManager.instance.UpdateHealthBar(float(health)/float(maxHealth)*100.0)
 	if health<=0:
 		get_tree().change_scene_to_file("res://Scenes/main.tscn")
 		# implement goodd dying
+
+func ToggleShield(value: bool) -> void:
+	if value && !$Shield.visible && shieldCooldown <= -5 && CheckCardInDeck("Shield"):
+		shieldCooldown = 15
+		$Shield.visible = true
+		$Shield/Area2D/CollisionShape2D.set_deferred("disabled", false)
+	elif !value:
+		$Shield.visible = false
+		$Shield/Area2D/CollisionShape2D.set_deferred("disabled", true)
 
 func AffectMoney(value: int) -> void:
 	money += value
@@ -145,3 +229,8 @@ func ChangeCardFromDeckToAvailable(target: Card) -> void:
 	elif card3 == target:
 		card3 = null
 		availableCards.append(target)
+
+func CheckCardInDeck(name: String) -> bool:
+	if (card1 != null && name == card1.cardName) || (card2 != null &&  name == card2.cardName) || (card3 != null &&  name == card3.cardName):
+		return true
+	return false

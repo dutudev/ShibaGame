@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxwr43gy4ihe1"]
+
+[ext_resource type="Texture2D" uid="uid://debkmkexfa68i" path="res://Sprites/starsBack.png" id="1_uo1fs"]
+[ext_resource type="Texture2D" uid="uid://cpkbxxujrs8po" path="res://Sprites/starsFront.png" id="2_7bloo"]
+[ext_resource type="PackedScene" uid="uid://b350sy0tn84v1" path="res://Scenes/player.tscn" id="3_rlm2d"]
+
+[node name="Tutorial" type="Node2D"]
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="background1" type="Sprite2D" parent="Background"]
+z_index = -501
+texture = ExtResource("1_uo1fs")
+region_enabled = true
+region_rect = Rect2(0, 0, 36000, 36000)
+
+[node name="background2" type="Sprite2D" parent="Background"]
+z_index = -500
+texture_repeat = 2
+texture = ExtResource("2_7bloo")
+region_enabled = true
+region_rect = Rect2(0, 0, 36000, 36000)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("3_rlm2d")]
+scale = Vector2(0.2, 0.2)
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+scale = Vector2(3, 3)
+zoom = Vector2(0.5, 0.5)
+process_callback = 0
+position_smoothing_speed = 20.0

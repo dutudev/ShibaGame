@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_ack2o")
 cardName = "Shield"
-cardDesc = "When hit, create a front shield for 30 seconds"
+cardDesc = "When hit, create a front shield for 15 seconds"
 cardPrice = 30
 cardIcon = ExtResource("1_wbgwf")
 metadata/_custom_type_script = "uid://dwiwrmjlv5pr7"

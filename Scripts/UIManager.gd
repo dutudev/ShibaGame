@@ -216,6 +216,7 @@ func _on_exit_pressed() -> void:
 		currentUplink.queue_free()
 		currentUplink = null
 		BoundsArrow.visible = false
+		Player.instance.AffectHealth(0)
 		$"MiddleHud(NotHideable)/Arrow/uplinkTooltip".visible = false
 
 func OpenPause(open: bool) -> void:
@@ -349,6 +350,7 @@ func _on_sell_btn_pressed() -> void:
 		$PauseMenu/Panel/Inventory/card1/Image1.texture = getCardIcon(Player.instance.card1)
 		$PauseMenu/Panel/Inventory/card2/Image1.texture = getCardIcon(Player.instance.card2)
 		$PauseMenu/Panel/Inventory/card3/Image1.texture = getCardIcon(Player.instance.card3)
+		Player.instance.AffectHealth(0)
 	elif currentCard != null:
 		$PauseMenu/Panel/Inventory/sellBtn.text = "sure?"
 
