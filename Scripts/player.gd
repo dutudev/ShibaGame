@@ -9,6 +9,7 @@ var baseBullet = preload("res://Scenes/player_bullet.tscn")
 
 var forwardSpeed = 2 # base is 2
 var maxSpeed = 350 # base is 350
+var maxHealth = 100 # base is 100
 var rotateStrength = 250 # base is 250
 var rotateDir = 0.0
 var forwardStrength = 0.0
@@ -23,7 +24,7 @@ var stopShipSound = false
 
 #cardManagement
 @export var allCards: Array[Card]
-var availableCards
+var availableCards: Array[Card]
 var card1: Card
 var card2: Card
 var card3: Card
@@ -49,6 +50,10 @@ func _process(delta: float) -> void:
 			$ShootSfx.pitch_scale = randf_range(0.9, 1.1)
 			$ShootSfx.play()
 	
+	
+	#delete this
+	if Input.is_action_just_pressed("ui_home"):
+		AffectMoney(50)
 	
 	if abs(position.x) >= mapWidth || abs(position.y) >= mapHeight:
 		#print("out of bounds")
@@ -111,7 +116,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 
 func AffectHealth(value: int) -> void:
-	health += value
+	health = clamp(health + value, 0, 100)
 	UIManager.instance.UpdateHealthBar(health)
 	if health<=0:
 		get_tree().change_scene_to_file("res://Scenes/main.tscn")
@@ -122,5 +127,21 @@ func AffectMoney(value: int) -> void:
 	UIManager.instance.UpdateMoneyLabel(money)
 
 func PlayHitSound() -> void:
-	$HitSfx.pitch_scale - randf_range(0.9, 1.1)
+	$HitSfx.pitch_scale = randf_range(0.9, 1.1)
 	$HitSfx.play()
+
+func RemoveAvailableCard(target: Card) -> void:
+	var index = availableCards.find(target)
+	if index != -1:
+		availableCards.remove_at(index)
+
+func ChangeCardFromDeckToAvailable(target: Card) -> void:
+	if card1 == target:
+		card1 = null
+		availableCards.append(target)
+	elif card2 == target:
+		card2 = null
+		availableCards.append(target)
+	elif card3 == target:
+		card3 = null
+		availableCards.append(target)

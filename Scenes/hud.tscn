@@ -42,6 +42,7 @@ bg_color = Color(0, 0, 0, 0.921569)
 bg_color = Color(1, 1, 1, 0.235294)
 
 [node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar", "speedLabel", "moneyLabel", "deckStatus", "deckImages", "uplinkStatus", "chooseImages", "chooseTitles", "chooseDesc", "chooseButtons")]
+process_mode = 3
 script = ExtResource("1_e0onf")
 BoundsTimer = NodePath("MiddleHud(NotHideable)/OutOfBounds/BoundsTimer")
 BoundsTimerKill = NodePath("MiddleHud(NotHideable)/OutOfBounds/BoundsTimerKill")
@@ -60,6 +61,7 @@ chooseDesc = [NodePath("ShopUi/Choose/desc1"), NodePath("ShopUi/Choose2/desc2"),
 chooseButtons = [NodePath("ShopUi/Choose/buy1"), NodePath("ShopUi/Choose2/buy2"), NodePath("ShopUi/Choose3/buy3")]
 
 [node name="MiddleHud(NotHideable)" type="Control" parent="."]
+process_mode = 1
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -116,7 +118,19 @@ rotation = 1.5708
 texture = ExtResource("2_fccik")
 expand_mode = 1
 
+[node name="uplinkTooltip" type="RichTextLabel" parent="MiddleHud(NotHideable)/Arrow"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = -12.0
+offset_right = 104.0
+offset_bottom = 12.0
+pivot_offset = Vector2(12, 12)
+bbcode_enabled = true
+text = "[img=24x24]res://Sprites/rss_feed.svg[/img]"
+scroll_active = false
+
 [node name="MainHud" type="Control" parent="."]
+process_mode = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -209,6 +223,7 @@ anchor_right = 0.5
 grow_horizontal = 2
 
 [node name="uplinkStatus" type="RichTextLabel" parent="MainHud/Deck&Status"]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -309,6 +324,7 @@ expand_mode = 1
 
 [node name="ShopUi" type="Control" parent="."]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -672,7 +688,7 @@ clip_text = true
 icon_alignment = 1
 
 [node name="PauseMenu" type="Control" parent="."]
-process_mode = 3
+process_mode = 2
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -827,10 +843,11 @@ offset_bottom = 360.0
 theme_override_colors/font_color = Color(0.705882, 0.705882, 0.705882, 1)
 theme_override_fonts/font = ExtResource("3_6fbih")
 theme_override_font_sizes/font_size = 36
-text = "Enchanced Thrusters"
+text = "Move forward with an accelerated speed and invincibility when pressing ‘shift’ for 1.5 seconds"
 autowrap_mode = 3
 
 [node name="sellBtn" type="Button" parent="PauseMenu/Panel/Inventory"]
+layout_mode = 0
 offset_left = 45.0
 offset_top = 385.0
 offset_right = 395.0
@@ -878,6 +895,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="pausedsubTitle" type="Label" parent="PauseMenu/Panel/paused/pausedTitle"]
+layout_mode = 0
 offset_top = 28.765
 offset_right = 180.0
 offset_bottom = 95.765
@@ -925,5 +943,10 @@ text = "Exit
 [connection signal="pressed" from="ShopUi/Choose/buy1" to="." method="_on_buy_1_pressed"]
 [connection signal="pressed" from="ShopUi/Choose2/buy2" to="." method="_on_buy_2_pressed"]
 [connection signal="pressed" from="ShopUi/Choose3/buy3" to="." method="_on_buy_3_pressed"]
+[connection signal="pressed" from="ShopUi/Reroll" to="." method="_on_reroll_pressed"]
 [connection signal="pressed" from="ShopUi/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="PauseMenu/Panel/Inventory/card1" to="." method="_on_card_1_pressed"]
+[connection signal="pressed" from="PauseMenu/Panel/Inventory/card2" to="." method="_on_card_2_pressed"]
+[connection signal="pressed" from="PauseMenu/Panel/Inventory/card3" to="." method="_on_card_3_pressed"]
+[connection signal="pressed" from="PauseMenu/Panel/Inventory/sellBtn" to="." method="_on_sell_btn_pressed"]
 [connection signal="pressed" from="PauseMenu/Panel/paused/returnBtn" to="." method="_on_return_btn_pressed"]

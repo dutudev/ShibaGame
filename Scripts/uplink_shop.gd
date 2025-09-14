@@ -60,9 +60,15 @@ func _process(delta: float) -> void:
 	if canOpen && Input.is_action_just_pressed("open_shop"):
 		UIManager.instance.OpenShop(true, true)
 		get_tree().paused = true
+		UIManager.instance.currentUplink = self
 
 func EaseOutExpo(x: float) -> float:
 	if x == 1:
 		return 1.0
 	else:
 		return 1 - pow(2, -10 * x)
+
+
+func _on_tree_exiting() -> void:
+	if get_parent().currentState == 2:
+		get_parent().currentTimer = 0

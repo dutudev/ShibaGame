@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Card" load_steps=3 format=3 uid="uid://dlrhal62udoh2"]
 
-[ext_resource type="Texture2D" uid="uid://isuhdms058i6" path="res://Sprites/powerups/emptyplaceholder.png" id="1_c1c26"]
+[ext_resource type="Texture2D" uid="uid://dcppu5bbdi7ht" path="res://Sprites/powerups/rotation.png" id="1_c1c26"]
 [ext_resource type="Script" uid="uid://dwiwrmjlv5pr7" path="res://Scripts/Cards.gd" id="1_o4mcp"]
 
 [resource]
