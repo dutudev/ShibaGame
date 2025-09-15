@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 	currentTimer = clamp(currentTimer, 0, 600)
 	if currentState == 1:
 		UIManager.instance.UpdateUplinkStatus(str("Next Uplink [img=24x24]res://Sprites/rss_feed.svg[/img] In : " , "%0.2f" % currentTimer , "s"), true)
-	elif currentState == 2 && currentTimer <= 30:
+	elif currentState == 2 && currentTimer <= 35:
 		UIManager.instance.UpdateUplinkStatus(str("Uplink [img=24x24]res://Sprites/rss_feed.svg[/img] Leaving In : " , "%0.2f" % currentTimer , "s"), true)
 	if currentTimer <= 0:
 		NextState()

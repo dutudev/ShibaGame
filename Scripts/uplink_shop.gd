@@ -58,6 +58,11 @@ func _process(delta: float) -> void:
 	
 	
 	if canOpen && Input.is_action_just_pressed("open_shop"):
+		if(get_tree().current_scene.name == "Tutorial"):
+			UIManager.instance.currentUplink = self
+			UIManager.instance.OpenShop(true, false)
+			get_tree().paused = true
+			return
 		UIManager.instance.OpenShop(true, true)
 		get_tree().paused = true
 		UIManager.instance.currentUplink = self
@@ -70,5 +75,7 @@ func EaseOutExpo(x: float) -> float:
 
 
 func _on_tree_exiting() -> void:
+	if(get_tree().current_scene.name == "Tutorial"):
+			return
 	if get_parent().currentState == 2:
 		get_parent().currentTimer = 0

@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bhmmeqa40gf3a"]
+
+[ext_resource type="Shader" uid="uid://c3yoehgt0kpbt" path="res://Shaders/IntroGameTransition.gdshader" id="1_rwh7g"]
+
+[resource]
+shader = ExtResource("1_rwh7g")

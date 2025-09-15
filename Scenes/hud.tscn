@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://byltdy5838qfu"]
+[gd_scene load_steps=18 format=3 uid="uid://byltdy5838qfu"]
 
 [ext_resource type="Script" uid="uid://b8efmxrvy5mbb" path="res://Scripts/UIManager.gd" id="1_e0onf"]
 [ext_resource type="Texture2D" uid="uid://dgkdidnbh7wg8" path="res://Sprites/arrow.png" id="2_fccik"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://debfumdqr0dr4" path="res://Sprites/powerups/rcs.png" id="5_43w4t"]
 [ext_resource type="Texture2D" uid="uid://bbjqotghv23o8" path="res://Sprites/powerups/dash.png" id="6_7gr8i"]
 [ext_resource type="Theme" uid="uid://40kryjm4ax6l" path="res://UiStyles/default.tres" id="6_8jye8"]
+[ext_resource type="Material" uid="uid://bhmmeqa40gf3a" path="res://Shaders/IntroGameTransition.tres" id="10_5ep0j"]
+[ext_resource type="Script" uid="uid://b5hiyy131m5qh" path="res://Scripts/intro.gd" id="11_4f5kr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fccik"]
 bg_color = Color(0, 0, 0, 1)
@@ -940,6 +942,15 @@ theme = ExtResource("6_8jye8")
 theme_override_font_sizes/font_size = 20
 text = "Exit
 "
+
+[node name="Intro" type="Panel" parent="."]
+material = ExtResource("10_5ep0j")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_4f5kr")
 
 [connection signal="timeout" from="MiddleHud(NotHideable)/OutOfBounds/BoundsTimer" to="." method="_on_BoundsTimer_timeout"]
 [connection signal="timeout" from="MiddleHud(NotHideable)/OutOfBounds/BoundsTimerKill" to="." method="_on_bounds_timer_kill_timeout"]

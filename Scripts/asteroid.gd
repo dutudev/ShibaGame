@@ -18,6 +18,8 @@ func _physics_process(delta: float) -> void:
 	spawnCooldown -= delta
 	
 	if (Player.instance.position - position).length() > maxDistance && spawnCooldown < 0:
+		if(get_tree().current_scene.name == "Tutorial"):
+			return
 		spawnCooldown = 1
 		#print((Player.instance.position - position).length() > maxDistance , " " , (Player.instance.position - position).length())
 		var angle = randf_range(0, 360)
@@ -30,6 +32,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_tree_exiting() -> void:
+	if(get_tree().current_scene.name == "Tutorial"):
+		return
 	AsteroidManager.instance.RemoveAsteroid(self)
 
 

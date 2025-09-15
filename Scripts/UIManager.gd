@@ -163,6 +163,35 @@ func OpenShop(open: bool, prepareShop: bool) -> void:
 	$ShopUi/Choose/buy1.disabled = false
 	$ShopUi/Choose2/buy2.disabled = false
 	$ShopUi/Choose3/buy3.disabled = false
+	if get_tree().current_scene.name == "Tutorial":
+		$ShopUi/Choose/buy1.disabled = true
+		$ShopUi/Choose3/buy3.disabled = true
+		rerollPrice = 1000
+		$ShopUi/Exit.text = "Leave Uplink"
+		UpdateRerollText(rerollPrice)
+		if currentUplink.name == "UplinkShop":
+			cardChoice2 = Player.instance.allCards[2]
+		else:
+			cardChoice2 = Player.instance.allCards[3]
+		for i in range(3):
+				var cardChoiceCur: Card
+				match i:
+					0:
+						cardChoiceCur = null
+					1:
+						cardChoiceCur = cardChoice2
+					2:
+						cardChoiceCur = null
+				if cardChoiceCur == null:
+					chooseImages[i].texture = null
+					chooseTitles[i].text = ""
+					chooseDesc[i].text = ""
+					chooseButtons[i].text = ""
+				else:
+					chooseImages[i].texture = cardChoiceCur.cardIcon
+					chooseTitles[i].text = cardChoiceCur.cardName
+					chooseDesc[i].text = cardChoiceCur.cardDesc
+					chooseButtons[i].text = str("Buy : " , cardChoiceCur.cardPrice, "$")
 	$ShopUi.visible = open
 	
 
@@ -210,6 +239,11 @@ func _on_exit_pressed() -> void:
 	if $ShopUi/Exit.text == "Leave Uplink":
 		$ShopUi/Exit.text = "sure?"
 	elif$ShopUi/Exit.text == "sure?":
+		if get_tree().current_scene.name == "Tutorial":
+			if currentUplink.name == "UplinkShop" && !Player.instance.CheckCardInDeck("Cannon Upgrade"):
+				return
+			if currentUplink.name == "UplinkShop2" && !Player.instance.CheckCardInDeck("Reinforced Metal"):
+				return
 		Player.instance.AffectHealth(25)
 		get_tree().paused = false
 		OpenShop(false, false)
@@ -281,7 +315,8 @@ func BuyCard(cardToBuy: Card) -> bool:
 				2:
 					Player.instance.card3 = cardToBuy
 			UpdateTopDeck()
-			Player.instance.RemoveAvailableCard(cardToBuy)
+			if get_tree().current_scene.name != "Tutorial":
+				Player.instance.RemoveAvailableCard(cardToBuy)
 			return true
 		else:
 			return false
@@ -297,7 +332,10 @@ func _on_buy_1_pressed() -> void:
 func _on_buy_2_pressed() -> void:
 	if BuyCard(cardChoice2):
 		$ShopUi/Choose2/buy2.disabled = true
-
+		if get_tree().current_scene.name == "Tutorial" && cardChoice2.cardName == "Reinforced Metal":
+			get_tree().paused = false
+			get_tree().change_scene_to_file("res://Scenes/main.tscn")
+			#make anim here
 
 func _on_buy_3_pressed() -> void:
 	if BuyCard(cardChoice3):
@@ -310,7 +348,10 @@ func _on_card_1_pressed() -> void:
 	$PauseMenu/Panel/Inventory/TextureRect.texture = getCardIcon(Player.instance.card1)
 	$PauseMenu/Panel/Inventory/cardTitle.text = Player.instance.card1.cardName
 	$PauseMenu/Panel/Inventory/cardTitle2.text = Player.instance.card1.cardDesc
-	$PauseMenu/Panel/Inventory/sellBtn.text = str("Sell (+", Player.instance.card1.cardPrice/3 ,"$)")
+	if get_tree().current_scene.name == "Tutorial":
+		$PauseMenu/Panel/Inventory/sellBtn.text = str("Sell (+", 40 ,"$)")
+	else:
+		$PauseMenu/Panel/Inventory/sellBtn.text = str("Sell (+", Player.instance.card1.cardPrice/3 ,"$)")
 	$PauseMenu/Panel/Inventory/sellBtn.visible = true
 	currentCard = Player.instance.card1
 
@@ -321,7 +362,10 @@ func _on_card_2_pressed() -> void:
 	$PauseMenu/Panel/Inventory/TextureRect.texture = getCardIcon(Player.instance.card2)
 	$PauseMenu/Panel/Inventory/cardTitle.text = Player.instance.card2.cardName
 	$PauseMenu/Panel/Inventory/cardTitle2.text = Player.instance.card2.cardDesc
-	$PauseMenu/Panel/Inventory/sellBtn.text = str("Sell (+", Player.instance.card2.cardPrice/3 ,"$)")
+	if get_tree().current_scene.name == "Tutorial":
+		$PauseMenu/Panel/Inventory/sellBtn.text = str("Sell (+", 40 ,"$)")
+	else:
+		$PauseMenu/Panel/Inventory/sellBtn.text = str("Sell (+", Player.instance.card2.cardPrice/3 ,"$)")
 	$PauseMenu/Panel/Inventory/sellBtn.visible = true
 	currentCard = Player.instance.card2
 
@@ -332,7 +376,10 @@ func _on_card_3_pressed() -> void:
 	$PauseMenu/Panel/Inventory/TextureRect.texture = getCardIcon(Player.instance.card3)
 	$PauseMenu/Panel/Inventory/cardTitle.text = Player.instance.card3.cardName
 	$PauseMenu/Panel/Inventory/cardTitle2.text = Player.instance.card3.cardDesc
-	$PauseMenu/Panel/Inventory/sellBtn.text = str("Sell (+", Player.instance.card3.cardPrice/3 ,"$)")
+	if get_tree().current_scene.name == "Tutorial":
+		$PauseMenu/Panel/Inventory/sellBtn.text = str("Sell (+", 40 ,"$)")
+	else:
+		$PauseMenu/Panel/Inventory/sellBtn.text = str("Sell (+", Player.instance.card3.cardPrice/3 ,"$)")
 	$PauseMenu/Panel/Inventory/sellBtn.visible = true
 	currentCard = Player.instance.card3
 
@@ -341,7 +388,10 @@ func _on_sell_btn_pressed() -> void:
 	if currentCard != null && $PauseMenu/Panel/Inventory/sellBtn.text == "sure?":
 		Player.instance.ChangeCardFromDeckToAvailable(currentCard)
 		UpdateTopDeck()
-		Player.instance.AffectMoney(currentCard.cardPrice/3)
+		if get_tree().current_scene.name == "Tutorial":
+			Player.instance.AffectMoney(40)
+		else:
+			Player.instance.AffectMoney(currentCard.cardPrice/3)
 		currentCard = null
 		$PauseMenu/Panel/Inventory/TextureRect.texture = null
 		$PauseMenu/Panel/Inventory/cardTitle.text = "Click on item"

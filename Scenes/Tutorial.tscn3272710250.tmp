@@ -1402,44 +1402,41 @@ text = "- click to shoot, it has a cooldown
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TutorialText3" type="RichTextLabel" parent="."]
+[node name="TutorialText3" type="Label" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 2434.0
-offset_top = 197.0
-offset_right = 3527.0
-offset_bottom = 311.0
+offset_left = 2638.0
+offset_top = 193.0
+offset_right = 3295.0
+offset_bottom = 307.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("6_3j26a")
-theme_override_font_sizes/normal_font_size = 26
-bbcode_enabled = true
-text = "- press 'e' to open Uplink [img=24x24]res://Sprites/rss_feed.svg[/img]
-- press 'tab' to show/hide cards
-- On exit, Uplinks [img=24x24]res://Sprites/rss_feed.svg[/img] give you 25hp(health points)"
+theme_override_fonts/font = ExtResource("6_3j26a")
+theme_override_font_sizes/font_size = 26
+text = "- press 'e' to open uplink
+- press 'tab' to show/hide cards"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TutorialText4" type="RichTextLabel" parent="."]
+[node name="TutorialText4" type="Label" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 4216.0
-offset_top = 172.0
-offset_right = 5496.0
-offset_bottom = 286.0
+offset_left = 4489.0
+offset_top = 193.0
+offset_right = 5146.0
+offset_bottom = 307.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("6_3j26a")
-theme_override_font_sizes/normal_font_size = 26
-bbcode_enabled = true
+theme_override_fonts/font = ExtResource("6_3j26a")
+theme_override_font_sizes/font_size = 26
 text = "- press 'esc' to open inventory and sell your card to be able to buy the other one
-- buy the card in the Uplink [img=24x24]res://Sprites/rss_feed.svg[/img] to finish the tutorial"
+- buy the card in the shop to finish the tutorial"
 horizontal_alignment = 1
 vertical_alignment = 1
 
