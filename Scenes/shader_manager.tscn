@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cf2trt4dy2yjv"]
+
+[ext_resource type="Script" uid="uid://crgoro1w3rtsb" path="res://Scripts/shader_manager.gd" id="1_jk443"]
+
+[node name="ShaderManager" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_jk443")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://3c8oqodclr2c"]
+[gd_scene load_steps=13 format=3 uid="uid://3c8oqodclr2c"]
 
 [ext_resource type="Texture2D" uid="uid://debkmkexfa68i" path="res://Sprites/starsBack.png" id="1_b7htb"]
 [ext_resource type="Script" uid="uid://di4gtofsycga6" path="res://Scripts/MainMenuUi.gd" id="1_kqm77"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b8d7kwc38bc57" path="res://Sprites/astrodeckLogo.png" id="4_yl13b"]
 [ext_resource type="Theme" uid="uid://40kryjm4ax6l" path="res://UiStyles/default.tres" id="6_v10og"]
 [ext_resource type="Shader" uid="uid://cjplj4l27shct" path="res://Shaders/transition.gdshader" id="8_snj4n"]
+[ext_resource type="Texture2D" uid="uid://bxum8mxs0t2tb" path="res://Sprites/transitionBackground.png" id="9_qmf6k"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v10og"]
 shader = ExtResource("2_yl13b")
@@ -19,6 +20,7 @@ shader_parameter/progress = 0.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wofhc"]
 shader = ExtResource("8_snj4n")
 shader_parameter/progress = 0.0
+shader_parameter/backgroudImage = ExtResource("9_qmf6k")
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_kqm77")
@@ -144,4 +146,5 @@ grow_vertical = 2
 texture = ExtResource("1_b7htb")
 expand_mode = 1
 
+[connection signal="pressed" from="UI/buttons/tutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="UI/buttons/play" to="." method="_on_play_pressed"]

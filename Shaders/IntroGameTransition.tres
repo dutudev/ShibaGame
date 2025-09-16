@@ -1,6 +1,9 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bhmmeqa40gf3a"]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bhmmeqa40gf3a"]
 
 [ext_resource type="Shader" uid="uid://c3yoehgt0kpbt" path="res://Shaders/IntroGameTransition.gdshader" id="1_rwh7g"]
+[ext_resource type="Texture2D" uid="uid://bxum8mxs0t2tb" path="res://Sprites/transitionBackground.png" id="2_pb3jh"]
 
 [resource]
 shader = ExtResource("1_rwh7g")
+shader_parameter/progress = 0.0
+shader_parameter/backgroudImage = ExtResource("2_pb3jh")

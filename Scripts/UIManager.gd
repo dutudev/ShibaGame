@@ -198,6 +198,9 @@ func OpenShop(open: bool, prepareShop: bool) -> void:
 func PrepareShop() -> void:
 	
 	#choose cards
+	$ShopUi/Choose/buy1.disabled = false
+	$ShopUi/Choose2/buy2.disabled = false
+	$ShopUi/Choose3/buy3.disabled = false
 	var cardToChooseFrom: Array
 	cardToChooseFrom = Player.instance.availableCards.duplicate()
 	var randomChoice = randi_range(0, cardToChooseFrom.size() - 1)

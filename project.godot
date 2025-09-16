@@ -15,6 +15,10 @@ run/main_scene="uid://3c8oqodclr2c"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+ShaderManager="*res://Scripts/shader_manager.gd"
+
 [display]
 
 window/size/viewport_width=1100
@@ -86,3 +90,10 @@ go_back={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+
+[shader_globals]
+
+positionOffset={
+"type": "vec2",
+"value": Vector2(0, 0)
+}

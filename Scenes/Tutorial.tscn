@@ -1354,6 +1354,7 @@ text = "Exit
 "
 
 [node name="Intro" type="Panel" parent="CanvasLayer"]
+texture_repeat = 2
 material = ExtResource("14_qae3o")
 anchors_preset = 15
 anchor_right = 1.0

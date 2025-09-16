@@ -44,4 +44,4 @@ func NextState() -> void:
 			add_child(uplinkInstance)
 			UIManager.instance.SetUplink(uplinkInstance)
 			#change how we show text
-			UIManager.instance.UpdateUplinkStatus(str("Uplink [img=24x24]res://Sprites/rss_feed.svg[/img] Leaving In : 120s"), false)
+			UIManager.instance.UpdateUplinkStatus(str("Next Uplink [img=24x24]res://Sprites/rss_feed.svg[/img] In : 0s"), false)
