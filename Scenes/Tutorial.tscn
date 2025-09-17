@@ -88,7 +88,7 @@ position = Vector2(1135, 172)
 [node name="Asteroid3" parent="." instance=ExtResource("4_7bloo")]
 position = Vector2(1484, 115)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar", "speedLabel", "moneyLabel", "deckStatus", "deckImages", "uplinkStatus", "chooseImages", "chooseTitles", "chooseDesc", "chooseButtons")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar", "speedLabel", "moneyLabel", "deckStatus", "deckImages", "uplinkStatus", "chooseImages", "chooseTitles", "chooseDesc", "chooseButtons", "transScreen")]
 process_mode = 3
 script = ExtResource("5_brn58")
 BoundsTimer = NodePath("MiddleHud(NotHideable)/OutOfBounds/BoundsTimer")
@@ -106,6 +106,7 @@ chooseImages = [NodePath("ShopUi/Choose/image1"), NodePath("ShopUi/Choose2/image
 chooseTitles = [NodePath("ShopUi/Choose/title1"), NodePath("ShopUi/Choose2/title2"), NodePath("ShopUi/Choose3/title3")]
 chooseDesc = [NodePath("ShopUi/Choose/desc1"), NodePath("ShopUi/Choose2/desc2"), NodePath("ShopUi/Choose3/desc3")]
 chooseButtons = [NodePath("ShopUi/Choose/buy1"), NodePath("ShopUi/Choose2/buy2"), NodePath("ShopUi/Choose3/buy3")]
+transScreen = NodePath("Intro")
 
 [node name="MiddleHud(NotHideable)" type="Control" parent="CanvasLayer"]
 process_mode = 1
@@ -1494,4 +1495,5 @@ autostart = true
 [connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/Inventory/card3" to="CanvasLayer" method="_on_card_3_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/Inventory/sellBtn" to="CanvasLayer" method="_on_sell_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/paused/returnBtn" to="CanvasLayer" method="_on_return_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/paused/exitBtn" to="CanvasLayer" method="_on_exit_btn_pressed"]
 [connection signal="timeout" from="startTimer" to="." method="_on_start_timer_timeout"]

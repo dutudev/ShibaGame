@@ -13,7 +13,7 @@ void fragment() {
 	vec2 normalizedUV = vec2((UV.x * (1100.0 / 700.0) / (1408.0 / 768.0)), UV.y) * 1.5;
 	normalizedUV.x += positionOffset.x;
 	normalizedUV.y += positionOffset.y;
-	vec4 tex = clamp(texture(backgroudImage, fract(normalizedUV)) * 0.1, 0.0, 1.0);
+	vec4 tex = clamp(texture(backgroudImage, fract(normalizedUV)) * 0.15, 0.0, 1.0);
 	COLOR = vec4(tex.x, tex.y, tex.z, step(uv.x, progress));
 }
 

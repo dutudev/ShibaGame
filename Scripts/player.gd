@@ -194,7 +194,8 @@ func AffectHealth(value: int) -> void:
 	health = clamp(health + value, 0, maxHealth)
 	UIManager.instance.UpdateHealthBar(float(health)/float(maxHealth)*100.0)
 	if health<=0:
-		get_tree().change_scene_to_file("res://Scenes/main.tscn")
+		UIManager.instance.GameOver()
+		#get_tree().change_scene_to_file("res://Scenes/main.tscn")
 		# implement goodd dying
 
 func ToggleShield(value: bool) -> void:

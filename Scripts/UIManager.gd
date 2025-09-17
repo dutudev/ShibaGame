@@ -20,6 +20,10 @@ extends CanvasLayer
 @export var chooseDesc: Array[Label]
 @export var chooseButtons: Array[Button]
 
+@export var endScreen : Control
+@export var smallStats : RichTextLabel
+@export var transScreen : Control
+
 
 var isOut = false
 var isPaused = false
@@ -41,6 +45,8 @@ var cardChoice3: Card
 var rerollPrice = 10
 var currentCard: Card = null
 
+var gameOver = false
+var uplinksOpened = 0
 
 static var instance: UIManager
 # Called when the node enters the scene tree for the first time.
@@ -56,7 +62,7 @@ func _process(delta: float) -> void:
 		BoundsLabel.text = "Out Of Bounds\n" + str(int(ceil(BoundsTimerKill.time_left)))
 		var dirToMiddle = Vector2.ZERO - Player.instance.position
 		BoundsArrow.rotation_degrees = rad_to_deg(atan2(dirToMiddle.y, dirToMiddle.x))
-	if Input.is_action_just_pressed("pause"):
+	if Input.is_action_just_pressed("pause") && !gameOver:
 		if $ShopUi.visible && !isPaused:
 			isPaused = true
 			get_tree().paused = true
@@ -287,6 +293,10 @@ func _on_return_btn_pressed() -> void:
 		get_tree().paused = false
 		OpenPause(false)
 
+
+func _on_exit_btn_pressed() -> void:
+	transScreen.StartOutro("mainMenu")
+
 func UpdateTopDeck() -> void:
 	deckImages[0].texture = getCardIcon(Player.instance.card1)
 	deckImages[1].texture = getCardIcon(Player.instance.card2)
@@ -422,10 +432,25 @@ func UpdateUplinkStatus(text: String, visible: bool):
 
 func DeleteCurrentUplink() -> void:
 	if currentUplink != null:
+		uplinksOpened += 1
 		currentUplink.queue_free()
 		currentUplink = null
 		BoundsArrow.visible = false
 		$"MiddleHud(NotHideable)/Arrow/uplinkTooltip".visible = false
+
+
+func GameOver() -> void:
+	gameOver = true
+	get_tree().paused = true
+	endScreen.visible = true
+	smallStats.text = str("Final score - " , Player.instance.money , "$\nUplinks [img=24x24]res://Sprites/rss_feed.svg[/img] opened - ", uplinksOpened)
+
+func _on_retry_pressed() -> void:
+	transScreen.StartOutro("main")
+
+func _on_main_menu_pressed() -> void:
+	transScreen.StartOutro("mainMenu")
+
 
 func EaseOutExpo(x: float) -> float:
 	if x == 1:
