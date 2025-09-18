@@ -43,7 +43,7 @@ bg_color = Color(0, 0, 0, 0.921569)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ep0j"]
 bg_color = Color(1, 1, 1, 0.235294)
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar", "speedLabel", "moneyLabel", "deckStatus", "deckImages", "uplinkStatus", "chooseImages", "chooseTitles", "chooseDesc", "chooseButtons", "endScreen", "smallStats", "transScreen")]
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar", "speedLabel", "moneyLabel", "deckStatus", "deckImages", "uplinkStatus", "balanceText", "chooseImages", "chooseTitles", "chooseDesc", "chooseButtons", "endScreen", "smallStats", "transScreen")]
 process_mode = 3
 script = ExtResource("1_e0onf")
 BoundsTimer = NodePath("MiddleHud(NotHideable)/OutOfBounds/BoundsTimer")
@@ -57,6 +57,7 @@ moneyLabel = NodePath("MainHud/Currency")
 deckStatus = NodePath("MainHud/Deck&Status")
 deckImages = [NodePath("MainHud/Deck&Status/Holder/Image1"), NodePath("MainHud/Deck&Status/Holder2/Image2"), NodePath("MainHud/Deck&Status/Holder3/Image3")]
 uplinkStatus = NodePath("MainHud/Deck&Status/uplinkStatus")
+balanceText = NodePath("ShopUi/money")
 chooseImages = [NodePath("ShopUi/Choose/image1"), NodePath("ShopUi/Choose2/image2"), NodePath("ShopUi/Choose3/image3")]
 chooseTitles = [NodePath("ShopUi/Choose/title1"), NodePath("ShopUi/Choose2/title2"), NodePath("ShopUi/Choose3/title3")]
 chooseDesc = [NodePath("ShopUi/Choose/desc1"), NodePath("ShopUi/Choose2/desc2"), NodePath("ShopUi/Choose3/desc3")]
@@ -645,6 +646,26 @@ pivot_offset = Vector2(256, 64)
 theme_override_fonts/normal_font = ExtResource("3_6fbih")
 theme_override_font_sizes/normal_font_size = 60
 text = "Uplink://Shop"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="money" type="RichTextLabel" parent="ShopUi"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -206.06
+offset_right = 256.0
+offset_bottom = -78.06
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(256, 64)
+theme_override_fonts/normal_font = ExtResource("3_6fbih")
+theme_override_font_sizes/normal_font_size = 32
+text = "Balance : 67$"
 horizontal_alignment = 1
 vertical_alignment = 1
 

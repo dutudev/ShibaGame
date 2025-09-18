@@ -6,8 +6,9 @@ const mapHeight = 8000
 const mapWidth = 8000
 
 var baseBullet = preload("res://Scenes/player_bullet.tscn")
+@export var camera: Camera2D
 
-var forwardSpeed = 2 # base is 2
+var forwardSpeed = 4 # base is 4
 var maxSpeed = 350 # base is 350
 var maxHealth = 100 # base is 100
 var rotateStrength = 250 # base is 250
@@ -150,6 +151,8 @@ func _process(delta: float) -> void:
 	elif $ShipEngineSfx.volume_linear < 0.8:
 		$ShipEngineSfx.volume_linear = clamp($ShipEngineSfx.volume_linear + delta, 0, 0.8)
 	
+	#var zoomCam = lerp(0.5, 0.2, velocity.length()/450)
+	#camera.zoom = Vector2.ONE * zoomCam
 
 	
 	
@@ -162,7 +165,7 @@ func _physics_process(delta: float) -> void:
 		rotateStrength = 250
 	
 	if CheckCardInDeck("Enhanced Thrusters"):
-		forwardSpeed = 4
+		forwardSpeed = 8
 		maxSpeed = 400 # base is 350
 	else:
 		forwardSpeed = 2 # base is 2

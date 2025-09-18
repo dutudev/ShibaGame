@@ -32,11 +32,12 @@ func _process(delta: float) -> void:
 		transAnimProgress += delta / 2
 		$UI/Transition.material.set_shader_parameter("progress", lerp(0.0, 1.0, clamp(transAnimProgress, 0.0, 1.0)))
 		if(transAnimProgress >= 1.5):
-			var status = ResourceLoader.load_threaded_get_status(str("res://Scenes/", sceneToGoTo , ".tscn"))
-			if status == ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED:
-				var packedScene = ResourceLoader.load_threaded_get(str("res://Scenes/", sceneToGoTo , ".tscn"))
-				if packedScene:
-					get_tree().change_scene_to_packed(packedScene)
+			get_tree().change_scene_to_file(str("res://Scenes/", sceneToGoTo , ".tscn"))
+			#var status = ResourceLoader.load_threaded_get_status(str("res://Scenes/", sceneToGoTo , ".tscn"))
+			#if status == ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED:
+			#	var packedScene = ResourceLoader.load_threaded_get(str("res://Scenes/", sceneToGoTo , ".tscn"))
+			#	if packedScene:
+			#		get_tree().change_scene_to_packed(packedScene)
 		
 
 func _on_play_pressed() -> void:
@@ -51,7 +52,7 @@ func GoToScene(scene: String) -> void:
 	sceneToGoTo = scene
 	animTrans = true
 	$UI/Transition.visible = true
-	ResourceLoader.load_threaded_request(str("res://Scenes/", sceneToGoTo , ".tscn"))
+	#ResourceLoader.load_threaded_request(str("res://Scenes/", sceneToGoTo , ".tscn"))
 
 
 func _on_tutorial_pressed() -> void:

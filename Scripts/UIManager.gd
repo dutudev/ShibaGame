@@ -15,6 +15,7 @@ extends CanvasLayer
 @export var deckImages: Array[TextureRect]
 @export var uplinkStatus: RichTextLabel
 
+@export var balanceText: RichTextLabel
 @export var chooseImages: Array[TextureRect]
 @export var chooseTitles: Array[Label]
 @export var chooseDesc: Array[Label]
@@ -165,6 +166,7 @@ func OpenShop(open: bool, prepareShop: bool) -> void:
 		rerollPrice = 10
 		$ShopUi/Exit.text = "Leave Uplink"
 		UpdateRerollText(rerollPrice)
+		UpdateBalanceText()
 		PrepareShop()
 	$ShopUi/Choose/buy1.disabled = false
 	$ShopUi/Choose2/buy2.disabled = false
@@ -238,11 +240,15 @@ func _on_reroll_pressed() -> void:
 	if Player.instance.money >= rerollPrice:
 		Player.instance.AffectMoney(-rerollPrice)
 		rerollPrice += 5
+		UpdateBalanceText()
 		UpdateRerollText(rerollPrice)
 		PrepareShop()
 
 func UpdateRerollText(price: int) -> void:
 	$ShopUi/Reroll.text = str("Reroll : ", price, "$")
+
+func UpdateBalanceText() -> void:
+	balanceText.text = str("Balance : ", Player.instance.money)
 
 func _on_exit_pressed() -> void:
 	if $ShopUi/Exit.text == "Leave Uplink":
@@ -255,6 +261,7 @@ func _on_exit_pressed() -> void:
 				return
 		Player.instance.AffectHealth(25)
 		get_tree().paused = false
+		uplinksOpened += 1
 		OpenShop(false, false)
 		currentUplink.queue_free()
 		currentUplink = null
@@ -320,6 +327,7 @@ func BuyCard(cardToBuy: Card) -> bool:
 		
 		if haveSpace:
 			Player.instance.AffectMoney(-cardToBuy.cardPrice)
+			UpdateBalanceText()
 			match card:
 				0:
 					Player.instance.card1 = cardToBuy
@@ -432,7 +440,6 @@ func UpdateUplinkStatus(text: String, visible: bool):
 
 func DeleteCurrentUplink() -> void:
 	if currentUplink != null:
-		uplinksOpened += 1
 		currentUplink.queue_free()
 		currentUplink = null
 		BoundsArrow.visible = false

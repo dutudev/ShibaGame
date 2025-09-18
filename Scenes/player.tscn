@@ -47,6 +47,8 @@ radius = 155.579
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 scale = Vector2(0.6, 0.6)
 motion_mode = 1
+wall_min_slide_angle = 0.0
+safe_margin = 0.05
 script = ExtResource("1_cvnsp")
 allCards = Array[ExtResource("2_qqcod")]([ExtResource("3_igrcy"), ExtResource("4_fs7ks"), ExtResource("5_l6n3p"), ExtResource("6_olqyp"), ExtResource("7_wpjfl"), ExtResource("8_bi64h"), ExtResource("9_2ijsl"), ExtResource("10_p1odr"), ExtResource("11_0gysh"), ExtResource("12_vfarp"), ExtResource("13_y6uwr")])
 

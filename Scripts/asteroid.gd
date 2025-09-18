@@ -22,12 +22,26 @@ func _physics_process(delta: float) -> void:
 			return
 		spawnCooldown = 1
 		#print((Player.instance.position - position).length() > maxDistance , " " , (Player.instance.position - position).length())
-		var angle = randf_range(0, 360)
+		var angle # maybe change this to come in front of the player
+		var randomChance = randi_range(1, 10)
+		if Player.instance.velocity.length() > 50 && randomChance < 4:
+			angle = rad_to_deg(atan2(Player.instance.velocity.normalized().y, Player.instance.velocity.normalized().x)) + randf_range(-45, 45)
+		else:
+			angle = randf_range(0, 360)
 		freeze = true
 		global_transform.origin = Player.instance.position + Vector2(cos(deg_to_rad(angle)), sin(deg_to_rad(angle))).normalized() * randi_range(AsteroidManager.instance.minDistance, AsteroidManager.instance.maxDistance)
 		freeze = false
 		linear_velocity = Vector2.ZERO
-		linear_velocity = ((Player.instance.position - position +  Vector2(randf_range(-2, 2), randf_range(-2, 2))).normalized()) * randi_range(200, 300)
+		var posToPlayer = Player.instance.position - position
+		var posToPredict = (Player.instance.position + Player.instance.velocity * 2.0) - position
+		var finalPos
+		
+		if randomChance < 4:
+			finalPos = posToPlayer
+		else:
+			finalPos = posToPredict
+		linear_velocity = ((finalPos +  Vector2(randf_range(-8, 8), randf_range(-8, 8))).normalized()) * randi_range(200, 300)
+		
 		#print((Player.instance.position - position).length())
 
 

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Event" load_steps=2 format=3 uid="uid://nagto4v01m3r"]
+
+[ext_resource type="Script" uid="uid://rbut4wy4u4we" path="res://Scripts/Event.gd" id="1_drv55"]
+
+[resource]
+script = ExtResource("1_drv55")
+name = ""
+duration = 0.0
+difficulty = 0
+metadata/_custom_type_script = "uid://rbut4wy4u4we"

@@ -1,9 +1,8 @@
 class_name AsteroidManager
 extends Node2D
 
-const maxAsteroids = 10
-const minDistance = 1300
-const maxDistance = 1350
+const minDistance = 1350
+const maxDistance = 1400
 
 var asteroid = preload("res://Scenes/asteroid.tscn")
 
@@ -11,6 +10,8 @@ var asteroid = preload("res://Scenes/asteroid.tscn")
 
 var asteroidList = Array([])
 var asteroidSpawnCooldown = 0.0 # This will be set to one second so asteroids dont come piling in
+var maxAsteroids = 5 # base is 5 currently
+var currentTimeInGameAsteroid = 0.0
 
 static var instance:AsteroidManager
 
@@ -26,6 +27,10 @@ func _process(delta: float) -> void:
 		asteroidSpawnCooldown = 1.5
 		SpawnAsteroid()
 	asteroidSpawnCooldown -= delta
+	currentTimeInGameAsteroid += delta
+	if(currentTimeInGameAsteroid >= 60 && maxAsteroids < 35):
+		currentTimeInGameAsteroid = 0
+		maxAsteroids += 5
 
 
 func SpawnAsteroid() -> void:
@@ -38,7 +43,7 @@ func SpawnAsteroid() -> void:
 	var angle2 = randf_range(0, 360)
 	var positionToSet = Player.instance.position + Vector2(cos(deg_to_rad(angle)), sin(deg_to_rad(angle))) * randi_range(minDistance, maxDistance) # change this to min-max distance
 	var spriteIndex = randi_range(0, asteroidSprites.size()-1)
-	var scaleSize = randf_range(0.2, 0.4)
+	var scaleSize = randf_range(0.32, 0.38)
 	var velocityToGive = ((Player.instance.position - positionToSet +  Vector2(randf_range(-200, 200), randf_range(-200, 200))).normalized()) * randi_range(200, 400)
 	add_child(asteroidInstance)
 	asteroidList.append(asteroidInstance)

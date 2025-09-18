@@ -5,3 +5,4 @@ class_name Card
 @export var cardDesc : String
 @export var cardPrice : int
 @export var cardIcon : Texture2D
+@export var special : bool = false
