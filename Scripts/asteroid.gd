@@ -36,12 +36,20 @@ func _physics_process(delta: float) -> void:
 		var posToPredict = (Player.instance.position + Player.instance.velocity * 2.0) - position
 		var finalPos
 		
+		var scaleSize = randf_range(0.32, 0.38)
+		if UIManager.instance.currentEvent != null:
+			if UIManager.instance.currentEvent.name == "Big Asteroids":
+				scaleSize = randf_range(0.45, 0.5)
+			elif UIManager.instance.currentEvent.name == "Small Asteroids":
+				scaleSize = randf_range(0.24, 0.3)
+		
 		if randomChance < 4:
 			finalPos = posToPlayer
 		else:
 			finalPos = posToPredict
 		linear_velocity = ((finalPos +  Vector2(randf_range(-8, 8), randf_range(-8, 8))).normalized()) * randi_range(200, 300)
-		
+		get_node("Sprite2D").scale = Vector2.ONE * scaleSize
+		get_node("CollisionShape2D").scale = Vector2.ONE * (scaleSize + 0.05)
 		#print((Player.instance.position - position).length())
 
 
@@ -66,6 +74,8 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 		if !Player.instance.dashing:
 			Player.instance.PlayHitSound()
 			Player.instance.AffectHealth(-25)
+			if UIManager.instance.currentEvent != null && UIManager.instance.currentEvent.name == "Small Asteroids":
+				Player.instance.AffectHealth(-25)
 			Player.instance.velocity = Player.instance.velocity.normalized() * Player.instance.velocity.length() / 2
 			Player.instance.ToggleShield(true)
 		var asteroidParticlesInstance = asteroidParticles.instantiate()

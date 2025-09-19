@@ -14,6 +14,7 @@ extends CanvasLayer
 @export var deckStatus: Control
 @export var deckImages: Array[TextureRect]
 @export var uplinkStatus: RichTextLabel
+@export var eventStatus: RichTextLabel
 
 @export var balanceText: RichTextLabel
 @export var chooseImages: Array[TextureRect]
@@ -38,6 +39,9 @@ var deckTextStartPos = 0.0
 var animateUplinkStatus = false
 var uplinkAnimateProgress = 0.0
 var uplinkVisible = false
+var animateEventStatus = false
+var eventAnimateProgress = 0.0
+var eventVisible = false
 
 var currentUplink: Node = null
 var cardChoice1: Card
@@ -45,6 +49,8 @@ var cardChoice2: Card
 var cardChoice3: Card
 var rerollPrice = 10
 var currentCard: Card = null
+
+var currentEvent: Event = null
 
 var gameOver = false
 var uplinksOpened = 0
@@ -82,7 +88,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("hide_deck") && !get_tree().paused:
 		hideDeck = !hideDeck
 		deckStartPos = $"MainHud/Deck&Status".position.y
-		deckTextStartPos = $"MainHud/Deck&Status/uplinkStatus".position.y
+		deckTextStartPos = $"MainHud/Deck&Status/StatusContainer".position.y
 		if hideDeck:
 			deckDuration = 1 - deckStartPos / -85.0 * 0.5
 		else:
@@ -95,11 +101,25 @@ func _process(delta: float) -> void:
 	if animateUplinkStatus:
 		uplinkAnimateProgress += delta
 		if uplinkVisible:
-			uplinkStatus.self_modulate = Color(1, 1, 1, lerp(0, 1, clamp(EaseOutExpo(uplinkAnimateProgress), 0, 1)))
+			uplinkStatus.custom_minimum_size = Vector2(0, lerp(0, 30, clamp(EaseOutExpo(uplinkAnimateProgress), 0, 1)))
+			uplinkStatus.self_modulate = Color(1, 1, 1, lerp(0, 1, clamp(EaseOutExpo(uplinkAnimateProgress - 0.2), 0, 1)))
 		else:
+			uplinkStatus.custom_minimum_size = Vector2(0, lerp(30, 0, clamp(EaseOutExpo(uplinkAnimateProgress - 0.2), 0, 1)))
 			uplinkStatus.self_modulate = Color(1, 1, 1, lerp(1, 0, clamp(EaseOutExpo(uplinkAnimateProgress), 0, 1)))
-		if clamp(EaseOutExpo(uplinkAnimateProgress), 0, 1) == 1:
+		if clamp(EaseOutExpo(uplinkAnimateProgress - 0.2), 0, 1) == 1:
 			animateUplinkStatus = false
+	
+	if animateEventStatus:
+		eventAnimateProgress += delta
+		if eventVisible:
+			eventStatus.custom_minimum_size = Vector2(0, lerp(0, 30, clamp(EaseOutExpo(eventAnimateProgress), 0, 1)))
+			eventStatus.self_modulate = Color(1, 1, 1, lerp(0, 1, clamp(EaseOutExpo(eventAnimateProgress - 0.2), 0, 1)))
+		else:
+			eventStatus.custom_minimum_size = Vector2(0, lerp(30, 0, clamp(EaseOutExpo(eventAnimateProgress - 0.2), 0, 1)))
+			eventStatus.self_modulate = Color(1, 1, 1, lerp(1, 0, clamp(EaseOutExpo(eventAnimateProgress), 0, 1)))
+		if clamp(EaseOutExpo(eventAnimateProgress - 0.2), 0, 1) == 1:
+			animateEventStatus = false
+	
 	
 	if currentUplink != null && !isOut:
 		var dirToUplink = currentUplink.position - Player.instance.position
@@ -116,14 +136,14 @@ func HideDeck(delta: float) -> void:
 	if hideDeck:
 		deckProgress += delta / deckDuration
 		$"MainHud/Deck&Status".position.y = lerp(deckStartPos, -85.0, EaseOutExpo(clamp(deckProgress, 0 , 1)))
-		$"MainHud/Deck&Status/uplinkStatus".position.y = lerp(deckTextStartPos, 110.0, EaseOutExpo(clamp(deckProgress, 0 , 1)))
+		$"MainHud/Deck&Status/StatusContainer".position.y = lerp(deckTextStartPos, 110.0, EaseOutExpo(clamp(deckProgress, 0 , 1)))
 		if EaseOutExpo(clamp(deckProgress, 0 , 1)) == 1:
 			isDeckHidden = true
 			isDeckAnimating = false
 	else:
 		deckProgress += delta / deckDuration
 		$"MainHud/Deck&Status".position.y = lerp(deckStartPos, 0.0, EaseOutExpo(clamp(deckProgress, 0 , 1)))
-		$"MainHud/Deck&Status/uplinkStatus".position.y = lerp(deckTextStartPos, 80.0, EaseOutExpo(clamp(deckProgress, 0 , 1)))
+		$"MainHud/Deck&Status/StatusContainer".position.y = lerp(deckTextStartPos, 80.0, EaseOutExpo(clamp(deckProgress, 0 , 1)))
 		if EaseOutExpo(clamp(deckProgress, 0 , 1)) == 1:
 			isDeckHidden = false
 			isDeckAnimating = false
@@ -248,7 +268,7 @@ func UpdateRerollText(price: int) -> void:
 	$ShopUi/Reroll.text = str("Reroll : ", price, "$")
 
 func UpdateBalanceText() -> void:
-	balanceText.text = str("Balance : ", Player.instance.money)
+	balanceText.text = str("Balance : ", Player.instance.money , "$")
 
 func _on_exit_pressed() -> void:
 	if $ShopUi/Exit.text == "Leave Uplink":
@@ -409,6 +429,7 @@ func _on_sell_btn_pressed() -> void:
 	if currentCard != null && $PauseMenu/Panel/Inventory/sellBtn.text == "sure?":
 		Player.instance.ChangeCardFromDeckToAvailable(currentCard)
 		UpdateTopDeck()
+		UpdateBalanceText()
 		if get_tree().current_scene.name == "Tutorial":
 			Player.instance.AffectMoney(40)
 		else:
@@ -437,6 +458,23 @@ func UpdateUplinkStatus(text: String, visible: bool):
 		uplinkVisible = visible
 	 # maybe add anim
 
+func UpdateEventStatus(text: String, visible: bool):
+	eventStatus.text = text
+	if eventVisible != visible:
+		eventAnimateProgress = 0.0
+		if visible:
+			eventStatus.self_modulate = Color(1, 1, 1, 0)
+		else:
+			eventStatus.self_modulate = Color(1, 1, 1, 1)
+		animateEventStatus = true
+		eventVisible = visible
+	 # maybe add anim
+
+func ResetCurrentEvent() -> void:
+	currentEvent = null
+
+func ChangeCurrentEvent(ev: Event) -> void:
+	currentEvent = ev
 
 func DeleteCurrentUplink() -> void:
 	if currentUplink != null:
@@ -460,7 +498,7 @@ func _on_main_menu_pressed() -> void:
 
 
 func EaseOutExpo(x: float) -> float:
-	if x == 1:
+	if x >= 0.95:
 		return 1.0
 	else:
 		return 1 - pow(2, -10 * x)

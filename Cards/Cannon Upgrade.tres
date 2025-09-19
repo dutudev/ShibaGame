@@ -9,4 +9,5 @@ cardName = "Cannon Upgrade"
 cardDesc = "Cannon cooldown decreased by 50%"
 cardPrice = 32
 cardIcon = ExtResource("1_0q0sb")
+special = false
 metadata/_custom_type_script = "uid://dwiwrmjlv5pr7"

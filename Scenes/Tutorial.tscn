@@ -88,7 +88,7 @@ position = Vector2(1135, 172)
 [node name="Asteroid3" parent="." instance=ExtResource("4_7bloo")]
 position = Vector2(1484, 115)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar", "speedLabel", "moneyLabel", "deckStatus", "deckImages", "uplinkStatus", "chooseImages", "chooseTitles", "chooseDesc", "chooseButtons", "transScreen")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar", "speedLabel", "moneyLabel", "deckStatus", "deckImages", "uplinkStatus", "eventStatus", "balanceText", "chooseImages", "chooseTitles", "chooseDesc", "chooseButtons", "transScreen")]
 process_mode = 3
 script = ExtResource("5_brn58")
 BoundsTimer = NodePath("MiddleHud(NotHideable)/OutOfBounds/BoundsTimer")
@@ -101,7 +101,9 @@ speedLabel = NodePath("MainHud/Speed")
 moneyLabel = NodePath("MainHud/Currency")
 deckStatus = NodePath("MainHud/Deck&Status")
 deckImages = [NodePath("MainHud/Deck&Status/Holder/Image1"), NodePath("MainHud/Deck&Status/Holder2/Image2"), NodePath("MainHud/Deck&Status/Holder3/Image3")]
-uplinkStatus = NodePath("MainHud/Deck&Status/uplinkStatus")
+uplinkStatus = NodePath("MainHud/Deck&Status/StatusContainer/uplinkStatus")
+eventStatus = NodePath("MainHud/Deck&Status/StatusContainer/eventStatus")
+balanceText = NodePath("ShopUi/money")
 chooseImages = [NodePath("ShopUi/Choose/image1"), NodePath("ShopUi/Choose2/image2"), NodePath("ShopUi/Choose3/image3")]
 chooseTitles = [NodePath("ShopUi/Choose/title1"), NodePath("ShopUi/Choose2/title2"), NodePath("ShopUi/Choose3/title3")]
 chooseDesc = [NodePath("ShopUi/Choose/desc1"), NodePath("ShopUi/Choose2/desc2"), NodePath("ShopUi/Choose3/desc3")]
@@ -270,21 +272,36 @@ anchor_left = 0.5
 anchor_right = 0.5
 grow_horizontal = 2
 
-[node name="uplinkStatus" type="RichTextLabel" parent="CanvasLayer/MainHud/Deck&Status"]
-self_modulate = Color(1, 1, 1, 0)
+[node name="StatusContainer" type="VBoxContainer" parent="CanvasLayer/MainHud/Deck&Status"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -144.0
-offset_top = 80.0
-offset_right = 144.0
-offset_bottom = 125.0
+offset_left = -250.0
+offset_top = 85.0
+offset_right = 250.0
+offset_bottom = 149.0
 grow_horizontal = 2
+pivot_offset = Vector2(250, 45)
+
+[node name="uplinkStatus" type="RichTextLabel" parent="CanvasLayer/MainHud/Deck&Status/StatusContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("6_3j26a")
 theme_override_font_sizes/normal_font_size = 15
 bbcode_enabled = true
 text = "Next Uplink [img=24x24]res://Sprites/rss_feed.svg[/img] In : 25.55 s"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="eventStatus" type="RichTextLabel" parent="CanvasLayer/MainHud/Deck&Status/StatusContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("6_3j26a")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "Random event in : 30.55 s"
 scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -734,6 +751,26 @@ action_mode = 0
 text = "Leave Uplink"
 clip_text = true
 icon_alignment = 1
+
+[node name="money" type="RichTextLabel" parent="CanvasLayer/ShopUi"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -206.06
+offset_right = 256.0
+offset_bottom = -78.06
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(256, 64)
+theme_override_fonts/normal_font = ExtResource("6_3j26a")
+theme_override_font_sizes/normal_font_size = 32
+text = "Balance : 67$"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ShopTutorial" type="Control" parent="CanvasLayer"]
 process_mode = 3

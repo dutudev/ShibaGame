@@ -43,8 +43,16 @@ func SpawnAsteroid() -> void:
 	var angle2 = randf_range(0, 360)
 	var positionToSet = Player.instance.position + Vector2(cos(deg_to_rad(angle)), sin(deg_to_rad(angle))) * randi_range(minDistance, maxDistance) # change this to min-max distance
 	var spriteIndex = randi_range(0, asteroidSprites.size()-1)
-	var scaleSize = randf_range(0.32, 0.38)
 	var velocityToGive = ((Player.instance.position - positionToSet +  Vector2(randf_range(-200, 200), randf_range(-200, 200))).normalized()) * randi_range(200, 400)
+	var scaleSize = randf_range(0.32, 0.38)
+	if UIManager.instance.currentEvent != null:
+		if UIManager.instance.currentEvent.name == "Big Asteroids":
+			scaleSize = randf_range(0.45, 0.5)
+			velocityToGive = ((Player.instance.position - positionToSet +  Vector2(randf_range(-200, 200), randf_range(-200, 200))).normalized()) * randi_range(100, 150)
+		elif UIManager.instance.currentEvent.name == "Small Asteroids":
+			scaleSize = randf_range(0.24, 0.3)
+			#velocityToGive = ((Player.instance.position - positionToSet +  Vector2(randf_range(-200, 200), randf_range(-200, 200))).normalized()) * randi_range(100, 150)
+	
 	add_child(asteroidInstance)
 	asteroidList.append(asteroidInstance)
 	#print(asteroidList.size())

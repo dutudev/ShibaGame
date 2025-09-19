@@ -9,4 +9,5 @@ cardName = "Gold Asteroids"
 cardDesc = "Asteroids can give even 3$ or 4$"
 cardPrice = 36
 cardIcon = ExtResource("1_j67w0")
+special = false
 metadata/_custom_type_script = "uid://dwiwrmjlv5pr7"

@@ -77,5 +77,5 @@ func EaseOutExpo(x: float) -> float:
 func _on_tree_exiting() -> void:
 	if(get_tree().current_scene.name == "Tutorial"):
 			return
-	if get_parent().currentState == 2:
+	if get_parent().currentUplinkState == 2:
 		get_parent().currentTimer = 0

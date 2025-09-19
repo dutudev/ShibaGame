@@ -4,7 +4,8 @@
 
 [resource]
 script = ExtResource("1_drv55")
-name = ""
-duration = 0.0
+name = "Big Asteroids"
+desc = "Bigger asteroids come towards you but they move slower"
+duration = 45.0
 difficulty = 0
 metadata/_custom_type_script = "uid://rbut4wy4u4we"

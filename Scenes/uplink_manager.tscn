@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1smf4qgdec2e"]
+[gd_scene load_steps=5 format=3 uid="uid://d1smf4qgdec2e"]
 
 [ext_resource type="Script" uid="uid://cw772460it2fi" path="res://Scripts/UplinkManager.gd" id="1_p28i5"]
+[ext_resource type="Resource" uid="uid://nagto4v01m3r" path="res://Events/BigAsteroids.tres" id="2_p3bfg"]
+[ext_resource type="Resource" uid="uid://26qr07am8ncw" path="res://Events/SmallAsteroids.tres" id="3_q2fxv"]
+[ext_resource type="Resource" uid="uid://c31of3mqwmcop" path="res://Events/UplinkOutage.tres" id="4_q2fxv"]
 
 [node name="UplinkManager" type="Node2D"]
 script = ExtResource("1_p28i5")
+allEvents = [ExtResource("2_p3bfg"), ExtResource("3_q2fxv"), ExtResource("4_q2fxv")]

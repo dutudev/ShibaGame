@@ -43,7 +43,7 @@ bg_color = Color(0, 0, 0, 0.921569)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ep0j"]
 bg_color = Color(1, 1, 1, 0.235294)
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar", "speedLabel", "moneyLabel", "deckStatus", "deckImages", "uplinkStatus", "balanceText", "chooseImages", "chooseTitles", "chooseDesc", "chooseButtons", "endScreen", "smallStats", "transScreen")]
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar", "speedLabel", "moneyLabel", "deckStatus", "deckImages", "uplinkStatus", "eventStatus", "balanceText", "chooseImages", "chooseTitles", "chooseDesc", "chooseButtons", "endScreen", "smallStats", "transScreen")]
 process_mode = 3
 script = ExtResource("1_e0onf")
 BoundsTimer = NodePath("MiddleHud(NotHideable)/OutOfBounds/BoundsTimer")
@@ -56,7 +56,8 @@ speedLabel = NodePath("MainHud/Speed")
 moneyLabel = NodePath("MainHud/Currency")
 deckStatus = NodePath("MainHud/Deck&Status")
 deckImages = [NodePath("MainHud/Deck&Status/Holder/Image1"), NodePath("MainHud/Deck&Status/Holder2/Image2"), NodePath("MainHud/Deck&Status/Holder3/Image3")]
-uplinkStatus = NodePath("MainHud/Deck&Status/uplinkStatus")
+uplinkStatus = NodePath("MainHud/Deck&Status/StatusContainer/uplinkStatus")
+eventStatus = NodePath("MainHud/Deck&Status/StatusContainer/eventStatus")
 balanceText = NodePath("ShopUi/money")
 chooseImages = [NodePath("ShopUi/Choose/image1"), NodePath("ShopUi/Choose2/image2"), NodePath("ShopUi/Choose3/image3")]
 chooseTitles = [NodePath("ShopUi/Choose/title1"), NodePath("ShopUi/Choose2/title2"), NodePath("ShopUi/Choose3/title3")]
@@ -228,21 +229,36 @@ anchor_left = 0.5
 anchor_right = 0.5
 grow_horizontal = 2
 
-[node name="uplinkStatus" type="RichTextLabel" parent="MainHud/Deck&Status"]
-self_modulate = Color(1, 1, 1, 0)
+[node name="StatusContainer" type="VBoxContainer" parent="MainHud/Deck&Status"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -144.0
-offset_top = 80.0
-offset_right = 144.0
-offset_bottom = 125.0
+offset_left = -250.0
+offset_top = 85.0
+offset_right = 250.0
+offset_bottom = 149.0
 grow_horizontal = 2
+pivot_offset = Vector2(250, 45)
+
+[node name="uplinkStatus" type="RichTextLabel" parent="MainHud/Deck&Status/StatusContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("3_6fbih")
 theme_override_font_sizes/normal_font_size = 15
 bbcode_enabled = true
 text = "Next Uplink [img=24x24]res://Sprites/rss_feed.svg[/img] In : 25.55 s"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="eventStatus" type="RichTextLabel" parent="MainHud/Deck&Status/StatusContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_6fbih")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "Random event in : 30.55 s"
 scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -1067,6 +1083,7 @@ text = "Exit
 "
 
 [node name="Intro" type="Panel" parent="."]
+visible = false
 material = ExtResource("10_5ep0j")
 anchors_preset = 15
 anchor_right = 1.0
