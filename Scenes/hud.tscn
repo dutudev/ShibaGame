@@ -875,6 +875,7 @@ grow_vertical = 2
 pivot_offset = Vector2(62.5, 62.5)
 theme = ExtResource("6_8jye8")
 icon = ExtResource("3_bjfho")
+flat = true
 icon_alignment = 1
 expand_icon = true
 
@@ -908,6 +909,7 @@ grow_vertical = 2
 pivot_offset = Vector2(62.5, 62.5)
 theme = ExtResource("6_8jye8")
 icon = ExtResource("3_bjfho")
+flat = true
 icon_alignment = 1
 expand_icon = true
 
@@ -941,6 +943,7 @@ grow_vertical = 2
 pivot_offset = Vector2(62.5, 62.5)
 theme = ExtResource("6_8jye8")
 icon = ExtResource("3_bjfho")
+flat = true
 icon_alignment = 1
 expand_icon = true
 
@@ -1179,6 +1182,7 @@ layout_mode = 2
 max_value = 1.0
 step = 0.001
 script = ExtResource("10_piegi")
+busName = "Master"
 
 [node name="sfx" type="Label" parent="PauseMenu/SettingsMenu/Panel/VBoxContainer"]
 layout_mode = 2
@@ -1193,6 +1197,7 @@ layout_mode = 2
 max_value = 1.0
 step = 0.001
 script = ExtResource("10_piegi")
+busName = "Sfx"
 
 [node name="music" type="Label" parent="PauseMenu/SettingsMenu/Panel/VBoxContainer"]
 layout_mode = 2
@@ -1207,6 +1212,7 @@ layout_mode = 2
 max_value = 1.0
 step = 0.001
 script = ExtResource("10_piegi")
+busName = "Music"
 
 [node name="exitSetBtn" type="Button" parent="PauseMenu/SettingsMenu/Panel"]
 layout_mode = 1

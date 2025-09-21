@@ -3,7 +3,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Player.instance.AffectMoney(30)
+	Player.instance.AffectMoney(32)
 	Player.instance.AffectHealth(-25)
 	
 

@@ -16,7 +16,7 @@ func _physics_process(delta: float) -> void:
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var direction = target.position - position
-	$AudioStreamPlayer2D.set_volume_linear(linear_to_db(lerp(0.0, 0.8, clamp(direction.length(), 400.0, 1400.0)/1400.0)))
+	$AudioStreamPlayer2D.set_volume_linear(lerp(0.0, 0.8, clamp(direction.length(), 400.0, 1400.0)/1400.0))
 	linear_velocity += direction.normalized() * speed
 	if linear_velocity.length() >= 300 :
 		linear_velocity = linear_velocity.normalized() * 300

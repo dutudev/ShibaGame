@@ -31,6 +31,7 @@ float worley(vec2 uv, float columns, float rows) {
 void fragment() {
 	vec4 tex = texture(TEXTURE, UV);
 	float worley = worley(UV, 3.0, 5.0);
-	worley = 1.0 - worley;
+	//worley = 1.0 - worley;
+	worley = step(clamp(UV.y-0.2, 0,0.5) ,worley);
 	COLOR = vec4(worley * tex.x, worley * tex.y, worley * tex.z, tex.a);
 }

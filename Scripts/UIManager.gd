@@ -257,10 +257,12 @@ func PrepareShop() -> void:
 		chooseImages[i].texture = cardChoiceCur.cardIcon
 		chooseTitles[i].text = cardChoiceCur.cardName
 		chooseDesc[i].text = cardChoiceCur.cardDesc
-		chooseButtons[i].text = str("Buy : " , cardChoiceCur.cardPrice, "$")
+		if Player.instance.CheckCardInDeck("Black Friday"):
+			chooseButtons[i].text = str("Buy : " , cardChoiceCur.cardPrice * 3/4, "$")
+		else:
+			chooseButtons[i].text = str("Buy : " , cardChoiceCur.cardPrice, "$")
 		if cardChoiceCur.special:
 			chooseImages[i].material = specialCardMat
-			print("okis")
 		else:
 			chooseImages[i].material = null
 
@@ -318,6 +320,18 @@ func OpenPause(open: bool) -> void:
 		$PauseMenu/Panel/Inventory/card1/Image1.texture = getCardIcon(Player.instance.card1)
 		$PauseMenu/Panel/Inventory/card2/Image1.texture = getCardIcon(Player.instance.card2)
 		$PauseMenu/Panel/Inventory/card3/Image1.texture = getCardIcon(Player.instance.card3)
+		if Player.instance.card1 != null && Player.instance.card1.special:
+			$PauseMenu/Panel/Inventory/card1.material = specialCardMat
+		else:
+			$PauseMenu/Panel/Inventory/card1.material = null
+		if Player.instance.card2 != null && Player.instance.card2.special:
+			$PauseMenu/Panel/Inventory/card2.material = specialCardMat
+		else:
+			$PauseMenu/Panel/Inventory/card2.material = null
+		if Player.instance.card3 != null && Player.instance.card3.special:
+			$PauseMenu/Panel/Inventory/card3.material = specialCardMat
+		else:
+			$PauseMenu/Panel/Inventory/card3.material = null
 	else :
 		$PauseMenu.visible = false
 
@@ -360,8 +374,10 @@ func UpdateTopDeck() -> void:
 	deckImages[2].texture = getCardIcon(Player.instance.card3)
 	
 func BuyCard(cardToBuy: Card) -> bool:
-	
-	if Player.instance.money >= cardToBuy.cardPrice:
+	var x = 1
+	if Player.instance.CheckCardInDeck("Black Friday"):
+		x = 3.0/4.0
+	if Player.instance.money >= cardToBuy.cardPrice * x:
 		
 		var haveSpace = false
 		var card = -1
@@ -376,7 +392,7 @@ func BuyCard(cardToBuy: Card) -> bool:
 			card = 2
 		
 		if haveSpace:
-			Player.instance.AffectMoney(-cardToBuy.cardPrice)
+			Player.instance.AffectMoney(-cardToBuy.cardPrice * x)
 			UpdateBalanceText()
 			match card:
 				0:

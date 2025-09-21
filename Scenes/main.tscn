@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cdm7352ad04ti"]
+[gd_scene load_steps=7 format=3 uid="uid://cdm7352ad04ti"]
 
 [ext_resource type="PackedScene" uid="uid://b350sy0tn84v1" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://debkmkexfa68i" path="res://Sprites/starsBack.png" id="2_bo1nx"]
@@ -6,12 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://byltdy5838qfu" path="res://Scenes/hud.tscn" id="5_kry3j"]
 [ext_resource type="PackedScene" uid="uid://vylalah64hrd" path="res://Scenes/asteroid_manager.tscn" id="6_21xkr"]
 [ext_resource type="PackedScene" uid="uid://d1smf4qgdec2e" path="res://Scenes/uplink_manager.tscn" id="7_6bp64"]
-[ext_resource type="Script" uid="uid://rbut4wy4u4we" path="res://Scripts/Event.gd" id="7_344ge"]
-[ext_resource type="Resource" uid="uid://nagto4v01m3r" path="res://Events/BigAsteroids.tres" id="8_d1ilt"]
-[ext_resource type="Resource" uid="uid://cyxy0pb7bsd0e" path="res://Events/HomingMissile.tres" id="8_ynf5e"]
-[ext_resource type="Resource" uid="uid://26qr07am8ncw" path="res://Events/SmallAsteroids.tres" id="9_6iyac"]
-[ext_resource type="Resource" uid="uid://c31of3mqwmcop" path="res://Events/UplinkOutage.tres" id="10_fdnlq"]
-[ext_resource type="Resource" uid="uid://c2ypreb3nq37l" path="res://Events/AsteroidHell.tres" id="12_6iyac"]
 
 [node name="Main" type="Node2D"]
 
@@ -62,4 +56,3 @@ region_rect = Rect2(0, 0, 36000, 36000)
 [node name="AsteroidManager" parent="." instance=ExtResource("6_21xkr")]
 
 [node name="UplinkManager" parent="." instance=ExtResource("7_6bp64")]
-allEvents = Array[ExtResource("7_344ge")]([ExtResource("8_d1ilt"), ExtResource("9_6iyac"), ExtResource("10_fdnlq"), ExtResource("8_ynf5e"), ExtResource("12_6iyac")])

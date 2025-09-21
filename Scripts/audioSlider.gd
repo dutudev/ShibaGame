@@ -1,10 +1,11 @@
 extends HSlider
 
 var busIndex: int
+@export var busName: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	AudioServer.get_bus_index(name)
+	busIndex = AudioServer.get_bus_index(busName)
 	value_changed.connect(ChangeVolume)
 	value = db_to_linear(AudioServer.get_bus_volume_db(busIndex))
 
