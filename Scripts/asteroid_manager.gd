@@ -5,12 +5,16 @@ const minDistance = 1350
 const maxDistance = 1400
 
 var asteroid = preload("res://Scenes/asteroid.tscn")
+var missile = preload("res://Scenes/missile.tscn")
 
 @export var asteroidSprites = Array([])
 
 var asteroidList = Array([])
 var asteroidSpawnCooldown = 0.0 # This will be set to one second so asteroids dont come piling in
 var maxAsteroids = 5 # base is 5 currently
+var missilesList = Array([])
+var missileCooldown = 0.0
+var maxMissiles = 5
 var currentTimeInGameAsteroid = 0.0
 
 static var instance:AsteroidManager
@@ -27,10 +31,22 @@ func _process(delta: float) -> void:
 		asteroidSpawnCooldown = 1.5
 		SpawnAsteroid()
 	asteroidSpawnCooldown -= delta
+	missileCooldown -= delta
 	currentTimeInGameAsteroid += delta
+	
+	if UIManager.instance.currentEvent != null && UIManager.instance.currentEvent.name == "Asteroid Hell":
+		maxAsteroids = 45
+	elif maxAsteroids == 45:
+		maxAsteroids = 15
+		
 	if(currentTimeInGameAsteroid >= 60 && maxAsteroids < 35):
 		currentTimeInGameAsteroid = 0
 		maxAsteroids += 5
+	if(UIManager.instance.currentEvent != null && UIManager.instance.currentEvent.name == "Homing Missiles"):
+		if missilesList.size() < maxMissiles && missileCooldown <= 0:
+			print("yesok")
+			missileCooldown = 2.0
+			SpawnMissile()
 
 
 func SpawnAsteroid() -> void:
@@ -65,3 +81,14 @@ func SpawnAsteroid() -> void:
 
 func RemoveAsteroid(toRemove: Asteroid) -> void:
 	asteroidList.erase(toRemove)
+
+func SpawnMissile() -> void:
+	var missileInstance = missile.instantiate()
+	var angle = randf_range(0, 360)
+	var positionToSet = Player.instance.position + Vector2(cos(deg_to_rad(angle)), sin(deg_to_rad(angle))) * randi_range(minDistance + 100, maxDistance + 100)
+	add_child(missileInstance)
+	missilesList.append(missileInstance)
+	missileInstance.global_position = positionToSet
+
+func RemoveMissile(toRemove: Missile) -> void:
+	missilesList.erase(toRemove)

@@ -20,3 +20,4 @@ script = ExtResource("1_aeyv7")
 asteroidExplodeSfx = [ExtResource("2_2usc8"), ExtResource("3_kbwvr"), ExtResource("4_lhbpb")]
 
 [node name="AsteroidHitSfx" type="AudioStreamPlayer2D" parent="."]
+bus = &"Sfx"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://byltdy5838qfu"]
+[gd_scene load_steps=19 format=3 uid="uid://byltdy5838qfu"]
 
 [ext_resource type="Script" uid="uid://b8efmxrvy5mbb" path="res://Scripts/UIManager.gd" id="1_e0onf"]
 [ext_resource type="Texture2D" uid="uid://dgkdidnbh7wg8" path="res://Sprites/arrow.png" id="2_fccik"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bbjqotghv23o8" path="res://Sprites/powerups/dash.png" id="6_7gr8i"]
 [ext_resource type="Theme" uid="uid://40kryjm4ax6l" path="res://UiStyles/default.tres" id="6_8jye8"]
 [ext_resource type="Material" uid="uid://bhmmeqa40gf3a" path="res://Shaders/IntroGameTransition.tres" id="10_5ep0j"]
+[ext_resource type="Script" uid="uid://bayyy5hwjptdf" path="res://Scripts/audioSlider.gd" id="10_piegi"]
 [ext_resource type="Script" uid="uid://b5hiyy131m5qh" path="res://Scripts/intro.gd" id="11_4f5kr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fccik"]
@@ -43,7 +44,7 @@ bg_color = Color(0, 0, 0, 0.921569)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ep0j"]
 bg_color = Color(1, 1, 1, 0.235294)
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar", "speedLabel", "moneyLabel", "deckStatus", "deckImages", "uplinkStatus", "eventStatus", "balanceText", "chooseImages", "chooseTitles", "chooseDesc", "chooseButtons", "endScreen", "smallStats", "transScreen")]
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("BoundsTimer", "BoundsTimerKill", "BoundsLabel", "BoundsArrow", "healthBar", "cooldownBar", "speedLabel", "moneyLabel", "deckStatus", "deckImages", "uplinkStatus", "eventStatus", "eventPauseTitle", "eventPauseDesc", "balanceText", "chooseImages", "chooseTitles", "chooseDesc", "chooseButtons", "endScreen", "smallStats", "transScreen")]
 process_mode = 3
 script = ExtResource("1_e0onf")
 BoundsTimer = NodePath("MiddleHud(NotHideable)/OutOfBounds/BoundsTimer")
@@ -58,6 +59,8 @@ deckStatus = NodePath("MainHud/Deck&Status")
 deckImages = [NodePath("MainHud/Deck&Status/Holder/Image1"), NodePath("MainHud/Deck&Status/Holder2/Image2"), NodePath("MainHud/Deck&Status/Holder3/Image3")]
 uplinkStatus = NodePath("MainHud/Deck&Status/StatusContainer/uplinkStatus")
 eventStatus = NodePath("MainHud/Deck&Status/StatusContainer/eventStatus")
+eventPauseTitle = NodePath("PauseMenu/Panel/Inventory/EventTitle")
+eventPauseDesc = NodePath("PauseMenu/Panel/Inventory/EventDesc")
 balanceText = NodePath("ShopUi/money")
 chooseImages = [NodePath("ShopUi/Choose/image1"), NodePath("ShopUi/Choose2/image2"), NodePath("ShopUi/Choose3/image3")]
 chooseTitles = [NodePath("ShopUi/Choose/title1"), NodePath("ShopUi/Choose2/title2"), NodePath("ShopUi/Choose3/title3")]
@@ -970,9 +973,9 @@ expand_mode = 1
 [node name="cardTitle" type="Label" parent="PauseMenu/Panel/Inventory"]
 layout_mode = 0
 offset_left = 269.0
-offset_top = 113.0
+offset_top = 100.0
 offset_right = 1181.0
-offset_bottom = 219.0
+offset_bottom = 206.0
 theme_override_fonts/font = ExtResource("3_6fbih")
 theme_override_font_sizes/font_size = 56
 text = "Enchanced Thrusters"
@@ -983,22 +986,54 @@ layout_mode = 0
 offset_left = 269.0
 offset_top = 180.0
 offset_right = 914.0
-offset_bottom = 360.0
+offset_bottom = 285.0
 theme_override_colors/font_color = Color(0.705882, 0.705882, 0.705882, 1)
 theme_override_fonts/font = ExtResource("3_6fbih")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 24
 text = "Move forward with an accelerated speed and invincibility when pressing ‘shift’ for 1.5 seconds"
 autowrap_mode = 3
 
 [node name="sellBtn" type="Button" parent="PauseMenu/Panel/Inventory"]
 layout_mode = 0
-offset_left = 45.0
-offset_top = 385.0
-offset_right = 395.0
-offset_bottom = 450.0
+offset_left = 269.0
+offset_top = 286.0
+offset_right = 610.0
+offset_bottom = 339.0
 theme = ExtResource("6_8jye8")
 theme_override_font_sizes/font_size = 32
 text = "Sell ( +50$ )"
+
+[node name="EventTitle" type="Label" parent="PauseMenu/Panel/Inventory"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 75.0
+offset_top = 30.0
+offset_right = 675.0
+offset_bottom = 66.0
+grow_vertical = 2
+pivot_offset = Vector2(250, 18)
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 22
+text = "Current Event : Uplink Outage (easy)"
+vertical_alignment = 1
+
+[node name="EventDesc" type="Label" parent="PauseMenu/Panel/Inventory"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 75.0
+offset_top = 62.0
+offset_right = 575.0
+offset_bottom = 152.0
+grow_vertical = 2
+pivot_offset = Vector2(250, 18)
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 18
+text = "No uplinks spawn during this event"
+autowrap_mode = 3
 
 [node name="paused" type="Control" parent="PauseMenu/Panel"]
 layout_mode = 1
@@ -1082,8 +1117,116 @@ theme_override_font_sizes/font_size = 20
 text = "Exit
 "
 
-[node name="Intro" type="Panel" parent="."]
+[node name="SettingsMenu" type="Control" parent="PauseMenu"]
+process_mode = 2
 visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="PauseMenu/SettingsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7gr8i")
+
+[node name="title" type="Label" parent="PauseMenu/SettingsMenu/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -129.0
+offset_top = 46.0
+offset_right = 130.0
+offset_bottom = 118.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 54
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/SettingsMenu/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -27.1475
+offset_right = 250.0
+offset_bottom = 27.1475
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="master" type="Label" parent="PauseMenu/SettingsMenu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 25
+text = "Master"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Master" type="HSlider" parent="PauseMenu/SettingsMenu/Panel/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+script = ExtResource("10_piegi")
+
+[node name="sfx" type="Label" parent="PauseMenu/SettingsMenu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 25
+text = "Sfx"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sfx" type="HSlider" parent="PauseMenu/SettingsMenu/Panel/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+script = ExtResource("10_piegi")
+
+[node name="music" type="Label" parent="PauseMenu/SettingsMenu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 25
+text = "Music"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Music" type="HSlider" parent="PauseMenu/SettingsMenu/Panel/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+script = ExtResource("10_piegi")
+
+[node name="exitSetBtn" type="Button" parent="PauseMenu/SettingsMenu/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -156.0
+offset_right = 125.0
+offset_bottom = -121.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("6_8jye8")
+theme_override_font_sizes/font_size = 20
+text = "Exit
+"
+
+[node name="Intro" type="Panel" parent="."]
 material = ExtResource("10_5ep0j")
 anchors_preset = 15
 anchor_right = 1.0
@@ -1106,4 +1249,6 @@ script = ExtResource("11_4f5kr")
 [connection signal="pressed" from="PauseMenu/Panel/Inventory/card3" to="." method="_on_card_3_pressed"]
 [connection signal="pressed" from="PauseMenu/Panel/Inventory/sellBtn" to="." method="_on_sell_btn_pressed"]
 [connection signal="pressed" from="PauseMenu/Panel/paused/returnBtn" to="." method="_on_return_btn_pressed"]
+[connection signal="pressed" from="PauseMenu/Panel/paused/settingsBtn" to="." method="_on_settings_btn_pressed"]
 [connection signal="pressed" from="PauseMenu/Panel/paused/exitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="PauseMenu/SettingsMenu/Panel/exitSetBtn" to="." method="_on_exit_set_btn_pressed"]

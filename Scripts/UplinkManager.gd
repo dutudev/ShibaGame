@@ -74,6 +74,8 @@ func NextStateEvents() -> void:
 			UIManager.instance.ResetCurrentEvent()
 		eventState.show:
 			nextEvent = allEvents[randi_range(0, allEvents.size() - 1)]
+			while(nextEvent == UIManager.instance.currentEvent):
+				nextEvent = allEvents[randi_range(0, allEvents.size() - 1)]
 			#UIManager.instance.ChangeCurrentEvent(nextEvent)
 			#currentTimer = nextEvent.duration
 			currentEventTimer = 6.0

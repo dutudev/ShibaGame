@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Event" load_steps=2 format=3 uid="uid://c2ypreb3nq37l"]
+
+[ext_resource type="Script" uid="uid://rbut4wy4u4we" path="res://Scripts/Event.gd" id="1_uf25d"]
+
+[resource]
+script = ExtResource("1_uf25d")
+name = "Asteroid Hell"
+desc = "bro how many asteroids can this potato of a pc handle?"
+duration = 35.0
+difficulty = 1
+metadata/_custom_type_script = "uid://rbut4wy4u4we"

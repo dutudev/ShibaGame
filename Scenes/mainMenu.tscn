@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://3c8oqodclr2c"]
+[gd_scene load_steps=16 format=3 uid="uid://3c8oqodclr2c"]
 
 [ext_resource type="Texture2D" uid="uid://debkmkexfa68i" path="res://Sprites/starsBack.png" id="1_b7htb"]
 [ext_resource type="Script" uid="uid://di4gtofsycga6" path="res://Scripts/MainMenuUi.gd" id="1_kqm77"]
@@ -9,6 +9,8 @@
 [ext_resource type="Theme" uid="uid://40kryjm4ax6l" path="res://UiStyles/default.tres" id="6_v10og"]
 [ext_resource type="Shader" uid="uid://cjplj4l27shct" path="res://Shaders/transition.gdshader" id="8_snj4n"]
 [ext_resource type="Texture2D" uid="uid://bxum8mxs0t2tb" path="res://Sprites/transitionBackground.png" id="9_qmf6k"]
+[ext_resource type="FontFile" uid="uid://c63kot51ddqq7" path="res://fonts/RobotoMono-SemiBold.ttf" id="10_rn1t7"]
+[ext_resource type="Script" uid="uid://bayyy5hwjptdf" path="res://Scripts/audioSlider.gd" id="11_yij4q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v10og"]
 shader = ExtResource("2_yl13b")
@@ -21,6 +23,9 @@ shader_parameter/progress = 0.0
 shader = ExtResource("8_snj4n")
 shader_parameter/progress = 0.0
 shader_parameter/backgroudImage = ExtResource("9_qmf6k")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8ral"]
+bg_color = Color(0, 0, 0, 0.921569)
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_kqm77")
@@ -146,5 +151,115 @@ grow_vertical = 2
 texture = ExtResource("1_b7htb")
 expand_mode = 1
 
+[node name="SettingsMenu" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="UI/SettingsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o8ral")
+
+[node name="title" type="Label" parent="UI/SettingsMenu/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -129.0
+offset_top = 46.0
+offset_right = 130.0
+offset_bottom = 118.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("10_rn1t7")
+theme_override_font_sizes/font_size = 54
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/SettingsMenu/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -27.1475
+offset_right = 250.0
+offset_bottom = 27.1475
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="master" type="Label" parent="UI/SettingsMenu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_rn1t7")
+theme_override_font_sizes/font_size = 25
+text = "Master"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Master" type="HSlider" parent="UI/SettingsMenu/Panel/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+script = ExtResource("11_yij4q")
+
+[node name="sfx" type="Label" parent="UI/SettingsMenu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_rn1t7")
+theme_override_font_sizes/font_size = 25
+text = "Sfx"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sfx" type="HSlider" parent="UI/SettingsMenu/Panel/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+script = ExtResource("11_yij4q")
+
+[node name="music" type="Label" parent="UI/SettingsMenu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_rn1t7")
+theme_override_font_sizes/font_size = 25
+text = "Music"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Music" type="HSlider" parent="UI/SettingsMenu/Panel/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+script = ExtResource("11_yij4q")
+
+[node name="exitSetBtn" type="Button" parent="UI/SettingsMenu/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -156.0
+offset_right = 125.0
+offset_bottom = -121.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("6_v10og")
+theme_override_font_sizes/font_size = 20
+text = "Exit
+"
+
 [connection signal="pressed" from="UI/buttons/tutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="UI/buttons/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="UI/buttons/settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="UI/SettingsMenu/Panel/exitSetBtn" to="." method="_on_exit_set_btn_pressed"]

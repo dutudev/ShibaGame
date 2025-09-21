@@ -40,6 +40,8 @@ static var instance: Player = null
 func _ready() -> void:
 	availableCards = allCards
 	instance = self
+	#money = 10000
+	#card1 = allCards[11]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

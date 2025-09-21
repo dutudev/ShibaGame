@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://76ipv0gm5wwf"]
+
+[ext_resource type="Texture2D" uid="uid://c0awgcmgfa05n" path="res://Sprites/missile.png" id="1_1g1yv"]
+[ext_resource type="Script" uid="uid://ctvm8cvlg8doq" path="res://Scripts/missile.gd" id="1_u28tq"]
+[ext_resource type="AudioStream" uid="uid://c6nqr8v02amlm" path="res://Sounds/missile.ogg" id="3_bkb3y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u28tq"]
+radius = 34.0909
+
+[sub_resource type="Gradient" id="Gradient_u28tq"]
+offsets = PackedFloat32Array(0.564, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Missile" type="RigidBody2D" groups=["missile"]]
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 10
+script = ExtResource("1_u28tq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.352, 0.352)
+texture = ExtResource("1_1g1yv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+scale = Vector2(0.352, 0.352)
+shape = SubResource("CircleShape2D_u28tq")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(0, 20)
+amount = 20
+lifetime = 0.5
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(15, 1)
+direction = Vector2(0, 1)
+spread = 15.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+linear_accel_min = 25.0
+linear_accel_max = 50.0
+scale_amount_min = 2.5
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_u28tq")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_bkb3y")
+volume_db = -4.0
+autoplay = true
+bus = &"Sfx"
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

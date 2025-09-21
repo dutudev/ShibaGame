@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Card" load_steps=3 format=3 uid="uid://ct1x3tgmdg8fl"]
+
+[ext_resource type="Texture2D" uid="uid://b5ydud52fumt4" path="res://Sprites/powerups/BlackFriday.png" id="1_2ii1b"]
+[ext_resource type="Script" uid="uid://dwiwrmjlv5pr7" path="res://Scripts/Cards.gd" id="1_6jbyg"]
+
+[resource]
+script = ExtResource("1_6jbyg")
+cardName = "Black Friday"
+cardDesc = "Uplinks have sales during ‘hard’ events"
+cardPrice = 85
+cardIcon = ExtResource("1_2ii1b")
+special = true
+metadata/_custom_type_script = "uid://dwiwrmjlv5pr7"

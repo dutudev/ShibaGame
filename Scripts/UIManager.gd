@@ -15,6 +15,8 @@ extends CanvasLayer
 @export var deckImages: Array[TextureRect]
 @export var uplinkStatus: RichTextLabel
 @export var eventStatus: RichTextLabel
+@export var eventPauseTitle: Label
+@export var eventPauseDesc: Label
 
 @export var balanceText: RichTextLabel
 @export var chooseImages: Array[TextureRect]
@@ -54,6 +56,8 @@ var currentEvent: Event = null
 
 var gameOver = false
 var uplinksOpened = 0
+
+var specialCardMat = preload("res://Shaders/SpecialCard.tres")
 
 static var instance: UIManager
 # Called when the node enters the scene tree for the first time.
@@ -254,6 +258,11 @@ func PrepareShop() -> void:
 		chooseTitles[i].text = cardChoiceCur.cardName
 		chooseDesc[i].text = cardChoiceCur.cardDesc
 		chooseButtons[i].text = str("Buy : " , cardChoiceCur.cardPrice, "$")
+		if cardChoiceCur.special:
+			chooseImages[i].material = specialCardMat
+			print("okis")
+		else:
+			chooseImages[i].material = null
 
 
 func _on_reroll_pressed() -> void:
@@ -292,6 +301,15 @@ func _on_exit_pressed() -> void:
 func OpenPause(open: bool) -> void:
 	if open:
 		$PauseMenu.visible = true
+		if currentEvent != null:
+			if currentEvent.difficulty == Event.diff.hard:
+				eventPauseTitle.text = str("Current Event : ", currentEvent.name, " (hard)")
+			else:
+				eventPauseTitle.text = str("Current Event : ", currentEvent.name, " (easy)")
+			eventPauseDesc.text = currentEvent.desc
+		else:
+			eventPauseTitle.text = "Current Event : None"
+			eventPauseDesc.text = "There is no event taking place right now (womp womp)"
 		currentCard = null
 		$PauseMenu/Panel/Inventory/TextureRect.texture = null
 		$PauseMenu/Panel/Inventory/cardTitle.text = "Click on item"
@@ -325,6 +343,18 @@ func _on_exit_btn_pressed() -> void:
 	transScreen.StartOutro("mainMenu")
 
 func UpdateTopDeck() -> void:
+	if Player.instance.card1 != null && Player.instance.card1.special:
+		deckImages[0].get_parent().material = specialCardMat
+	else:
+		deckImages[0].get_parent().material = null
+	if Player.instance.card2 != null && Player.instance.card2.special:
+		deckImages[1].get_parent().material = specialCardMat
+	else:
+		deckImages[1].get_parent().material = null
+	if Player.instance.card3 != null && Player.instance.card3.special:
+		deckImages[2].get_parent().material = specialCardMat
+	else:
+		deckImages[2].get_parent().material = null
 	deckImages[0].texture = getCardIcon(Player.instance.card1)
 	deckImages[1].texture = getCardIcon(Player.instance.card2)
 	deckImages[2].texture = getCardIcon(Player.instance.card3)
@@ -497,8 +527,17 @@ func _on_main_menu_pressed() -> void:
 	transScreen.StartOutro("mainMenu")
 
 
+
 func EaseOutExpo(x: float) -> float:
 	if x >= 0.95:
 		return 1.0
 	else:
 		return 1 - pow(2, -10 * x)
+
+
+func _on_exit_set_btn_pressed() -> void:
+	$PauseMenu/SettingsMenu.visible = false
+
+
+func _on_settings_btn_pressed() -> void:
+	$PauseMenu/SettingsMenu.visible = true

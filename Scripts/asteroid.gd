@@ -82,5 +82,14 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 		asteroidParticlesInstance.position = body.position
 		get_parent().add_child(asteroidParticlesInstance)
 		queue_free()
-	
+	if body.is_in_group("missile"):
+		var asteroidTextInstance = asteroidTextTag.instantiate()
+		asteroidTextInstance.position = body.position
+		asteroidTextInstance.text = ""
+		get_parent().add_child(asteroidTextInstance)
+		var asteroidParticlesInstance = asteroidParticles.instantiate()
+		asteroidParticlesInstance.position = body.global_position
+		get_parent().add_child(asteroidParticlesInstance)
+		body.queue_free()
+		queue_free()
 		

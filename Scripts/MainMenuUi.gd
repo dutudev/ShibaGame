@@ -57,3 +57,11 @@ func GoToScene(scene: String) -> void:
 
 func _on_tutorial_pressed() -> void:
 	GoToScene("Tutorial")
+
+
+func _on_exit_set_btn_pressed() -> void:
+	$UI/SettingsMenu.visible = false
+
+
+func _on_settings_pressed() -> void:
+	$UI/SettingsMenu.visible = true

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Event" load_steps=2 format=3 uid="uid://cyxy0pb7bsd0e"]
+
+[ext_resource type="Script" uid="uid://rbut4wy4u4we" path="res://Scripts/Event.gd" id="1_ce7vs"]
+
+[resource]
+script = ExtResource("1_ce7vs")
+name = "Homing Missiles"
+desc = "homing missile incoming"
+duration = 45.0
+difficulty = 1
+metadata/_custom_type_script = "uid://rbut4wy4u4we"
