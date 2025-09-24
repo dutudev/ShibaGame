@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Card" load_steps=3 format=3 uid="uid://d2f1m0h36nfrb"]
+
+[ext_resource type="Texture2D" uid="uid://b12iqmhrevq0k" path="res://Sprites/powerups/Shockwave.png" id="1_idqxu"]
+[ext_resource type="Script" uid="uid://dwiwrmjlv5pr7" path="res://Scripts/Cards.gd" id="2_mxxon"]
+
+[resource]
+script = ExtResource("2_mxxon")
+cardName = "Shockwave"
+cardDesc = "Creates a shockwave that pushes asteroids next to you when pressing ‘shift’ (has priority"
+cardPrice = 175
+cardIcon = ExtResource("1_idqxu")
+special = true
+metadata/_custom_type_script = "uid://dwiwrmjlv5pr7"

@@ -29,7 +29,7 @@ offset_bottom = 83.0
 grow_horizontal = 2
 pivot_offset = Vector2(204, 0)
 theme_override_font_sizes/font_size = 60
-text = "Quick Tutorial"
+text = "Controls (READ BEFORE)"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -48,10 +48,14 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(204, 0)
 theme_override_font_sizes/font_size = 32
-text = "- use 'w' to accelerate
+text = "- Use 'w' to accelerate
 - 'a' and 'd' to rotate ship
+- '1' (one) to pause, and enter inventory
+- 'e' to enter shops (they show when you can enter)
+- 'tab' to show/hide cards (for visibility purposes)
 - click to shoot, it has a cooldown
-- shoot asteroids, don't collide with them"
+- i STRONGLY recommend you play the tutorial
+as it gives you more info on game mechanics"
 horizontal_alignment = 1
 vertical_alignment = 1
 

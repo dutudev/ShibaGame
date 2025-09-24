@@ -6,6 +6,6 @@
 script = ExtResource("1_dc67c")
 name = "Uplink Outage"
 desc = "No uplinks spawn during this event"
-duration = 60.0
+duration = 40.0
 difficulty = 0
 metadata/_custom_type_script = "uid://rbut4wy4u4we"

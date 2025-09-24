@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://5hr7nvlxc8dd"]
+
+[ext_resource type="Texture2D" uid="uid://b12iqmhrevq0k" path="res://Sprites/powerups/Shockwave.png" id="1_rhd1y"]
+
+[sub_resource type="Curve" id="Curve_eml1m"]
+_limits = [0.0, 15.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 45.7471, 0, 0, Vector2(1, 15), 2.57521, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_uj01u"]
+offsets = PackedFloat32Array(0.856, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Shockwave" type="Node2D"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+scale = Vector2(1, 1.00285)
+emitting = false
+amount = 1
+texture = ExtResource("1_rhd1y")
+one_shot = true
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_eml1m")
+color_ramp = SubResource("Gradient_uj01u")

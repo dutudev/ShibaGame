@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cdm7352ad04ti"]
+[gd_scene load_steps=14 format=3 uid="uid://cdm7352ad04ti"]
 
 [ext_resource type="PackedScene" uid="uid://b350sy0tn84v1" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://debkmkexfa68i" path="res://Sprites/starsBack.png" id="2_bo1nx"]
@@ -6,6 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://byltdy5838qfu" path="res://Scenes/hud.tscn" id="5_kry3j"]
 [ext_resource type="PackedScene" uid="uid://vylalah64hrd" path="res://Scenes/asteroid_manager.tscn" id="6_21xkr"]
 [ext_resource type="PackedScene" uid="uid://d1smf4qgdec2e" path="res://Scenes/uplink_manager.tscn" id="7_6bp64"]
+[ext_resource type="Script" uid="uid://rbut4wy4u4we" path="res://Scripts/Event.gd" id="7_fdnlq"]
+[ext_resource type="Resource" uid="uid://nagto4v01m3r" path="res://Events/BigAsteroids.tres" id="8_jkdf5"]
+[ext_resource type="Resource" uid="uid://26qr07am8ncw" path="res://Events/SmallAsteroids.tres" id="9_wsu2k"]
+[ext_resource type="Resource" uid="uid://c31of3mqwmcop" path="res://Events/UplinkOutage.tres" id="10_k12tt"]
+[ext_resource type="Resource" uid="uid://che7e1ufce7qv" path="res://Events/BouncyAsteroids.tres" id="11_h1bgf"]
+[ext_resource type="Resource" uid="uid://cyxy0pb7bsd0e" path="res://Events/HomingMissile.tres" id="12_b3802"]
+[ext_resource type="Resource" uid="uid://c2ypreb3nq37l" path="res://Events/AsteroidHell.tres" id="13_fevyy"]
 
 [node name="Main" type="Node2D"]
 
@@ -56,3 +63,8 @@ region_rect = Rect2(0, 0, 36000, 36000)
 [node name="AsteroidManager" parent="." instance=ExtResource("6_21xkr")]
 
 [node name="UplinkManager" parent="." instance=ExtResource("7_6bp64")]
+allEvents = Array[ExtResource("7_fdnlq")]([ExtResource("8_jkdf5"), ExtResource("9_wsu2k"), ExtResource("10_k12tt"), ExtResource("11_h1bgf"), ExtResource("12_b3802"), ExtResource("13_fevyy")])
+
+[node name="UplinkManager2" parent="." instance=ExtResource("7_6bp64")]
+process_mode = 4
+allEvents = Array[ExtResource("7_fdnlq")]([ExtResource("11_h1bgf")])

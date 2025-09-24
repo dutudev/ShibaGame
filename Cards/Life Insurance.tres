@@ -6,7 +6,8 @@
 [resource]
 script = ExtResource("1_si0um")
 cardName = "Life Insurance"
-cardDesc = "+5 health points for each 1$ earned"
+cardDesc = "+5 health points for each 1$ earned guranteed"
 cardPrice = 45
 cardIcon = ExtResource("1_xt8qr")
+special = false
 metadata/_custom_type_script = "uid://dwiwrmjlv5pr7"

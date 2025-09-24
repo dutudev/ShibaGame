@@ -1,10 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://dxwr43gy4ihe1"]
+[gd_scene load_steps=27 format=3 uid="uid://dxwr43gy4ihe1"]
 
 [ext_resource type="Script" uid="uid://clvimdkc85ejw" path="res://Scripts/tutorialScene.gd" id="1_mqud2"]
 [ext_resource type="Texture2D" uid="uid://debkmkexfa68i" path="res://Sprites/starsBack.png" id="1_uo1fs"]
 [ext_resource type="Texture2D" uid="uid://cpkbxxujrs8po" path="res://Sprites/starsFront.png" id="2_7bloo"]
 [ext_resource type="PackedScene" uid="uid://b350sy0tn84v1" path="res://Scenes/player.tscn" id="3_rlm2d"]
 [ext_resource type="PackedScene" uid="uid://cpndmq8m848mf" path="res://Scenes/asteroid.tscn" id="4_7bloo"]
+[ext_resource type="Shader" uid="uid://b0wfi5ocye0t0" path="res://Shaders/tutorialBackground.gdshader" id="4_sswaw"]
 [ext_resource type="Script" uid="uid://b8efmxrvy5mbb" path="res://Scripts/UIManager.gd" id="5_brn58"]
 [ext_resource type="FontFile" uid="uid://c63kot51ddqq7" path="res://fonts/RobotoMono-SemiBold.ttf" id="6_3j26a"]
 [ext_resource type="Texture2D" uid="uid://dgkdidnbh7wg8" path="res://Sprites/arrow.png" id="6_fx2vl"]
@@ -17,6 +18,9 @@
 [ext_resource type="Material" uid="uid://bhmmeqa40gf3a" path="res://Shaders/IntroGameTransition.tres" id="14_qae3o"]
 [ext_resource type="Script" uid="uid://b5hiyy131m5qh" path="res://Scripts/intro.gd" id="15_jyml5"]
 [ext_resource type="PackedScene" uid="uid://c0l26ushwblvp" path="res://Scenes/uplink_shop.tscn" id="16_fx2vl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kpk71"]
+shader = ExtResource("4_sswaw")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fccik"]
 bg_color = Color(0, 0, 0, 1)
@@ -69,6 +73,30 @@ texture_repeat = 2
 texture = ExtResource("2_7bloo")
 region_enabled = true
 region_rect = Rect2(0, 0, 36000, 36000)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background"]
+material = SubResource("ShaderMaterial_kpk71")
+position = Vector2(-1782, 270)
+scale = Vector2(0.919448, 1.15)
+texture = ExtResource("1_uo1fs")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Background"]
+material = SubResource("ShaderMaterial_kpk71")
+position = Vector2(7650, -197)
+scale = Vector2(1.39999, 1)
+texture = ExtResource("1_uo1fs")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Background"]
+material = SubResource("ShaderMaterial_kpk71")
+position = Vector2(2518, -1594)
+scale = Vector2(2.03101, 0.599826)
+texture = ExtResource("1_uo1fs")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Background"]
+material = SubResource("ShaderMaterial_kpk71")
+position = Vector2(2556, 2195)
+scale = Vector2(2.00984, 1)
+texture = ExtResource("1_uo1fs")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("3_rlm2d")]
 scale = Vector2(0.2, 0.2)

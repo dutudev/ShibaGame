@@ -29,6 +29,12 @@ func _on_timer_timeout() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("asteroid"):
+		if(UIManager.instance.currentEvent != null && UIManager.instance.currentEvent.name == "Bouncy Asteroids"):
+			#body.velocity = Vector2.ZERO
+			body.apply_impulse(directionVector * 250);
+			if !Player.instance.CheckCardInDeck("Piercing Bullets"):
+				queue_free()
+			return
 		var asteroidTextInstance = asteroidTextTag.instantiate()
 		var asteroidParticlesInstance = asteroidParticles.instantiate()
 		asteroidTextInstance.position = body.position
@@ -43,7 +49,11 @@ func _on_body_entered(body: Node2D) -> void:
 			Player.instance.AffectHealth(money * 5)
 			asteroidTextInstance.text = "+" + str(money) + "$ +" + str(money * 5) + "hp"
 		else:
-			asteroidTextInstance.text = "+" + str(money) + "$"
+			if(randi_range(1, 10) <= 3):
+				Player.instance.AffectHealth(money * 5)
+				asteroidTextInstance.text = "+" + str(money) + "$ +" + str(money * 5) + "hp"
+			else:
+				asteroidTextInstance.text = "+" + str(money) + "$"
 		get_parent().add_child(asteroidTextInstance)
 		get_parent().add_child(asteroidParticlesInstance)
 		body.queue_free()

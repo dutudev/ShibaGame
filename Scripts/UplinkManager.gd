@@ -38,8 +38,8 @@ func _process(delta: float) -> void:
 	currentEventTimer = clamp(currentEventTimer,0, 600)
 	if currentEventState == 0 && currentEventTimer <= 10:
 		UIManager.instance.UpdateEventStatus(str("Random Event Starting In : ", "%0.2f" % currentEventTimer , "s"), true)
-	elif currentEventState == 2 && currentEventTimer <= 20:
-		UIManager.instance.UpdateEventStatus(str("Event Stops In : ", "%0.2f" % currentEventTimer , "s"), true)
+	elif currentEventState == 2 && currentEventTimer <= 30:
+		UIManager.instance.UpdateEventStatus(str(nextEvent.name, " Stops In : ", "%0.2f" % currentEventTimer , "s"), true)
 	if currentEventTimer <= 0:
 		NextStateEvents()
 
@@ -70,7 +70,10 @@ func NextStateEvents() -> void:
 	match currentEventState:
 		eventState.wait:
 			currentEventTimer = 25.0
-			UIManager.instance.UpdateEventStatus(str("Event Stops In : 0s"), false)
+			if nextEvent != null:
+				UIManager.instance.UpdateEventStatus(str(nextEvent.name, " Stops In : 0s"), false)
+			else:
+				UIManager.instance.UpdateEventStatus(str("Event Stops In : 0s"), false)
 			UIManager.instance.ResetCurrentEvent()
 		eventState.show:
 			nextEvent = allEvents[randi_range(0, allEvents.size() - 1)]
