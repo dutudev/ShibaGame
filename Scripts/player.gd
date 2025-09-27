@@ -47,7 +47,8 @@ func _ready() -> void:
 	availableCards = allCards
 	instance = self
 	#money = 10000
-	#card1 = allCards[13]
+	card1 = allCards[12]
+	#card2 = allCards[0]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -89,7 +90,7 @@ func _process(delta: float) -> void:
 			tapCount = 0
 			tapTimer.stop()
 	
-	if missileCooldown <= 0 && get_tree().get_nodes_in_group("asteroid").size() >= 1:
+	if missileCooldown <= 0 && get_tree().get_nodes_in_group("asteroid").size() >= 1 && CheckCardInDeck("Missile Cannon"):
 		var missileInstance = missile.instantiate()
 		missileInstance.position = position
 		get_parent().add_child(missileInstance)
@@ -237,6 +238,7 @@ func AffectHealth(value: int) -> void:
 	health = clamp(health + value, 0, maxHealth)
 	UIManager.instance.UpdateHealthBar(float(health)/float(maxHealth)*100.0)
 	if health<=0:
+		Music.PlayDeadSound()
 		UIManager.instance.GameOver()
 		#get_tree().change_scene_to_file("res://Scenes/main.tscn")
 		# implement goodd dying

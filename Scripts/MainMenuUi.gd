@@ -41,6 +41,7 @@ func _process(delta: float) -> void:
 		
 
 func _on_play_pressed() -> void:
+	Music.PlaySelectSound()
 	GoToScene("main")
 
 
@@ -56,12 +57,15 @@ func GoToScene(scene: String) -> void:
 
 
 func _on_tutorial_pressed() -> void:
+	Music.PlaySelectSound()
 	GoToScene("Tutorial")
 
 
 func _on_exit_set_btn_pressed() -> void:
+	Music.PlaySelectSound()
 	$UI/SettingsMenu.visible = false
 
 
 func _on_settings_pressed() -> void:
+	Music.PlaySelectSound()
 	$UI/SettingsMenu.visible = true

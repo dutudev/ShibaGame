@@ -1,12 +1,31 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkcja6cq02he1"]
+[gd_scene load_steps=6 format=3 uid="uid://bkcja6cq02he1"]
 
 [ext_resource type="AudioStream" uid="uid://dpnp3u6nvmhfy" path="res://Sounds/sppp.mp3" id="1_fbmny"]
+[ext_resource type="Script" uid="uid://ik622t6wlhx2" path="res://Scenes/music.gd" id="1_qxpp0"]
+[ext_resource type="AudioStream" uid="uid://4oj7a3b3neeb" path="res://Sounds/Button_17.wav" id="3_476t3"]
+[ext_resource type="AudioStream" uid="uid://l720ndohbls6" path="res://Sounds/Button_24.wav" id="4_vi5kw"]
+[ext_resource type="AudioStream" uid="uid://mj0vco5y3xmx" path="res://Sounds/Loose_20.wav" id="5_timup"]
 
 [node name="Music" type="Node2D"]
 process_mode = 3
+script = ExtResource("1_qxpp0")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_fbmny")
+volume_db = -6.0
 autoplay = true
 bus = &"Music"
 parameters/looping = true
+
+[node name="ButtonSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_476t3")
+volume_db = -6.0
+bus = &"Sfx"
+
+[node name="BuySfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_vi5kw")
+bus = &"Sfx"
+
+[node name="DeadSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_timup")
+bus = &"Sfx"

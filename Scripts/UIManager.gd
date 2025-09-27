@@ -269,6 +269,7 @@ func PrepareShop() -> void:
 
 func _on_reroll_pressed() -> void:
 	if Player.instance.money >= rerollPrice:
+		Music.PlaySelectSound()
 		Player.instance.AffectMoney(-rerollPrice)
 		rerollPrice += 5
 		UpdateBalanceText()
@@ -282,6 +283,7 @@ func UpdateBalanceText() -> void:
 	balanceText.text = str("Balance : ", Player.instance.money , "$")
 
 func _on_exit_pressed() -> void:
+	Music.PlaySelectSound()
 	if $ShopUi/Exit.text == "Leave Uplink":
 		$ShopUi/Exit.text = "sure?"
 	elif$ShopUi/Exit.text == "sure?":
@@ -344,6 +346,7 @@ func SetUplink(uplink: Node) -> void:
 	currentUplink = uplink
 
 func _on_return_btn_pressed() -> void:
+	Music.PlaySelectSound()
 	if $ShopUi.visible:
 		isPaused = false
 		OpenPause(false)
@@ -354,6 +357,7 @@ func _on_return_btn_pressed() -> void:
 
 
 func _on_exit_btn_pressed() -> void:
+	Music.PlaySelectSound()
 	transScreen.StartOutro("mainMenu")
 
 func UpdateTopDeck() -> void:
@@ -393,6 +397,7 @@ func BuyCard(cardToBuy: Card) -> bool:
 		
 		if haveSpace:
 			Player.instance.AffectMoney(-cardToBuy.cardPrice * x)
+			Music.PlayBuySound()
 			UpdateBalanceText()
 			match card:
 				0:
@@ -432,6 +437,7 @@ func _on_buy_3_pressed() -> void:
 func _on_card_1_pressed() -> void:
 	if Player.instance.card1 == null:
 		return
+	Music.PlaySelectSound()
 	$PauseMenu/Panel/Inventory/TextureRect.texture = getCardIcon(Player.instance.card1)
 	$PauseMenu/Panel/Inventory/cardTitle.text = Player.instance.card1.cardName
 	$PauseMenu/Panel/Inventory/cardTitle2.text = Player.instance.card1.cardDesc
@@ -446,6 +452,7 @@ func _on_card_1_pressed() -> void:
 func _on_card_2_pressed() -> void:
 	if Player.instance.card2 == null:
 		return
+	Music.PlaySelectSound()
 	$PauseMenu/Panel/Inventory/TextureRect.texture = getCardIcon(Player.instance.card2)
 	$PauseMenu/Panel/Inventory/cardTitle.text = Player.instance.card2.cardName
 	$PauseMenu/Panel/Inventory/cardTitle2.text = Player.instance.card2.cardDesc
@@ -460,6 +467,7 @@ func _on_card_2_pressed() -> void:
 func _on_card_3_pressed() -> void:
 	if Player.instance.card3 == null:
 		return
+	Music.PlaySelectSound()
 	$PauseMenu/Panel/Inventory/TextureRect.texture = getCardIcon(Player.instance.card3)
 	$PauseMenu/Panel/Inventory/cardTitle.text = Player.instance.card3.cardName
 	$PauseMenu/Panel/Inventory/cardTitle2.text = Player.instance.card3.cardDesc
@@ -474,6 +482,7 @@ func _on_card_3_pressed() -> void:
 func _on_sell_btn_pressed() -> void:
 	if currentCard != null && $PauseMenu/Panel/Inventory/sellBtn.text == "sure?":
 		Player.instance.ChangeCardFromDeckToAvailable(currentCard)
+		Music.PlaySelectSound()
 		UpdateTopDeck()
 		UpdateBalanceText()
 		if get_tree().current_scene.name == "Tutorial":
@@ -537,9 +546,11 @@ func GameOver() -> void:
 	smallStats.text = str("Final score - " , Player.instance.money , "$\nUplinks [img=24x24]res://Sprites/rss_feed.svg[/img] opened - ", uplinksOpened)
 
 func _on_retry_pressed() -> void:
+	Music.PlaySelectSound()
 	transScreen.StartOutro("main")
 
 func _on_main_menu_pressed() -> void:
+	Music.PlaySelectSound()
 	transScreen.StartOutro("mainMenu")
 
 
@@ -552,8 +563,10 @@ func EaseOutExpo(x: float) -> float:
 
 
 func _on_exit_set_btn_pressed() -> void:
+	Music.PlaySelectSound()
 	$PauseMenu/SettingsMenu.visible = false
 
 
 func _on_settings_btn_pressed() -> void:
+	Music.PlaySelectSound()
 	$PauseMenu/SettingsMenu.visible = true
