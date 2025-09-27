@@ -8,13 +8,25 @@ var speed = 15
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	target = Player.instance
-
+	var direction = target.position - position
+	if direction.length() <= 50 :
+		target = null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	if target == null:
+		var minDist = INF
+		var asteroidCur = null
+		for asteroid in get_tree().get_nodes_in_group("asteroid"):
+			if position.distance_to(asteroid.position) < minDist:
+				minDist = position.distance_to(asteroid.position)
+				asteroidCur = asteroid
+		target = asteroidCur
 	global_rotation_degrees = rad_to_deg(atan2(linear_velocity.y, linear_velocity.x)) + 90
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if target == null:
+		return
 	var direction = target.position - position
 	$AudioStreamPlayer2D.set_volume_linear(lerp(0.0, 0.8, clamp(direction.length(), 400.0, 1400.0)/1400.0))
 	linear_velocity += direction.normalized() * speed
@@ -27,7 +39,7 @@ func _on_tree_exiting() -> void:
 
 
 func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("player") && target == Player.instance:
 		if !Player.instance.dashing:
 			Player.instance.PlayHitSound()
 			Player.instance.AffectHealth(-25)

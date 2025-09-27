@@ -17,7 +17,13 @@ var forwardStrength = 0.0
 var dashing = false
 var dashCooldown = 0.0
 var currentDash = 0.0
+var shockWaveScene = preload("res://Scenes/shockwave.tscn")
+var shockCooldown = 0.0
 var shieldCooldown = 0.0
+@onready var tapTimer = $TapTimer
+var tapCount = 0
+var missileCooldown = 5.0
+var missile = preload("res://Scenes/missile.tscn")
 
 var isInBounds = true
 var health = 100 # base is 100
@@ -41,7 +47,7 @@ func _ready() -> void:
 	availableCards = allCards
 	instance = self
 	#money = 10000
-	#card1 = allCards[11]
+	#card1 = allCards[13]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -71,10 +77,27 @@ func _process(delta: float) -> void:
 	
 	dashCooldown -= delta
 	currentDash -= delta
-	if Input.is_action_just_pressed("dash") && CheckCardInDeck("Dash") && dashCooldown <= 0:
-		currentDash = 1.5
-		dashing = true
-		dashCooldown = 6
+	shockCooldown -= delta
+	missileCooldown -= delta
+	
+	if Input.is_action_just_pressed("dash"):
+		tapCount += 1
+		if tapCount == 1:
+			tapTimer.start()
+		elif tapCount == 2:
+			DoubleShift()
+			tapCount = 0
+			tapTimer.stop()
+	
+	if missileCooldown <= 0 && get_tree().get_nodes_in_group("asteroid").size() >= 1:
+		var missileInstance = missile.instantiate()
+		missileInstance.position = position
+		get_parent().add_child(missileInstance)
+		missileCooldown = 15.0 # set to 25.0
+	#if Input.is_action_just_pressed("dash") && CheckCardInDeck("Dash") && dashCooldown <= 0:
+	#	currentDash = 1.5
+	#	dashing = true
+	#	dashCooldown = 6
 	
 	if currentDash <= 0:
 		dashing = false
@@ -156,8 +179,23 @@ func _process(delta: float) -> void:
 	#var zoomCam = lerp(0.5, 0.2, velocity.length()/450)
 	#camera.zoom = Vector2.ONE * zoomCam
 
-	
-	
+func SingleShift() -> void:
+	if CheckCardInDeck("Dash") && dashCooldown <= 0:
+		currentDash = 1.5
+		dashing = true
+		dashCooldown = 6
+
+func DoubleShift() -> void:
+	if CheckCardInDeck("Shockwave") && shockCooldown <= 0:
+		dashing = true
+		var shockwaveInstance = shockWaveScene.instantiate()
+		shockwaveInstance.position = position
+		get_parent().add_child(shockwaveInstance)
+		shockCooldown = 30.0
+
+
+func _on_tap_timer_timeout() -> void:
+	SingleShift()
 
 func _physics_process(delta: float) -> void:
 	#Handle here everything physics related

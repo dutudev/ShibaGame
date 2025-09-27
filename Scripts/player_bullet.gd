@@ -30,7 +30,7 @@ func _on_timer_timeout() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("asteroid"):
 		if(UIManager.instance.currentEvent != null && UIManager.instance.currentEvent.name == "Bouncy Asteroids"):
-			#body.velocity = Vector2.ZERO
+			body.velocity = Vector2.ZERO
 			body.apply_impulse(directionVector * 250);
 			if !Player.instance.CheckCardInDeck("Piercing Bullets"):
 				queue_free()

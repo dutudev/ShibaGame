@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b350sy0tn84v1"]
+[gd_scene load_steps=27 format=3 uid="uid://b350sy0tn84v1"]
 
 [ext_resource type="Script" uid="uid://jcg7pcnuvthx" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://b4so51hoellxv" path="res://Sprites/ship.png" id="1_v0iea"]
@@ -19,6 +19,7 @@
 [ext_resource type="Resource" uid="uid://x74g2xla4k47" path="res://Cards/Shield.tres" id="13_y6uwr"]
 [ext_resource type="Resource" uid="uid://ct1x3tgmdg8fl" path="res://Cards/BlackFriday.tres" id="14_fs7ks"]
 [ext_resource type="Resource" uid="uid://d2f1m0h36nfrb" path="res://Cards/Shockwave.tres" id="15_l6n3p"]
+[ext_resource type="Resource" uid="uid://byac88mjghbdc" path="res://Cards/MissileCannon.tres" id="16_olqyp"]
 [ext_resource type="Texture2D" uid="uid://bdl6y37j2ua8d" path="res://Sprites/shipShield.png" id="18_igrcy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cvnsp"]
@@ -52,7 +53,7 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 safe_margin = 0.05
 script = ExtResource("1_cvnsp")
-allCards = Array[ExtResource("2_qqcod")]([ExtResource("3_igrcy"), ExtResource("4_fs7ks"), ExtResource("5_l6n3p"), ExtResource("6_olqyp"), ExtResource("7_wpjfl"), ExtResource("8_bi64h"), ExtResource("9_2ijsl"), ExtResource("10_p1odr"), ExtResource("11_0gysh"), ExtResource("12_vfarp"), ExtResource("13_y6uwr"), ExtResource("14_fs7ks"), ExtResource("15_l6n3p")])
+allCards = Array[ExtResource("2_qqcod")]([ExtResource("3_igrcy"), ExtResource("4_fs7ks"), ExtResource("5_l6n3p"), ExtResource("6_olqyp"), ExtResource("7_wpjfl"), ExtResource("8_bi64h"), ExtResource("9_2ijsl"), ExtResource("10_p1odr"), ExtResource("11_0gysh"), ExtResource("12_vfarp"), ExtResource("13_y6uwr"), ExtResource("14_fs7ks"), ExtResource("15_l6n3p"), ExtResource("16_olqyp")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 2
@@ -124,3 +125,9 @@ position = Vector2(0, -50)
 scale = Vector2(1, 0.7)
 shape = SubResource("CircleShape2D_fs7ks")
 disabled = true
+
+[node name="TapTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="TapTimer" to="." method="_on_tap_timer_timeout"]

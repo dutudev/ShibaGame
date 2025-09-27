@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_mxxon")
 cardName = "Shockwave"
-cardDesc = "Creates a shockwave that pushes asteroids next to you when pressing ‘shift’ (has priority"
+cardDesc = "Creates a shockwave that pushes asteroids next to you when double pressing ‘shift’"
 cardPrice = 175
 cardIcon = ExtResource("1_idqxu")
 special = true

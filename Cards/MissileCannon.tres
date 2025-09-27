@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Card" load_steps=3 format=3 uid="uid://byac88mjghbdc"]
+
+[ext_resource type="Texture2D" uid="uid://5arkrwrhqeae" path="res://Sprites/powerups/missiles.png" id="1_8ggc5"]
+[ext_resource type="Script" uid="uid://dwiwrmjlv5pr7" path="res://Scripts/Cards.gd" id="2_x37f4"]
+
+[resource]
+script = ExtResource("2_x37f4")
+cardName = "Missile Cannon"
+cardDesc = "Shoot homing missiles at asteroids"
+cardPrice = 200
+cardIcon = ExtResource("1_8ggc5")
+special = true
+metadata/_custom_type_script = "uid://dwiwrmjlv5pr7"
