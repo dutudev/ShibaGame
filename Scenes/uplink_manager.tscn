@@ -1,13 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://d1smf4qgdec2e"]
+[gd_scene load_steps=9 format=3 uid="uid://d1smf4qgdec2e"]
 
 [ext_resource type="Script" uid="uid://cw772460it2fi" path="res://Scripts/UplinkManager.gd" id="1_p28i5"]
 [ext_resource type="Script" uid="uid://rbut4wy4u4we" path="res://Scripts/Event.gd" id="2_a7v87"]
 [ext_resource type="Resource" uid="uid://nagto4v01m3r" path="res://Events/BigAsteroids.tres" id="2_p3bfg"]
 [ext_resource type="Resource" uid="uid://26qr07am8ncw" path="res://Events/SmallAsteroids.tres" id="3_q2fxv"]
 [ext_resource type="Resource" uid="uid://c31of3mqwmcop" path="res://Events/UplinkOutage.tres" id="4_q2fxv"]
+[ext_resource type="Resource" uid="uid://che7e1ufce7qv" path="res://Events/BouncyAsteroids.tres" id="6_eklxk"]
 [ext_resource type="Resource" uid="uid://cyxy0pb7bsd0e" path="res://Events/HomingMissile.tres" id="6_hvy1w"]
 [ext_resource type="Resource" uid="uid://c2ypreb3nq37l" path="res://Events/AsteroidHell.tres" id="7_eklxk"]
 
 [node name="UplinkManager" type="Node2D"]
 script = ExtResource("1_p28i5")
-allEvents = Array[ExtResource("2_a7v87")]([ExtResource("2_p3bfg"), ExtResource("3_q2fxv"), ExtResource("4_q2fxv"), ExtResource("6_hvy1w"), ExtResource("7_eklxk")])
+allEvents = Array[ExtResource("2_a7v87")]([ExtResource("2_p3bfg"), ExtResource("3_q2fxv"), ExtResource("4_q2fxv"), ExtResource("6_eklxk"), ExtResource("6_hvy1w"), ExtResource("7_eklxk")])

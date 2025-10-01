@@ -29,6 +29,7 @@ var isInBounds = true
 var health = 100 # base is 100
 var cooldownSet = 1 # base is 1
 var money = 0
+var hasAnchorKey = false
 
 var currentCooldown = 0
 var stopShipSound = false
@@ -47,7 +48,7 @@ func _ready() -> void:
 	availableCards = allCards
 	instance = self
 	#money = 10000
-	card1 = allCards[12]
+	#card1 = allCards[12]
 	#card2 = allCards[0]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

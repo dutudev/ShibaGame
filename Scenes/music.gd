@@ -18,3 +18,6 @@ func PlayBuySound() -> void:
 
 func PlayDeadSound() -> void:
 	$DeadSfx.play()
+
+func PlayEventSound() -> void:
+	$EventSfx.play()

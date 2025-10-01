@@ -17,6 +17,7 @@ extends CanvasLayer
 @export var eventStatus: RichTextLabel
 @export var eventPauseTitle: Label
 @export var eventPauseDesc: Label
+@export var anchorTexture: Texture2D
 
 @export var balanceText: RichTextLabel
 @export var chooseImages: Array[TextureRect]
@@ -51,6 +52,7 @@ var cardChoice2: Card
 var cardChoice3: Card
 var rerollPrice = 10
 var currentCard: Card = null
+var shopsLeftAnchor = 5 #5
 
 var currentEvent: Event = null
 
@@ -233,6 +235,17 @@ func PrepareShop() -> void:
 	$ShopUi/Choose/buy1.disabled = false
 	$ShopUi/Choose2/buy2.disabled = false
 	$ShopUi/Choose3/buy3.disabled = false
+	var anchokey = false
+	var anchospot = 0
+	if shopsLeftAnchor > 0:
+		$ShopUi/anchorpointinfo.text = str("Anchor point [img=24x24]res://Sprites/anchor.svg[/img] available in " , shopsLeftAnchor , " shops")
+	else:
+		$ShopUi/anchorpointinfo.text = str("Anchor point key available in shop")
+		anchospot = randi_range(0, 2)
+		if randi_range(0, 9) == 0:
+			anchokey = true
+	if Player.instance.hasAnchorKey == true:
+		$ShopUi/anchorpointinfo.text = str("You have Anchor point key")
 	var cardToChooseFrom: Array
 	cardToChooseFrom = Player.instance.availableCards.duplicate()
 	var randomChoice = randi_range(0, cardToChooseFrom.size() - 1)
@@ -265,8 +278,12 @@ func PrepareShop() -> void:
 			chooseImages[i].material = specialCardMat
 		else:
 			chooseImages[i].material = null
-
-
+	if anchokey && Player.instance.hasAnchorKey == false:
+		chooseImages[anchospot].texture = anchorTexture
+		chooseTitles[anchospot].text = "Anchor Key"
+		chooseDesc[anchospot].text = "!This item does not store in deck!\nUse this item to open anchor points"
+		chooseButtons[anchospot].text = str("Buy : 250$")
+		chooseImages[anchospot].material = null
 func _on_reroll_pressed() -> void:
 	if Player.instance.money >= rerollPrice:
 		Music.PlaySelectSound()
@@ -293,6 +310,7 @@ func _on_exit_pressed() -> void:
 			if currentUplink.name == "UplinkShop2" && !Player.instance.CheckCardInDeck("Reinforced Metal"):
 				return
 		Player.instance.AffectHealth(25)
+		shopsLeftAnchor -= 1
 		get_tree().paused = false
 		uplinksOpened += 1
 		OpenShop(false, false)
@@ -417,11 +435,25 @@ func BuyCard(cardToBuy: Card) -> bool:
 
 
 func _on_buy_1_pressed() -> void:
+	if chooseTitles[0].text == "Anchor Key":
+		if Player.instance.money >= 250:
+			Player.instance.AffectMoney(-250)
+			Music.PlayBuySound()
+			UpdateBalanceText()
+			Player.instance.hasAnchorKey = true
+			return
 	if BuyCard(cardChoice1):
 		$ShopUi/Choose/buy1.disabled = true
 
 
 func _on_buy_2_pressed() -> void:
+	if chooseTitles[1].text == "Anchor Key":
+		if Player.instance.money >= 250:
+			Player.instance.AffectMoney(-250)
+			Music.PlayBuySound()
+			UpdateBalanceText()
+			Player.instance.hasAnchorKey = true
+			return
 	if BuyCard(cardChoice2):
 		$ShopUi/Choose2/buy2.disabled = true
 		if get_tree().current_scene.name == "Tutorial" && cardChoice2.cardName == "Reinforced Metal":
@@ -430,6 +462,13 @@ func _on_buy_2_pressed() -> void:
 			#make anim here
 
 func _on_buy_3_pressed() -> void:
+	if chooseTitles[2].text == "Anchor Key":
+		if Player.instance.money >= 250:
+			Player.instance.AffectMoney(-250)
+			Music.PlayBuySound()
+			UpdateBalanceText()
+			Player.instance.hasAnchorKey = true
+			return
 	if BuyCard(cardChoice3):
 		$ShopUi/Choose3/buy3.disabled = true
 
@@ -484,12 +523,13 @@ func _on_sell_btn_pressed() -> void:
 		Player.instance.ChangeCardFromDeckToAvailable(currentCard)
 		Music.PlaySelectSound()
 		UpdateTopDeck()
-		UpdateBalanceText()
+		
 		if get_tree().current_scene.name == "Tutorial":
 			Player.instance.AffectMoney(40)
 		else:
 			Player.instance.AffectMoney(currentCard.cardPrice/3)
 		currentCard = null
+		UpdateBalanceText()
 		$PauseMenu/Panel/Inventory/TextureRect.texture = null
 		$PauseMenu/Panel/Inventory/cardTitle.text = "Click on item"
 		$PauseMenu/Panel/Inventory/cardTitle2.text = "to see description or to sell it"

@@ -11,6 +11,7 @@ var currentEventTimer = 0.0
 
 var currentUplinkState = uplinkState.idle
 var currentEventState = eventState.wait
+var firstSfxEvent = false
 var nextEvent
 enum uplinkState {idle = 0, wait = 1, leave = 2}
 enum eventState {wait = 0, show = 1, happen = 2}
@@ -37,11 +38,15 @@ func _process(delta: float) -> void:
 	currentEventTimer -= delta
 	currentEventTimer = clamp(currentEventTimer,0, 600)
 	if currentEventState == 0 && currentEventTimer <= 10:
+		if !firstSfxEvent:
+			Music.PlayEventSound()
+			firstSfxEvent = true
 		UIManager.instance.UpdateEventStatus(str("Random Event Starting In : ", "%0.2f" % currentEventTimer , "s"), true)
 	elif currentEventState == 2 && currentEventTimer <= 30:
 		UIManager.instance.UpdateEventStatus(str(nextEvent.name, " Stops In : ", "%0.2f" % currentEventTimer , "s"), true)
 	if currentEventTimer <= 0:
 		NextStateEvents()
+		firstSfxEvent = false
 
 
 func NextState() -> void:

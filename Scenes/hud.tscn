@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://byltdy5838qfu"]
+[gd_scene load_steps=21 format=3 uid="uid://byltdy5838qfu"]
 
 [ext_resource type="Script" uid="uid://b8efmxrvy5mbb" path="res://Scripts/UIManager.gd" id="1_e0onf"]
 [ext_resource type="Texture2D" uid="uid://dgkdidnbh7wg8" path="res://Sprites/arrow.png" id="2_fccik"]
+[ext_resource type="Texture2D" uid="uid://bnv1mbhci3u0b" path="res://Sprites/anchor.png" id="2_i2avg"]
 [ext_resource type="FontFile" uid="uid://c63kot51ddqq7" path="res://fonts/RobotoMono-SemiBold.ttf" id="3_6fbih"]
 [ext_resource type="Texture2D" uid="uid://7bqbsas1i14a" path="res://Sprites/cardHolder.png" id="3_bjfho"]
 [ext_resource type="Texture2D" uid="uid://c1yk88itwwb4i" path="res://Sprites/powerups/Reinforced metal.png" id="5_8jye8"]
@@ -11,6 +12,7 @@
 [ext_resource type="Theme" uid="uid://40kryjm4ax6l" path="res://UiStyles/default.tres" id="6_8jye8"]
 [ext_resource type="Material" uid="uid://bhmmeqa40gf3a" path="res://Shaders/IntroGameTransition.tres" id="10_5ep0j"]
 [ext_resource type="Script" uid="uid://bayyy5hwjptdf" path="res://Scripts/audioSlider.gd" id="10_piegi"]
+[ext_resource type="Script" uid="uid://cgyvvg0m0x5xj" path="res://Scripts/anchorpointinfo.gd" id="11_1a2va"]
 [ext_resource type="Script" uid="uid://b5hiyy131m5qh" path="res://Scripts/intro.gd" id="11_4f5kr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fccik"]
@@ -61,6 +63,7 @@ uplinkStatus = NodePath("MainHud/Deck&Status/StatusContainer/uplinkStatus")
 eventStatus = NodePath("MainHud/Deck&Status/StatusContainer/eventStatus")
 eventPauseTitle = NodePath("PauseMenu/Panel/Inventory/EventTitle")
 eventPauseDesc = NodePath("PauseMenu/Panel/Inventory/EventDesc")
+anchorTexture = ExtResource("2_i2avg")
 balanceText = NodePath("ShopUi/money")
 chooseImages = [NodePath("ShopUi/Choose/image1"), NodePath("ShopUi/Choose2/image2"), NodePath("ShopUi/Choose3/image3")]
 chooseTitles = [NodePath("ShopUi/Choose/title1"), NodePath("ShopUi/Choose2/title2"), NodePath("ShopUi/Choose3/title3")]
@@ -434,7 +437,8 @@ grow_vertical = 2
 pivot_offset = Vector2(90, 45)
 theme_override_fonts/font = ExtResource("3_6fbih")
 theme_override_font_sizes/font_size = 12
-text = "this is the description of the card which can be a bit longer and explain the use of the card"
+text = "!This item does not store in deck!
+Use this item to open anchor points"
 horizontal_alignment = 1
 autowrap_mode = 3
 clip_text = true
@@ -687,6 +691,29 @@ theme_override_font_sizes/normal_font_size = 32
 text = "Balance : 67$"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="anchorpointinfo" type="RichTextLabel" parent="ShopUi"]
+process_mode = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -254.0
+offset_top = -639.0
+offset_right = 258.0
+offset_bottom = -511.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(256, 64)
+theme_override_fonts/normal_font = ExtResource("3_6fbih")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "Anchor point [img=24x24]res://Sprites/anchor.svg[/img] available in 5 shops"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("11_1a2va")
 
 [node name="Reroll" type="Button" parent="ShopUi"]
 layout_mode = 1

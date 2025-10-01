@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwcks6v04f1k2"]
+
+[ext_resource type="Texture2D" uid="uid://72lty6bnv5fm" path="res://Sprites/anchorPointSquare.png" id="1_ryrvm"]
+[ext_resource type="Texture2D" uid="uid://bnv1mbhci3u0b" path="res://Sprites/anchor.png" id="2_bmknm"]
+
+[sub_resource type="Gradient" id="Gradient_r1e3g"]
+offsets = PackedFloat32Array(0.764, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="AnchorPoint" type="Node2D"]
+scale = Vector2(2.5, 2.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -0.000101561
+texture = ExtResource("1_ryrvm")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
+rotation = 0.785398
+scale = Vector2(1, 1)
+texture = ExtResource("1_ryrvm")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("2_bmknm")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+rotation = -0.000979788
+amount = 25
+lifetime = 40.0
+randomness = 1.0
+lifetime_randomness = 0.2
+direction = Vector2(0, 0)
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_max = 0.5
+radial_accel_min = 5.0
+radial_accel_max = 15.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 8.0
+scale_amount_max = 10.0
+color_ramp = SubResource("Gradient_r1e3g")
