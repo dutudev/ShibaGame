@@ -21,3 +21,6 @@ func PlayDeadSound() -> void:
 
 func PlayEventSound() -> void:
 	$EventSfx.play()
+
+func PlayWinSound() -> void:
+	$WinSfx.play()

@@ -38,6 +38,7 @@ asteroid=""
 player_bullet=""
 Shield=""
 missile=""
+UplinkManager=""
 
 [input]
 

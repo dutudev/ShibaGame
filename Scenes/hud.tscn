@@ -858,6 +858,105 @@ text = "Main Menu"
 clip_text = true
 icon_alignment = 1
 
+[node name="WinScreen" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="WinScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6fbih")
+
+[node name="Title" type="RichTextLabel" parent="WinScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -255.0
+offset_top = 48.0
+offset_right = 257.0
+offset_bottom = 176.0
+grow_horizontal = 2
+pivot_offset = Vector2(256, 64)
+theme_override_fonts/normal_font = ExtResource("3_6fbih")
+theme_override_font_sizes/normal_font_size = 60
+text = "You Win"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="smallStats" type="RichTextLabel" parent="WinScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -255.0
+offset_top = 138.0
+offset_right = 257.0
+offset_bottom = 238.0
+grow_horizontal = 2
+pivot_offset = Vector2(256, 50)
+theme_override_fonts/normal_font = ExtResource("3_6fbih")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "Final score - 67$
+Uplinks [img=24x24]res://Sprites/rss_feed.svg[/img] opened - 12
+"
+horizontal_alignment = 1
+
+[node name="Retry" type="Button" parent="WinScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -32.0
+offset_right = 150.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(150, 32)
+theme = ExtResource("6_8jye8")
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 24
+action_mode = 0
+text = "Retry"
+clip_text = true
+icon_alignment = 1
+
+[node name="mainMenu" type="Button" parent="WinScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 68.0
+offset_right = 150.0
+offset_bottom = 132.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(150, 32)
+theme = ExtResource("6_8jye8")
+theme_override_fonts/font = ExtResource("3_6fbih")
+theme_override_font_sizes/font_size = 24
+action_mode = 0
+text = "Main Menu"
+clip_text = true
+icon_alignment = 1
+
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 2
 visible = false
@@ -1277,6 +1376,8 @@ script = ExtResource("11_4f5kr")
 [connection signal="pressed" from="ShopUi/Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="EndScreen/Retry" to="." method="_on_retry_pressed"]
 [connection signal="pressed" from="EndScreen/mainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="WinScreen/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="WinScreen/mainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="PauseMenu/Panel/Inventory/card1" to="." method="_on_card_1_pressed"]
 [connection signal="pressed" from="PauseMenu/Panel/Inventory/card2" to="." method="_on_card_2_pressed"]
 [connection signal="pressed" from="PauseMenu/Panel/Inventory/card3" to="." method="_on_card_3_pressed"]

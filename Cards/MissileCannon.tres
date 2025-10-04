@@ -7,7 +7,7 @@
 script = ExtResource("2_x37f4")
 cardName = "Missile Cannon"
 cardDesc = "Shoot homing missiles at asteroids"
-cardPrice = 200
+cardPrice = 175
 cardIcon = ExtResource("1_8ggc5")
 special = true
 metadata/_custom_type_script = "uid://dwiwrmjlv5pr7"

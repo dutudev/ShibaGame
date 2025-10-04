@@ -50,7 +50,7 @@ var currentUplink: Node = null
 var cardChoice1: Card
 var cardChoice2: Card
 var cardChoice3: Card
-var rerollPrice = 10
+var rerollPrice = 6
 var currentCard: Card = null
 var shopsLeftAnchor = 5 #5
 
@@ -129,6 +129,10 @@ func _process(delta: float) -> void:
 	
 	if currentUplink != null && !isOut:
 		var dirToUplink = currentUplink.position - Player.instance.position
+		if currentUplink.name == "AnchorPoint":
+			$"MiddleHud(NotHideable)/Arrow/uplinkTooltip".text = "[img=24x24]res://Sprites/anchor.svg[/img]"
+		else:
+			$"MiddleHud(NotHideable)/Arrow/uplinkTooltip".text = "[img=24x24]res://Sprites/rss_feed.svg[/img]"
 		if dirToUplink.length() <= 750:
 			BoundsArrow.visible = false
 			$"MiddleHud(NotHideable)/Arrow/uplinkTooltip".visible = false
@@ -189,7 +193,7 @@ func _on_bounds_timer_kill_timeout() -> void:
 
 func OpenShop(open: bool, prepareShop: bool) -> void:
 	if prepareShop:
-		rerollPrice = 10
+		rerollPrice = 6
 		$ShopUi/Exit.text = "Leave Uplink"
 		UpdateRerollText(rerollPrice)
 		UpdateBalanceText()
@@ -237,13 +241,17 @@ func PrepareShop() -> void:
 	$ShopUi/Choose3/buy3.disabled = false
 	var anchokey = false
 	var anchospot = 0
+	
 	if shopsLeftAnchor > 0:
+		
 		$ShopUi/anchorpointinfo.text = str("Anchor point [img=24x24]res://Sprites/anchor.svg[/img] available in " , shopsLeftAnchor , " shops")
 	else:
+		print(shopsLeftAnchor)
 		$ShopUi/anchorpointinfo.text = str("Anchor point key available in shop")
 		anchospot = randi_range(0, 2)
-		if randi_range(0, 9) == 0:
+		if randi_range(0, 5) == 0:
 			anchokey = true
+		print(anchokey)
 	if Player.instance.hasAnchorKey == true:
 		$ShopUi/anchorpointinfo.text = str("You have Anchor point key")
 	var cardToChooseFrom: Array
@@ -288,7 +296,7 @@ func _on_reroll_pressed() -> void:
 	if Player.instance.money >= rerollPrice:
 		Music.PlaySelectSound()
 		Player.instance.AffectMoney(-rerollPrice)
-		rerollPrice += 5
+		rerollPrice += 2
 		UpdateBalanceText()
 		UpdateRerollText(rerollPrice)
 		PrepareShop()
@@ -441,6 +449,8 @@ func _on_buy_1_pressed() -> void:
 			Music.PlayBuySound()
 			UpdateBalanceText()
 			Player.instance.hasAnchorKey = true
+			get_tree().call_group("UplinkManager", "ChangeEventAnchorKey")
+			$ShopUi/Choose/buy1.disabled = true
 			return
 	if BuyCard(cardChoice1):
 		$ShopUi/Choose/buy1.disabled = true
@@ -453,6 +463,8 @@ func _on_buy_2_pressed() -> void:
 			Music.PlayBuySound()
 			UpdateBalanceText()
 			Player.instance.hasAnchorKey = true
+			get_tree().call_group("UplinkManager", "ChangeEventAnchorKey")
+			$ShopUi/Choose2/buy2.disabled = true
 			return
 	if BuyCard(cardChoice2):
 		$ShopUi/Choose2/buy2.disabled = true
@@ -468,6 +480,9 @@ func _on_buy_3_pressed() -> void:
 			Music.PlayBuySound()
 			UpdateBalanceText()
 			Player.instance.hasAnchorKey = true
+			get_tree().call_group("UplinkManager", "ChangeEventAnchorKey")
+			$ShopUi/Choose3/buy3.disabled = true
+			#get_node("root/Main/UplinkManager").ChangeEventAnchorKey()
 			return
 	if BuyCard(cardChoice3):
 		$ShopUi/Choose3/buy3.disabled = true
@@ -584,6 +599,12 @@ func GameOver() -> void:
 	get_tree().paused = true
 	endScreen.visible = true
 	smallStats.text = str("Final score - " , Player.instance.money , "$\nUplinks [img=24x24]res://Sprites/rss_feed.svg[/img] opened - ", uplinksOpened)
+func GameWin() -> void:
+	Music.PlayWinSound()
+	gameOver = true
+	get_tree().paused = true
+	$WinScreen.visible = true
+	$WinScreen/smallStats.text = str("Final score - " , Player.instance.money , "$\nUplinks [img=24x24]res://Sprites/rss_feed.svg[/img] opened - ", uplinksOpened)
 
 func _on_retry_pressed() -> void:
 	Music.PlaySelectSound()

@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkcja6cq02he1"]
+[gd_scene load_steps=8 format=3 uid="uid://bkcja6cq02he1"]
 
 [ext_resource type="AudioStream" uid="uid://dpnp3u6nvmhfy" path="res://Sounds/sppp.mp3" id="1_fbmny"]
-[ext_resource type="Script" uid="uid://ik622t6wlhx2" path="res://Scenes/music.gd" id="1_qxpp0"]
+[ext_resource type="Script" uid="uid://ik622t6wlhx2" path="res://Scripts/music.gd" id="1_qxpp0"]
 [ext_resource type="AudioStream" uid="uid://4oj7a3b3neeb" path="res://Sounds/Button_17.wav" id="3_476t3"]
 [ext_resource type="AudioStream" uid="uid://l720ndohbls6" path="res://Sounds/Button_24.wav" id="4_vi5kw"]
 [ext_resource type="AudioStream" uid="uid://mj0vco5y3xmx" path="res://Sounds/Loose_20.wav" id="5_timup"]
 [ext_resource type="AudioStream" uid="uid://b37scog3itc6d" path="res://Sounds/eventcountdown.mp3" id="6_8dy0s"]
+[ext_resource type="AudioStream" uid="uid://23gfykdeakt1" path="res://Sounds/Win.wav" id="7_ckt5d"]
 
 [node name="Music" type="Node2D"]
 process_mode = 3
@@ -35,4 +36,9 @@ bus = &"Sfx"
 process_mode = 1
 stream = ExtResource("6_8dy0s")
 volume_db = -7.0
+bus = &"Sfx"
+
+[node name="WinSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ckt5d")
+volume_db = -2.0
 bus = &"Sfx"

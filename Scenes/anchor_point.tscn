@@ -1,14 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwcks6v04f1k2"]
+[gd_scene load_steps=5 format=3 uid="uid://cwcks6v04f1k2"]
 
+[ext_resource type="Script" uid="uid://d1e4e2he17bjo" path="res://Scripts/anchor_point.gd" id="1_bmknm"]
 [ext_resource type="Texture2D" uid="uid://72lty6bnv5fm" path="res://Sprites/anchorPointSquare.png" id="1_ryrvm"]
 [ext_resource type="Texture2D" uid="uid://bnv1mbhci3u0b" path="res://Sprites/anchor.png" id="2_bmknm"]
 
 [sub_resource type="Gradient" id="Gradient_r1e3g"]
-offsets = PackedFloat32Array(0.764, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.11382114, 0.764, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="AnchorPoint" type="Node2D"]
+[node name="AnchorPoint" type="Node2D" node_paths=PackedStringArray("sprite")]
 scale = Vector2(2.5, 2.5)
+script = ExtResource("1_bmknm")
+sprite = NodePath("Sprite2D")
+speed = 15.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = -0.000101561
@@ -16,7 +20,6 @@ texture = ExtResource("1_ryrvm")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
 rotation = 0.785398
-scale = Vector2(1, 1)
 texture = ExtResource("1_ryrvm")
 
 [node name="Sprite2D3" type="Sprite2D" parent="."]
@@ -24,6 +27,7 @@ scale = Vector2(0.06, 0.06)
 texture = ExtResource("2_bmknm")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+visible = false
 rotation = -0.000979788
 amount = 25
 lifetime = 40.0
@@ -36,6 +40,26 @@ initial_velocity_max = 50.0
 orbit_velocity_max = 0.5
 radial_accel_min = 5.0
 radial_accel_max = 15.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 8.0
+scale_amount_max = 10.0
+color_ramp = SubResource("Gradient_r1e3g")
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+rotation = -0.000979788
+amount = 25
+lifetime = 2.0
+emission_shape = 1
+emission_sphere_radius = 128.0
+direction = Vector2(0, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+angular_velocity_min = -150.0
+angular_velocity_max = 150.0
+radial_accel_min = -80.0
+radial_accel_max = -80.0
+tangential_accel_max = 50.0
 angle_min = -180.0
 angle_max = 180.0
 scale_amount_min = 8.0

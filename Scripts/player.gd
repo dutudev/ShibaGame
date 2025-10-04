@@ -95,7 +95,7 @@ func _process(delta: float) -> void:
 		var missileInstance = missile.instantiate()
 		missileInstance.position = position
 		get_parent().add_child(missileInstance)
-		missileCooldown = 15.0 # set to 25.0
+		missileCooldown = 7.0 # set to 25.0
 	#if Input.is_action_just_pressed("dash") && CheckCardInDeck("Dash") && dashCooldown <= 0:
 	#	currentDash = 1.5
 	#	dashing = true

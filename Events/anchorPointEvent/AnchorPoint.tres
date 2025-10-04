@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Event" load_steps=2 format=3 uid="uid://c3336wbfpj6gl"]
+
+[ext_resource type="Script" uid="uid://rbut4wy4u4we" path="res://Scripts/Event.gd" id="1_b7m7s"]
+
+[resource]
+script = ExtResource("1_b7m7s")
+name = "Anchor Point"
+desc = "Find the Anchor Point to escape"
+duration = 600.0
+metadata/_custom_type_script = "uid://rbut4wy4u4we"

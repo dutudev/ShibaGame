@@ -4,10 +4,12 @@ const uplinkLimitHeight = 7500
 const uplinkLimitWidth = 7500
 
 var uplinkScene = preload("res://Scenes/uplink_shop.tscn")
+var anchorPointScene = preload("res://Scenes/anchor_point.tscn")
 var currentTimer = 0.0
 var currentEventTimer = 0.0
 
 @export var allEvents: Array[Event]
+@export var anchorPointEvent : Event
 
 var currentUplinkState = uplinkState.idle
 var currentEventState = eventState.wait
@@ -25,7 +27,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if UIManager.instance.currentEvent == null || UIManager.instance.currentEvent.name != "Uplink Outage":
+	if UIManager.instance.currentEvent == null || (UIManager.instance.currentEvent.name != "Uplink Outage" && UIManager.instance.currentEvent.name != "Anchor Point"):
 		currentTimer -= delta
 	currentTimer = clamp(currentTimer, 0, 600)
 	if currentUplinkState == 1:
@@ -82,16 +84,28 @@ func NextStateEvents() -> void:
 			UIManager.instance.ResetCurrentEvent()
 		eventState.show:
 			nextEvent = allEvents[randi_range(0, allEvents.size() - 1)]
-			while(nextEvent == UIManager.instance.currentEvent):
+			while(nextEvent == UIManager.instance.currentEvent): #fix this as the uimanager current event gets deleted after event finish
 				nextEvent = allEvents[randi_range(0, allEvents.size() - 1)]
 			#UIManager.instance.ChangeCurrentEvent(nextEvent)
 			#currentTimer = nextEvent.duration
+			if Player.instance.hasAnchorKey:
+				nextEvent = anchorPointEvent
 			currentEventTimer = 6.0
 			UIManager.instance.UpdateEventStatus(str("Event Chosen : ", nextEvent.name), true)
 		eventState.happen:
 			UIManager.instance.ChangeCurrentEvent(nextEvent)
 			currentEventTimer = nextEvent.duration
-			if nextEvent.name == "Uplink Outage":
+			if nextEvent.name == "Uplink Outage" || nextEvent.name == "Anchor Point":
 				currentUplinkState = 2
 				NextState()
+			if nextEvent.name == "Anchor Point":
+				var uplinkInstance = anchorPointScene.instantiate()
+				uplinkInstance.position = Vector2(randf_range(-uplinkLimitWidth, uplinkLimitWidth), randf_range(-uplinkLimitHeight, uplinkLimitHeight))
+				add_child(uplinkInstance)
+				UIManager.instance.SetUplink(uplinkInstance)
 			UIManager.instance.UpdateEventStatus(str("Event Chosen : ", nextEvent.name), false)
+			
+
+func ChangeEventAnchorKey() -> void:
+	currentEventState = 0
+	NextStateEvents()
