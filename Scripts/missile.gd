@@ -9,7 +9,7 @@ var speed = 15
 func _ready() -> void:
 	target = Player.instance
 	var direction = target.position - position
-	if direction.length() <= 50 :
+	if direction.length() <= 150 :
 		target = null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

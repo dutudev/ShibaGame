@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://cgsqyvvi00wol"]
+
+[ext_resource type="Script" uid="uid://cjwarrglqbn6p" path="res://Scripts/enemyShip.gd" id="1_38hgn"]
+[ext_resource type="Texture2D" uid="uid://000hah6vn7na" path="res://Sprites/pentagon.png" id="1_tmwji"]
+[ext_resource type="Material" uid="uid://bs0khi028wymc" path="res://Shaders/enemyShip.tres" id="2_csf4i"]
+[ext_resource type="Texture2D" uid="uid://ctqcs2qgq4sba" path="res://Sprites/circle.png" id="4_csf4i"]
+
+[sub_resource type="Gradient" id="Gradient_tmwji"]
+offsets = PackedFloat32Array(0.7886179, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_gu73o"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 122.039), 0.0, -3514.48, 0, 0, Vector2(0.293478, -200), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_iomom"]
+_limits = [0.0, 1.5, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0507246, 1.5), 0.0, 0.0, 0, 0, Vector2(0.507246, 0), 0.245127, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tmwji"]
+radius = 195.86986
+
+[node name="EnemyShip" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_38hgn")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, 243)
+emitting = false
+amount = 25
+lifetime = 0.4
+emission_shape = 3
+emission_rect_extents = Vector2(80, 1)
+direction = Vector2(0, 1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 600.0
+linear_accel_min = 15.0
+linear_accel_max = 15.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+color_ramp = SubResource("Gradient_tmwji")
+
+[node name="MissileExplosion" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 25
+texture = ExtResource("4_csf4i")
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 550.0
+linear_accel_min = 6.0
+linear_accel_max = 10.0
+linear_accel_curve = SubResource("Curve_gu73o")
+scale_amount_min = 0.6
+scale_amount_max = 1.6
+scale_amount_curve = SubResource("Curve_iomom")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("2_csf4i")
+texture = ExtResource("1_tmwji")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tmwji")

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://vylalah64hrd" path="res://Scenes/asteroid_manager.tscn" id="6_21xkr"]
 [ext_resource type="PackedScene" uid="uid://d1smf4qgdec2e" path="res://Scenes/uplink_manager.tscn" id="7_6bp64"]
 [ext_resource type="Script" uid="uid://rbut4wy4u4we" path="res://Scripts/Event.gd" id="7_fdnlq"]
-[ext_resource type="Resource" uid="uid://che7e1ufce7qv" path="res://Events/BouncyAsteroids.tres" id="11_h1bgf"]
+[ext_resource type="Resource" uid="uid://26qr07am8ncw" path="res://Events/SmallAsteroids.tres" id="8_344ge"]
 
 [node name="Main" type="Node2D"]
 
@@ -61,4 +61,4 @@ region_rect = Rect2(0, 0, 36000, 36000)
 
 [node name="UplinkManager2" parent="." instance=ExtResource("7_6bp64")]
 process_mode = 4
-allEvents = Array[ExtResource("7_fdnlq")]([ExtResource("11_h1bgf")])
+allEvents = Array[ExtResource("7_fdnlq")]([ExtResource("8_344ge")])

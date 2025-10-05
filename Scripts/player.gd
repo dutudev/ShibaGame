@@ -48,7 +48,7 @@ func _ready() -> void:
 	availableCards = allCards
 	instance = self
 	#money = 10000
-	#card1 = allCards[12]
+	#card1 = allCards[13]
 	#card2 = allCards[0]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -93,7 +93,7 @@ func _process(delta: float) -> void:
 	
 	if missileCooldown <= 0 && get_tree().get_nodes_in_group("asteroid").size() >= 1 && CheckCardInDeck("Missile Cannon"):
 		var missileInstance = missile.instantiate()
-		missileInstance.position = position
+		missileInstance.position = position +-transform.y.normalized() * 50
 		get_parent().add_child(missileInstance)
 		missileCooldown = 7.0 # set to 25.0
 	#if Input.is_action_just_pressed("dash") && CheckCardInDeck("Dash") && dashCooldown <= 0:

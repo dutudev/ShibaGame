@@ -67,7 +67,7 @@ func SpawnAsteroid() -> void:
 			velocityToGive = ((Player.instance.position - positionToSet +  Vector2(randf_range(-200, 200), randf_range(-200, 200))).normalized()) * randi_range(100, 150)
 		elif UIManager.instance.currentEvent.name == "Small Asteroids":
 			scaleSize = randf_range(0.24, 0.3)
-			#velocityToGive = ((Player.instance.position - positionToSet +  Vector2(randf_range(-200, 200), randf_range(-200, 200))).normalized()) * randi_range(100, 150)
+			velocityToGive = ((Player.instance.position - positionToSet +  Vector2(randf_range(-200, 200), randf_range(-200, 200))).normalized()) * randi_range(450, 500)
 	
 	add_child(asteroidInstance)
 	asteroidList.append(asteroidInstance)

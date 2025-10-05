@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bs0khi028wymc"]
+
+[ext_resource type="Shader" uid="uid://cm3dk4s4e8o6l" path="res://Shaders/enemyShip.gdshader" id="1_5qptn"]
+
+[resource]
+shader = ExtResource("1_5qptn")
+shader_parameter/progress = 0.0

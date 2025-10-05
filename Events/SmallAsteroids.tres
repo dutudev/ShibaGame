@@ -5,7 +5,6 @@
 [resource]
 script = ExtResource("1_wtso7")
 name = "Small Asteroids"
-desc = "Asteroids are smaller but deal x2 damage"
+desc = "Asteroids are smaller but faster"
 duration = 45.0
-difficulty = 0
 metadata/_custom_type_script = "uid://rbut4wy4u4we"
