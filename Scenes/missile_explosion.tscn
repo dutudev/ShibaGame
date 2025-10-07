@@ -15,7 +15,6 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0507246, 1.5), 0.0, 0.0, 0, 0,
 point_count = 3
 
 [node name="MissileExplosion" type="CPUParticles2D"]
-emitting = false
 amount = 25
 texture = ExtResource("1_lb5te")
 lifetime = 3.0

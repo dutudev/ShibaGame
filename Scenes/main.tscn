@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cdm7352ad04ti"]
+[gd_scene load_steps=10 format=3 uid="uid://cdm7352ad04ti"]
 
 [ext_resource type="PackedScene" uid="uid://b350sy0tn84v1" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://debkmkexfa68i" path="res://Sprites/starsBack.png" id="2_bo1nx"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://d1smf4qgdec2e" path="res://Scenes/uplink_manager.tscn" id="7_6bp64"]
 [ext_resource type="Script" uid="uid://rbut4wy4u4we" path="res://Scripts/Event.gd" id="7_fdnlq"]
 [ext_resource type="Resource" uid="uid://26qr07am8ncw" path="res://Events/SmallAsteroids.tres" id="8_344ge"]
+[ext_resource type="PackedScene" uid="uid://cgsqyvvi00wol" path="res://Scenes/enemy_ship.tscn" id="9_ynf5e"]
 
 [node name="Main" type="Node2D"]
 
@@ -62,3 +63,12 @@ region_rect = Rect2(0, 0, 36000, 36000)
 [node name="UplinkManager2" parent="." instance=ExtResource("7_6bp64")]
 process_mode = 4
 allEvents = Array[ExtResource("7_fdnlq")]([ExtResource("8_344ge")])
+
+[node name="EnemyShip" parent="." instance=ExtResource("9_ynf5e")]
+position = Vector2(-821, -314)
+
+[node name="EnemyShip2" parent="." instance=ExtResource("9_ynf5e")]
+position = Vector2(-821, -314)
+
+[node name="EnemyShip3" parent="." instance=ExtResource("9_ynf5e")]
+position = Vector2(-821, -314)

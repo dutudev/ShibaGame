@@ -39,6 +39,8 @@ player_bullet=""
 Shield=""
 missile=""
 UplinkManager=""
+enemy_bullet=""
+enemy_ship=""
 
 [input]
 

@@ -60,4 +60,7 @@ func _on_body_entered(body: Node2D) -> void:
 		#add particles
 		if !Player.instance.CheckCardInDeck("Piercing Bullets"):
 			queue_free()
-		
+	elif body.is_in_group("enemy_ship"):
+		body.GetHit(35)
+		if !Player.instance.CheckCardInDeck("Piercing Bullets"):
+				queue_free()
