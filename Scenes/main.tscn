@@ -65,10 +65,6 @@ process_mode = 4
 allEvents = Array[ExtResource("7_fdnlq")]([ExtResource("8_344ge")])
 
 [node name="EnemyShip" parent="." instance=ExtResource("9_ynf5e")]
-position = Vector2(-821, -314)
-
-[node name="EnemyShip2" parent="." instance=ExtResource("9_ynf5e")]
-position = Vector2(-821, -314)
-
-[node name="EnemyShip3" parent="." instance=ExtResource("9_ynf5e")]
+process_mode = 4
+visible = false
 position = Vector2(-821, -314)

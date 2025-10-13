@@ -17,12 +17,14 @@ var firstSfxEvent = false
 var nextEvent
 enum uplinkState {idle = 0, wait = 1, leave = 2}
 enum eventState {wait = 0, show = 1, happen = 2}
+var textFlickerTimer = 0.0
+var isTextOn = true
 
 #static var instance:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	currentTimer = 5.0 # change to 30
+	currentTimer = 10.0 # change to 30
 	currentEventTimer = 30.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -49,6 +51,17 @@ func _process(delta: float) -> void:
 	if currentEventTimer <= 0:
 		NextStateEvents()
 		firstSfxEvent = false
+	
+	if UIManager.instance.uplinksOpened == 3 && textFlickerTimer < 2.5:
+		textFlickerTimer -= delta
+		if textFlickerTimer <= 0.0:
+			textFlickerTimer = 0.5
+			isTextOn = !isTextOn
+			if isTextOn:
+				UIManager.instance.UpdateUplinkStatus(str("! Enemy Ships Incoming !"), true)
+				#print(AsteroidManager.instance.canRemoveShipCool)
+			else:
+				UIManager.instance.UpdateUplinkStatus(str(""), true)
 
 
 func NextState() -> void:
@@ -57,9 +70,18 @@ func NextState() -> void:
 		uplinkState.idle:
 			UIManager.instance.DeleteCurrentUplink()
 			currentTimer = 5.0 # change to 30
+			if UIManager.instance.uplinksOpened == 3:
+				UIManager.instance.UpdateUplinkStatus(str("! Enemy Ships Incoming !"), true)
+				AsteroidManager.instance.canRemoveShipCool = true
+				#print(AsteroidManager.instance.canRemoveShipCool)
+				currentTimer = 15.0
+				textFlickerTimer = 1.0
+				isTextOn = true
+				return
 			UIManager.instance.UpdateUplinkStatus(str("Uplink [img=24x24]res://Sprites/rss_feed.svg[/img] Leaving In : 0s"), false)
 		uplinkState.wait:
 			currentTimer = 5.0
+			textFlickerTimer = 5.0
 			#change how we show text
 			UIManager.instance.UpdateUplinkStatus(str("Next Uplink [img=24x24]res://Sprites/rss_feed.svg[/img] In : " , "%0.2f" % currentTimer , "s"), true)
 		uplinkState.leave:

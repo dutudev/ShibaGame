@@ -1,3 +1,4 @@
+class_name Ship
 extends RigidBody2D
 
 var health = 100.0
@@ -25,6 +26,8 @@ func _process(delta: float) -> void:
 	if playanim > 0:
 		hitMaterial.set_shader_parameter("progress", clamp(playanim,0.0,1.0))
 		playanim -= delta/1.5
+	var direction = Player.instance.position - position
+	$AudioStreamPlayer2D2.set_volume_linear(lerp(0.0, 0.8, clamp(direction.length(), 400.0, 1400.0)/1400.0))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -63,11 +66,13 @@ func Shoot() -> void:
 	bulInstance.position = global_position + -transform.y.normalized() * 50
 	get_parent().add_child(bulInstance)
 	bulInstance.setDir(-transform.y.normalized())
+	$AudioStreamPlayer2D3
 
 func GetHit(hitHp: int) -> void:
 	health-=hitHp
 	
 	if health<=0:
+		AsteroidManager.instance.RemoveShip(self)
 		var asteroidParInstance = asteroidParticles.instantiate()
 		var explosionInstance = explosion.instantiate()
 		asteroidParInstance.position = position

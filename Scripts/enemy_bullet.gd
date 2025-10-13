@@ -2,6 +2,7 @@ extends Area2D
 
 var asteroidTextTag = preload("res://Scenes/asteroid_text_tag.tscn")
 var asteroidParticles = preload("res://Scenes/asteroid_explosion.tscn")
+var explosion = preload("res://Scenes/missile_explosion.tscn")
 
 var directionVec = Vector2.ZERO
 var speed = 1000.0
@@ -28,6 +29,9 @@ func _on_body_entered(body: Node2D) -> void:
 		Player.instance.AffectHealth(-10)
 		#Player.instance.velocity = Player.instance.velocity.normalized() * Player.instance.velocity.length() / 2
 		Player.instance.ToggleShield(true)
+		var explosionInstance = explosion.instantiate()
+		explosionInstance.global_position = position
+		get_parent().add_child(explosionInstance)
 		queue_free()
 	elif body.is_in_group("asteroid"):
 		var asteroidTextInstance = asteroidTextTag.instantiate()

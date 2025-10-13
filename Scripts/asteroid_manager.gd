@@ -6,6 +6,7 @@ const maxDistance = 1400
 
 var asteroid = preload("res://Scenes/asteroid.tscn")
 var missile = preload("res://Scenes/missile.tscn")
+var ship = preload("res://Scenes/enemy_ship.tscn")
 
 @export var asteroidSprites = Array([])
 
@@ -16,6 +17,10 @@ var missilesList = Array([])
 var missileCooldown = 0.0
 var maxMissiles = 5
 var currentTimeInGameAsteroid = 0.0
+var shipsList = Array([])
+var shipCooldown = 15.0
+var maxShips = 4
+var canRemoveShipCool = false
 
 static var instance:AsteroidManager
 
@@ -32,6 +37,8 @@ func _process(delta: float) -> void:
 		SpawnAsteroid()
 	asteroidSpawnCooldown -= delta
 	missileCooldown -= delta
+	if canRemoveShipCool:
+		shipCooldown -= delta
 	currentTimeInGameAsteroid += delta
 	
 	if UIManager.instance.currentEvent != null && UIManager.instance.currentEvent.name == "Asteroid Hell":
@@ -44,9 +51,14 @@ func _process(delta: float) -> void:
 		maxAsteroids += 5
 	if(UIManager.instance.currentEvent != null && UIManager.instance.currentEvent.name == "Homing Missiles"):
 		if missilesList.size() < maxMissiles && missileCooldown <= 0:
-			print("yesok")
+			#print("yesok")
 			missileCooldown = 2.0
 			SpawnMissile()
+	#print(str(shipsList.size(), " ", shipCooldown, " ", canRemoveShipCool))
+	if(maxShips>shipsList.size() && shipCooldown<=0):
+		shipCooldown = clampf(shipCooldown+20.0, -35, 40)
+		SpawnShip()
+		
 
 
 func SpawnAsteroid() -> void:
@@ -92,3 +104,18 @@ func SpawnMissile() -> void:
 
 func RemoveMissile(toRemove: Missile) -> void:
 	missilesList.erase(toRemove)
+
+func CanRemoveShipCoolSet(value: bool) -> void:
+	print("ok")
+	canRemoveShipCool = value
+
+func SpawnShip() -> void:
+	var shipInstance = ship.instantiate()
+	var angle = randf_range(0.0, 360.0)
+	var positionToSet = Player.instance.position + Vector2(cos(deg_to_rad(angle)), sin(deg_to_rad(angle))) * randi_range(minDistance + 500, maxDistance + 500)
+	add_child(shipInstance)
+	shipsList.append(shipInstance)
+	shipInstance.global_position = positionToSet
+
+func RemoveShip(toRemove: Ship) -> void:
+	shipsList.erase(toRemove)

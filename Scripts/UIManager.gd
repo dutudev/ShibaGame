@@ -57,7 +57,7 @@ var shopsLeftAnchor = 5 #5
 var currentEvent: Event = null
 
 var gameOver = false
-var uplinksOpened = 0
+var uplinksOpened = 0 # 0
 
 var specialCardMat = preload("res://Shaders/SpecialCard.tres")
 
@@ -246,12 +246,12 @@ func PrepareShop() -> void:
 		
 		$ShopUi/anchorpointinfo.text = str("Anchor point [img=24x24]res://Sprites/anchor.svg[/img] available in " , shopsLeftAnchor , " shops")
 	else:
-		print(shopsLeftAnchor)
+		#print(shopsLeftAnchor)
 		$ShopUi/anchorpointinfo.text = str("Anchor point key available in shop")
 		anchospot = randi_range(0, 2)
 		if randi_range(0, 5) == 0:
 			anchokey = true
-		print(anchokey)
+		#print(anchokey)
 	if Player.instance.hasAnchorKey == true:
 		$ShopUi/anchorpointinfo.text = str("You have Anchor point key")
 	var cardToChooseFrom: Array

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cgsqyvvi00wol"]
+[gd_scene load_steps=13 format=3 uid="uid://cgsqyvvi00wol"]
 
 [ext_resource type="Script" uid="uid://cjwarrglqbn6p" path="res://Scripts/enemyShip.gd" id="1_38hgn"]
 [ext_resource type="Texture2D" uid="uid://000hah6vn7na" path="res://Sprites/pentagon.png" id="1_tmwji"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://ctqcs2qgq4sba" path="res://Sprites/circle.png" id="4_csf4i"]
 [ext_resource type="Texture2D" uid="uid://bnv1mbhci3u0b" path="res://Sprites/anchor.png" id="5_jcfkk"]
 [ext_resource type="AudioStream" uid="uid://bvj7flxgropkn" path="res://Sounds/asteroidExplode1.wav" id="6_a0oot"]
+[ext_resource type="AudioStream" uid="uid://bngq3682b8rm1" path="res://Sounds/shipengineEnemy.mp3" id="7_c6fo0"]
+[ext_resource type="AudioStream" uid="uid://bwj0r2nddelnl" path="res://Sounds/enemyshoot.wav" id="8_ovko2"]
 
 [sub_resource type="Gradient" id="Gradient_tmwji"]
 offsets = PackedFloat32Array(0.7886179, 1)
@@ -85,3 +87,16 @@ texture = ExtResource("5_jcfkk")
 stream = ExtResource("6_a0oot")
 volume_db = -4.0
 pitch_scale = 0.8
+bus = &"Sfx"
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_c6fo0")
+volume_db = -4.0
+autoplay = true
+bus = &"Sfx"
+
+[node name="AudioStreamPlayer2D3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_ovko2")
+volume_db = -4.0
+autoplay = true
+bus = &"Sfx"
